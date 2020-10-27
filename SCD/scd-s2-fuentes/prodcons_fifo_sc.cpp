@@ -3,13 +3,15 @@
 // Sistemas concurrentes y Distribuidos.
 // Seminario 2. Introducción a los monitores en C++11.
 //
-// archivo: prodcons_1.cpp
+// archivo: prodcons_fifo_sc.cpp
 // Ejemplo de un monitor en C++11 con semántica SC, para el problema
-// del productor/consumidor, con un único productor y un único consumidor.
-// Opcion LIFO (stack)
+// del productor/consumidor, con varios productores y varios consumidores.
+// Opcion FIFO (Queue)
 //
 // Historial:
-// Creado en Julio de 2017
+// Creado en Octubre de 2020
+// Autor:
+// Adrián Acosa Sánchez
 // -----------------------------------------------------------------------------
 
 #include <iostream>
