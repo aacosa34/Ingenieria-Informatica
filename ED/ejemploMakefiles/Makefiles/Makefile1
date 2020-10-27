@@ -1,0 +1,25 @@
+bin/main: obj/main.o obj/calculadora.o obj/Numero.o
+	echo Creando el ejecutable.
+	g++ obj/main.o obj/calculadora.o obj/Numero.o -o bin/main
+
+obj/main.o: src/main.cpp
+	echo Creando el main.o.
+	g++ -g -c -I./inc src/main.cpp -o obj/main.o
+
+obj/calculadora.o: src/calculadora.cpp inc/calculadora.h
+	echo Creando el calculadora.o.
+	g++ -g -c -I./inc src/calculadora.cpp -o obj/calculadora.o
+
+obj/Numero.o: src/Numero.cpp inc/Numero.h
+	echo Creando el Numero.o.
+	g++ -g -c -I./inc src/Numero.cpp -o obj/Numero.o
+
+clean:
+	echo Limpiando.
+	-rm obj/* bin/*
+
+rebuild: clean bin/main
+
+documentacion:
+	echo Creando la documentacion.
+	doxygen Doxyfile
