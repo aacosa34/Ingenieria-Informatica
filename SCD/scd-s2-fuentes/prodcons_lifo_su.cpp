@@ -4,14 +4,13 @@
 // Seminario 2. Introducción a los monitores en C++11.
 //
 // archivo: prodcons_1.cpp
-// Ejemplo de un monitor en C++11 con semántica SC, para el problema
+// Ejemplo de un monitor en C++11 con semántica SU, para el problema
 // del productor/consumidor, con un único productor y un único consumidor.
 // Opcion LIFO (stack)
 //
 // Historial:
 // Creado en Julio de 2017
 // -----------------------------------------------------------------------------
-
 
 #include <iostream>
 #include <iomanip>
@@ -20,8 +19,10 @@
 #include <mutex>
 #include <condition_variable>
 #include <random>
+#include "HoareMonitor.h"
 
 using namespace std ;
+using namespace HM ;
 
 constexpr int
    num_items  = 40 ,     // número de items a producir/consumir
@@ -91,7 +92,8 @@ void consumir_dato( unsigned dato, int num_hebra )
 void ini_contadores()
 {
    for( unsigned i = 0 ; i < num_items ; i++ )
-   {  cont_prod[i] = 0 ;
+   {  
+       cont_prod[i] = 0 ;
       cont_cons[i] = 0 ;
    }
 }
@@ -121,9 +123,9 @@ void test_contadores()
 }
 
 // *****************************************************************************
-// clase para monitor buffer, version LIFO, semántica SC, un prod. y un cons.
+// clase para monitor buffer, version LIFO, semántica SU, un prod. y un cons.
 
-class ProdCons1SC
+class ProdCons1SU : public HoareMonitor  // Clase derivada (pública)
 {
  private:
  static const int           // constantes:
@@ -131,34 +133,31 @@ class ProdCons1SC
  int                        // variables permanentes
    buffer[num_celdas_total],//  buffer de tamaño fijo, con los datos
    primera_libre ;          //  indice de celda de la próxima inserción
- mutex
-   cerrojo_monitor ;        // cerrojo del monitor
- condition_variable         // colas condicion:
+ CondVar                    // colas condicion:
    ocupadas,                //  cola donde espera el consumidor (n>0)
    libres ;                 //  cola donde espera el productor  (n<num_celdas_total)
 
  public:                    // constructor y métodos públicos
-   ProdCons1SC(  ) ;           // constructor
+   ProdCons1SU(  ) ;           // constructor
    int  leer();                // extraer un valor (sentencia L) (consumidor)
    void escribir( int valor ); // insertar un valor (sentencia E) (productor)
 } ;
 // -----------------------------------------------------------------------------
 
-ProdCons1SC::ProdCons1SC(  )
+ProdCons1SU::ProdCons1SU(  )
 {
    primera_libre = 0 ;
+   ocupadas = newCondVar();
+   libres = newCondVar();
 }
 // -----------------------------------------------------------------------------
 // función llamada por el consumidor para extraer un dato
 
-int ProdCons1SC::leer(  )
+int ProdCons1SU::leer(  )
 {
-   // ganar la exclusión mutua del monitor con una guarda
-   unique_lock<mutex> guarda( cerrojo_monitor );
-
    // esperar bloqueado hasta que 0 < num_celdas_ocupadas
    if ( primera_libre == 0 )
-      ocupadas.wait( guarda );
+      ocupadas.wait();
 
    // hacer la operación de lectura, actualizando estado del monitor
    assert( 0 < primera_libre  );
@@ -166,21 +165,18 @@ int ProdCons1SC::leer(  )
    const int valor = buffer[primera_libre] ;
 
    // señalar al productor que hay un hueco libre, por si está esperando
-   libres.notify_one();
+   libres.signal();
 
    // devolver valor
    return valor ;
 }
 // -----------------------------------------------------------------------------
 
-void ProdCons1SC::escribir( int valor )
+void ProdCons1SU::escribir( int valor )
 {
-   // ganar la exclusión mutua del monitor con una guarda
-   unique_lock<mutex> guarda( cerrojo_monitor );
-
    // esperar bloqueado hasta que num_celdas_ocupadas < num_celdas_total
    if ( primera_libre == num_celdas_total )
-      libres.wait( guarda );
+      libres.wait();
 
    //cout << "escribir: ocup == " << num_celdas_ocupadas << ", total == " << num_celdas_total << endl ;
    assert( primera_libre < num_celdas_total );
@@ -190,12 +186,12 @@ void ProdCons1SC::escribir( int valor )
    primera_libre++ ;
 
    // señalar al consumidor que ya hay una celda ocupada (por si esta esperando)
-   ocupadas.notify_one();
+   ocupadas.signal();
 }
 // *****************************************************************************
 // funciones de hebras
 
-void funcion_hebra_productora( ProdCons1SC * monitor, int num_hebra )
+void funcion_hebra_productora( MRef<ProdCons1SU> monitor, int num_hebra )
 {
    for( unsigned i = 0 ; i < num_items/num_productores ; i++ )
    {
@@ -205,7 +201,7 @@ void funcion_hebra_productora( ProdCons1SC * monitor, int num_hebra )
 }
 // -----------------------------------------------------------------------------
 
-void funcion_hebra_consumidora( ProdCons1SC * monitor, int num_hebra )
+void funcion_hebra_consumidora( MRef<ProdCons1SU> monitor, int num_hebra )
 {
    for( unsigned i = 0 ; i < num_items/num_consumidores ; i++ )
    {
@@ -218,20 +214,22 @@ void funcion_hebra_consumidora( ProdCons1SC * monitor, int num_hebra )
 int main()
 {
    cout << "-------------------------------------------------------------------------------" << endl
-        << "Problema de los productores-consumidores (Varios prod/cons, Monitor SC, buffer LIFO). " << endl
+        << "Problema de los productores-consumidores (Varios prod/cons, Monitor SU, buffer LIFO). " << endl
         << "-------------------------------------------------------------------------------" << endl
-        << flush ;
+        << flush;
 
    ini_contadores();
-   ProdCons1SC monitor ;
+
+   // Crear el monitor como referencia del tipo MRef
+   MRef<ProdCons1SU> monitor = Create<ProdCons1SU> ();
 
    thread productores[num_productores],
           consumidores[num_consumidores] ;
 
    for(int i = 0; i < num_productores; i++)
-      productores[i] = thread (funcion_hebra_productora, &monitor, i);
+      productores[i] = thread (funcion_hebra_productora, monitor, i); // No se pone el & en monitor porque ya es una referencia de por si
    for(int i = 0; i < num_consumidores; i++)
-      consumidores[i] = thread (funcion_hebra_consumidora, &monitor, i);
+      consumidores[i] = thread (funcion_hebra_consumidora, monitor, i);
 
    for (int i = 0; i < num_productores; i++)
       productores[i].join();
