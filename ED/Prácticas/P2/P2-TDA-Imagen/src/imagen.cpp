@@ -143,6 +143,10 @@ void Imagen::contrasteTL(const char* fichE, const char* fichS, byte min, byte ma
   
 }
 
+void Imagen::morphing(const char* fich_orig, const char* fich_rdo, const char* fich_intermedios){
+
+}
+
 Imagen & Imagen :: operator = (const Imagen & otra){
 	if (this != &otra){
 		liberar ();
