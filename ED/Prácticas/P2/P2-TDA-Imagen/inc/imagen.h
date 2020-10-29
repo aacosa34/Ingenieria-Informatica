@@ -163,6 +163,27 @@ public:
   void zoom (const char * fichE, const char * fichS, int x_1, int y_1, int x_2, int y_2);
 
 /**
+ * @brief Aumento de contraste de una imagen mediante una transformación lineal
+ * @param fichE nombre del fichero de entrada
+ * @param fichS nombre del fichero resultado
+ * @param min extremo inferior del nuevo rango de la imagen
+ * @param max extremo superior del nuevo rango de la imagen
+ * @pre 'min' ha de ser menor que 'max'
+ * @post La imagen con nuevo contraste se almacena en el fichero de salida.
+ */
+  void contrasteTL (const char* fichE, const char* fichS, byte min, byte max);
+
+/**
+ * @brief Transición progresiva de una imagen a otra
+ * @param fich_orig fichero con la imagen de origen
+ * @param fich_rdo fichero con la imagen final
+ * @param fich_intermedios ficheros intermedios (máximo 256)
+ * @pre Las dos imagenes tienen que tener el mismo tamaño.
+ * @post Las imagenes resultantes se almacenan en los ficheros intermedios.
+ */
+  void morphing(const char* fich_orig, const char* fich_rdo, const char* fich_intermedios)
+
+/**
  * @brief Asignar una imagen a otra imagen. Copia profunda de una imagen en la implícita
  * @param otra imagen
  * @pre imagen exite 
@@ -195,6 +216,21 @@ private:
  * @post La imagen queda reservada con f filas y c columnas
  */
 	void copiar(const Imagen & otra);
+
+/**
+ * @brief Convierte una imagen de vector a matriz
+ * @param datos vector de byte que contiene una imagen
+ * @pre img tiene el suficiente espacio para almacenar 'datos'
+ * @post La imagen es convertida de vector a matriz
+ */
+void vector2matriz(byte* datos);
+
+/**
+ * @brief Convierte una imagen de matriz a vector
+ * @return Devuelve un vector de byte
+ * @post El vector devuelto es la forma vectorial de la matriz img de datos byte
+ */
+byte* matriz2vector();
 
 
 };

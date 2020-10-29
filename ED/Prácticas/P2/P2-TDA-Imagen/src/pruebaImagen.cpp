@@ -10,7 +10,7 @@ int main (){
 
     Imagen prueba2;
 
-    prueba2.zoom("saturno.pgm", "pruebazoom.pgm", 0, 0, 600, 600);
+    prueba2.zoom("saturno.pgm", "pruebazoom.pgm", 0, 0, 300, 300);
 
     return 0;
 }

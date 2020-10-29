@@ -71,10 +71,7 @@ void Imagen :: umbraliza (const char * fichE, const char * fichS, byte T_1, byte
 
   reservar(filas, cols);
 
-  for(int f = 0; f<filas; f++)                // Guardar 'datos' en la matriz 'img'
-    for(int c = 0; c<cols; c++)
-      img[f][c] = datos[f+c];
-
+  vector2matriz(datos);
  
   EscribirImagenPGM(fichS, datos, filas, cols);
 
@@ -84,82 +81,66 @@ void Imagen :: umbraliza (const char * fichE, const char * fichS, byte T_1, byte
 
 // Hacer zoom a una imagen
 void Imagen :: zoom (const char * fichE, const char * fichS, int x_1, int y_1, int x_2, int y_2){
-  if(x_2-x_1 != y_2-y_1){
-    cerr << "El zoom ha de aplicarse a un trozo cuadrado\n";
-    exit (2);
-  }
-  else{
-    unsigned char* datos=0;
-    if(LeerTipoImagen(fichE)==IMG_PGM)
-      datos = LeerImagenPGM(fichE, filas, cols);
+    int alto = x_2-x_1;
+    int ancho = y_2-y_1;
+
+    if(ancho != alto){
+      cerr << "El zoom ha de aplicarse a un trozo cuadrado\n";
+      exit (2);
+    }
     else{
-      cerr << "La imagen es de un tipo no válido. Tipo de imagen admitido: PGM\n";
-      exit(1);
-    }
-
-    int fd = 0;
-    int cd = 0;
-
-    Imagen aux(y_2-y_1, x_2-x_1);
-
-    for(int f=0; f<aux.filas; f++)
-        for(int c=0; c<aux.cols; c++)
-            aux.img[f][c] = datos[f+(y_2-y_1)+c+(x_2-x_1)];
-
-    delete [] datos;
-
-    Imagen zoom(aux.filas, 2*aux.cols-1);
-    
-    int i = 0, j=0;
-    for(int f=0; f<zoom.filas; f++)
-      for(int c=0; c<zoom.cols; c++){
-        if(c%2==1){
-          i++;
-          zoom.img[f][c] = round((aux.img[f][c-i] + aux.img[f][c-j]) / 2.0);
-          j++;
-        }
-        else{
-          zoom.img[f][c] = aux.img[f][cd];
-          cd++;
-        }
+      byte* datos=0;
+      if(LeerTipoImagen(fichE)==IMG_PGM)
+        datos = LeerImagenPGM(fichE, filas, cols);
+      else{
+        cerr << "La imagen es de un tipo no válido. Tipo de imagen admitido: PGM\n";
+        exit(1);
       }
-    
-    aux.liberar();
 
-    reservar(2*zoom.filas-1, zoom.cols);
-    
-    i=j=0;
-    for(int f=0; f<filas; f++){
-      for(int c=0; c<cols; c++){
-        if(f%2==1){
-          img[f][c] = round((zoom.img[f-i][c]+zoom.img[f-j][c]) / 2.0);
+      reservar(filas,cols);
+
+      vector2matriz(datos);
+        
+      Imagen aux(alto, ancho);
+
+      for(int x = x_1, i = 0; x < x_2; x++, i++)
+          for (int y = y_1, j = 0; y < y_2; y++, j++)
+            aux.img[i][j] = img[x][y];
+        
+      Imagen inter(alto, 2*ancho-1);
+
+      for(int f = 0; f < inter.filas; f++)
+          for(int c = 0, j = 0; c < inter.cols; c+=2, j++){
+            inter.img[f][c]=aux.img[f][j];
+            if(c!=inter.cols-1)
+              inter.img[f][c+1]=255;
+              //inter.img[f][c+1]=round((aux.img[f][j]+aux.img[f][j+1])/2.0);
+            }
+
+      Imagen zoom(2*alto-1, 2*ancho-1);
+
+      for(int f = 0, i = 0; f < zoom.filas; f+=2, i++)
+        for(int c = 0; c < zoom.cols; c++){
+          zoom,img[f][c] = inter.img[i][c];
+          if(f!=zoom.filas-1)
+            zoom.img[f+1][c]=255;
+            //zoom.img[f+1][c]=round((inter.img[i][c]+aux.img[i+1][c])/2.0);
         }
-        else{
-          img[f][c] = zoom.img[fd][c];
-        }
-      }
-      if((f+1)%2==0)
-        fd++;
-      else
-        i++; j++;
-      
-    }
+                
+      (*this)=zoom;
+        
+      datos = matriz2vector();
+      EscribirImagenPGM(fichS, datos, filas, cols);
 
-    zoom.liberar();
-
-    datos = new byte[filas*cols];
-
-    for(int f=0; f<filas; f++)
-      for(int c=0; c<cols; c++)
-        datos[f+c] = img[f][c];
-
-    
-    EscribirImagenPGM(fichS, datos, filas, cols);
-    
-
-    
-    delete [] datos;
+      aux.liberar();
+      inter.liberar();
+      zoom.liberar();
+      delete [] datos;
   }
+}
+
+void Imagen::contrasteTL(const char* fichE, const char* fichS, byte min, byte max){
+  
 }
 
 Imagen & Imagen :: operator = (const Imagen & otra){
@@ -213,3 +194,21 @@ void Imagen::copiar(const Imagen & otra){
   	for (int c=0; c<cols; c++)
   		img[f][c]=otra.img[f][c];
 } 
+
+// Pasar una imagen de vector a una matriz
+void Imagen::vector2matriz(byte* datos){
+  for(int f = 0; f<filas; f++)                
+    for(int c = 0; c<cols; c++)
+      img[f][c] = datos[f+c];
+}
+
+// Pasar una imagen de matriz a vector
+byte* Imagen::matriz2vector(){
+    byte* datos = new byte[filas*cols];
+
+    for(int f = 0; f<filas; f++)
+      for(int c = 0; c < cols; c++)
+        datos[f+c] = img[f][c];
+
+    return datos;
+}
