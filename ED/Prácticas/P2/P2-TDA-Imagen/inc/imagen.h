@@ -181,7 +181,7 @@ public:
  * @pre Las dos imagenes tienen que tener el mismo tamaño.
  * @post Las imagenes resultantes se almacenan en los ficheros intermedios.
  */
-  void morphing(const char* fich_orig, const char* fich_rdo, const char* fich_intermedios)
+  void morphing(const char* fich_orig, const char* fich_rdo, const char* fich_intermedios);
 
 /**
  * @brief Asignar una imagen a otra imagen. Copia profunda de una imagen en la implícita
