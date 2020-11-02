@@ -18,7 +18,7 @@ int main (){
 
     Imagen prueba4;
  
-    prueba4.morphing("vacas.pgm", "celulas.pgm", "vacascel.pgm");
+    prueba4.morphing("vacas.pgm", "celulas.pgm", "vacascel");
 
     return 0;
 }

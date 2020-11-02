@@ -186,7 +186,7 @@ public:
 /**
  * @brief Asignar una imagen a otra imagen. Copia profunda de una imagen en la implícita
  * @param otra imagen
- * @pre imagen exite 
+ * @pre imagen existe 
  * @return La imagen copiada
  * @post La imagen se modifica. Cambia todos sus valores por los de la otra imagen
  */

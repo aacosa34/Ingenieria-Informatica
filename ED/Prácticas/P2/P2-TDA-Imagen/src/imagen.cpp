@@ -1,5 +1,9 @@
-#include<iostream>
-#include<cmath>
+#include <iostream>
+#include <cmath>
+#include <sstream>
+#include <iomanip>
+#include <string>
+#include <cstring>
 #include "imagenES.h"
 #include "imagen.h"
 
@@ -198,19 +202,29 @@ void Imagen::morphing(const char* fich_orig, const char* fich_rdo, const char* f
   }
 
   byte* intermedia = new byte[filas*cols];
-
-  // Bucle para 100 imagenes
+  int cont = 1;
+  // Bucle para 99 imagenes
   for(double alpha = 0.99; alpha > 0.0; alpha-=0.01){
+    
     for(int i = 0; i < filas*cols; i++)
       intermedia[i] = alpha*datos_orig[i]+(1.0-alpha)*datos_rdo[i];
-  
-    EscribirImagenPGM(fich_intermedios, intermedia, filas, cols);
-  }
 
+    ostringstream oss;
+    oss << fich_intermedios << "_" << setw(3) << setfill('0') << cont <<  ".pgm"; 
+    cont++;
+
+    string cad = oss.str();
+    char* nom_archivos = new char[cad.size()+1];
+    strncpy(nom_archivos, cad.c_str(), cad.size());
+  
+    EscribirImagenPGM(nom_archivos, intermedia, filas, cols);
+
+    delete [] nom_archivos;
+  }
+  
+  delete [] intermedia;
   delete [] datos_orig;
   delete [] datos_rdo;
-  delete [] intermedia;
-
 }
 
 Imagen & Imagen :: operator = (const Imagen & otra){
