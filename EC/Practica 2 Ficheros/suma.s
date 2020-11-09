@@ -1,5 +1,6 @@
 .section .data
-lista:		.int 1,2,10,  1,2,0b10,  1,2,0x10
+# lista:		.int 1,2,10,  1,2,0b10,  1,2,0x10
+lista:		.int 1,1,1,1, 1,1,1,1, 1,1,1,1, 1,1,1,1		
 longlista:	.int   (.-lista)/4
 resultado:	.int   0
   formato: 	.asciz	"suma = %u = 0x%x hex\n"

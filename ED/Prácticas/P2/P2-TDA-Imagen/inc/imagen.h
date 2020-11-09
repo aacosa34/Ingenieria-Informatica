@@ -174,16 +174,6 @@ public:
   void contrasteTL (const char* fichE, const char* fichS, byte min, byte max);
 
 /**
- * @brief Transición progresiva de una imagen a otra
- * @param fich_orig fichero con la imagen de origen
- * @param fich_rdo fichero con la imagen final
- * @param fich_intermedios ficheros intermedios (máximo 256)
- * @pre Las dos imagenes tienen que tener el mismo tamaño.
- * @post Las imagenes resultantes se almacenan en los ficheros intermedios.
- */
-  void morphing(const char* fich_orig, const char* fich_rdo, const char* fich_intermedios);
-
-/**
  * @brief Asignar una imagen a otra imagen. Copia profunda de una imagen en la implícita
  * @param otra imagen
  * @pre imagen existe 

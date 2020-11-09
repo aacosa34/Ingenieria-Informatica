@@ -14,6 +14,14 @@ Cosas que les gusta preguntar:
 
 - /etc/fstab -> indica que SA se van a montar al inicio del sistema
 
+Sesion 2:
+
+- Instalacion de paquetes con rpm. (mejor sobre fedora)
+
+- Probar el estado de varios paquetes.
+
+- Dependencias entre paquetes.
+
 POSIBLES EJERCICIOS DE EXAMEN:
 -----------------------------------------------------------------------------------------
 
@@ -82,9 +90,24 @@ Ejercicio 6:
 Modifique los elementos que sean necesarios en el sistema UML para cada vez que arrancamos la máquina virtual se realice el montaje de nuestro directorio home del anfitrión en un directorio de la máquina virtual en lugar de tener que hacerlo a mano.
 
 
+-----------------------------------------------------------------------------------------
 
 Ejercicio 7: 
 
 Crear una sistema de archivos de tipo ext3 dentro de un archivo utilizando el dispositivo /dev/loop. Este sistema de archivos debe tener 15 MB de tamaño y un tamaño de bloque de 4KB. Tras su creación hay que montarlo de solo lectura y sin que se puedan ejecutar archivos desde el. Indicar las ordenes necesarias para realizar estos pasos y mostrar la información de los metadatos del sistema de archivos creado.
 
+(fedora)
+~# ls -l /dev # Mirar si el dispositivo ya está en uso
+~# mknod /dev/loop b 7 0
+~# dd if=/dev/zero of=/root/archivo_SA15 bs=4k count=3750
+~# losetup dev/loop /root/archivo_SA15
+~# fdisk /dev/loop
+~# fdisk -l /dev/loop
+~# mke2fs -t ext3 -b 4096 /dev/loop
+~# mount /dev/loop /mnt -r -o noexec
+~# cat /etc/fstab
+~# nano /etc/fstab
+añadir al inicio del sistema el montaje de loop
 
+/dev/loop					/mnt		ext3	ro,noexec		0 0
+-----------------------------------------------------------------------------------------

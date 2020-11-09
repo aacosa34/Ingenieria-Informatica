@@ -1,9 +1,5 @@
 #include <iostream>
 #include <cmath>
-#include <sstream>
-#include <iomanip>
-#include <string>
-#include <cstring>
 #include "imagenES.h"
 #include "imagen.h"
 
@@ -13,7 +9,7 @@ using namespace std;
 Imagen::Imagen(){
   filas = 0;
   cols = 0;
-  img = 0;
+  img = nullptr;
 }
 
 //Constructor de copia
@@ -79,7 +75,7 @@ void Imagen :: umbraliza (const char * fichE, const char * fichS, byte T_1, byte
  
   EscribirImagenPGM(fichS, datos, filas, cols);
 
-  delete [] datos;                          // Liberar la memoria del vector auxiliar
+  delete datos;                          // Liberar la memoria del vector auxiliar
     
 }
 
@@ -137,7 +133,7 @@ void Imagen :: zoom (const char * fichE, const char * fichS, int x_1, int y_1, i
       aux.liberar();
       inter.liberar();
       zoom.liberar();
-      delete [] datos;
+      delete datos;
   }
   
 }
@@ -179,52 +175,7 @@ void Imagen::contrasteTL(const char* fichE, const char* fichS, byte min, byte ma
   reservar(filas, cols);
   vector2matriz(datos);
 
-  delete [] datos;
-}
-
-void Imagen::morphing(const char* fich_orig, const char* fich_rdo, const char* fich_intermedios){
-  byte* datos_orig = 0;
-  byte* datos_rdo = 0;
-  int fils_rdo, cols_rdo;
-  if(LeerTipoImagen(fich_orig)==IMG_PGM &&
-     LeerTipoImagen(fich_rdo)==IMG_PGM){
-    datos_orig = LeerImagenPGM(fich_orig, filas, cols);
-    datos_rdo = LeerImagenPGM(fich_rdo, fils_rdo, cols_rdo);
-
-    if(filas != fils_rdo || cols != cols_rdo){
-      cerr << "Las imágenes origen y resultado no tienen el mismo tamaño\n";
-      exit(3);
-    }
-  }
-  else{
-    cerr << "La/s imagen/es es/son de un tipo no válido. Tipo de imagen admitido: PGM\n";
-    exit(1);
-  }
-
-  byte* intermedia = new byte[filas*cols];
-  int cont = 1;
-  // Bucle para 99 imagenes
-  for(double alpha = 0.99; alpha > 0.0; alpha-=0.01){
-    
-    for(int i = 0; i < filas*cols; i++)
-      intermedia[i] = alpha*datos_orig[i]+(1.0-alpha)*datos_rdo[i];
-
-    ostringstream oss;
-    oss << fich_intermedios << "_" << setw(3) << setfill('0') << cont <<  ".pgm"; 
-    cont++;
-
-    string cad = oss.str();
-    char* nom_archivos = new char[cad.size()+1];
-    strncpy(nom_archivos, cad.c_str(), cad.size());
-  
-    EscribirImagenPGM(nom_archivos, intermedia, filas, cols);
-
-    delete [] nom_archivos;
-  }
-  
-  delete [] intermedia;
-  delete [] datos_orig;
-  delete [] datos_rdo;
+  delete datos;
 }
 
 Imagen & Imagen :: operator = (const Imagen & otra){
@@ -244,15 +195,16 @@ Imagen & Imagen :: operator = (const Imagen & otra){
 
 //Liberar memoria
 void Imagen::liberar(){
+  if(img != nullptr){
+    for (int f=0; f<filas; f++)
+  	  delete [] img[f];
 
-  for (int f=0; f<filas; f++)
-  	delete [] img[f];
+    delete img;
 
-  delete [] img;
-
-  filas = 0;
-  cols = 0;
-  img = 0;
+    filas = 0;
+    cols = 0;
+    img = nullptr;
+  }
 }
 
 //Reservar memoria
