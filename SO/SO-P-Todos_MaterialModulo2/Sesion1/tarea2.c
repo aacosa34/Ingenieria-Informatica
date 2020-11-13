@@ -3,15 +3,10 @@ tarea2.c
 Trabajo con llamadas al sistema del Sistema de Archivos ''POSIX 2.10 compliant''
 */
 
-#include<unistd.h>  /* POSIX Standard: 2.10 Symbolic Constants <unistd.h>
-		     */
+#include<unistd.h>  
 #include<stdio.h>
 #include<stdlib.h>
-#include<sys/types.h>  /* Primitive system data types for abstraction	\
-			   of implementation-dependent data types.
-			   POSIX Standard: 2.6 Primitive System Data Types
-			   <sys/types.h>
-		       */
+#include<sys/types.h> 
 #include<sys/stat.h>
 #include<stdio.h>
 #include<errno.h>
@@ -48,3 +43,7 @@ for(i=1;i<argc;i++) {
 
 return EXIT_SUCCESS;
 }
+
+// lstat funciona exactamente igual que stat pero con la diferencia de que si se
+// trata de un enlace simbólico, se examina el mismo enlace en vez de el fichero 
+// al que hace referencia
