@@ -11,19 +11,20 @@ using namespace std;
 void morphing(const char* fich_orig, const char* fich_rdo, const char* fich_intermedios);
 
 int main (){
+  /*
     Imagen prueba1;
 
     prueba1.umbraliza("board.pgm", "pruebaumbraliza.pgm", 50, 250);
 
     Imagen prueba2;
 
-    prueba2.zoom("saturno.pgm", "pruebazoom.pgm", 0, 0, 300, 300);
+    prueba2.zoom("saturno.pgm", "pruebazoom.pgm", 0, 0, 300, 300);*/
 
     Imagen prueba3;
 
-    prueba3.contrasteTL("niveles.pgm", "pruebacontraste.pgm", 60, 200);
+    prueba3.contrasteTL("niveles.pgm", "pruebacontraste.pgm", 20, 150);
  
-    morphing("vacas.pgm", "celulas.pgm", "vacascel");
+    // morphing("vacas.pgm", "celulas.pgm", "vacascel");
 
     return 0;
 }
