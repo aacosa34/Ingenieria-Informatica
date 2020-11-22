@@ -5,11 +5,14 @@
 #include <cassert>
 #include "Pila_max_VD.h"
 
+using namespace std;
+
 // Constructor por defecto
 template <class T>
 Pila_max<T>::Pila_max(){
-    datos = 0;
+    datos.reserve(5*sizeof(Celda));
 }
+
 
 // Constructor de copia
 template <class T>
@@ -39,8 +42,8 @@ bool Pila_max<T>::vacia() const{
 // Poner elemento en la pila
 template <class T>
 void Pila_max<T>::poner(const T & valor){
+    
     T max = maximo();
-
     if (valor>maximo())
         max=valor;
 
@@ -58,21 +61,20 @@ void Pila_max<T>::quitar(){
 // Elemento del tope de la pila
 template <class T>
 T& Pila_max<T>::tope_pila(){
-    return datos.back();
+    return (datos.back()).elemento;
 }
 
 // Consulta elemento del tope de la pila
 template <class T>
 const T& Pila_max<T>::tope_pila() const{
-    return datos.back();
+    return (datos.back()).elemento;
 }
 
 // Constulta del máximo elemento de la pila
 template <class T>
 const T& Pila_max<T>::maximo() const{
-    return datos.back().maximo;
+    return (datos.back()).max;
 }
 
-template class Pila_max <char>;
 template class Pila_max <int>;
 template class Pila_max <double>;

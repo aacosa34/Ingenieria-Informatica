@@ -60,11 +60,13 @@ class Pila_max{
     std::vector<Celda> datos;   ///< Contenedor de datos de tipo Celda
 
   public:
+
     // ---------------  Constructores ----------------
     /**
      * @brief Constructor por defecto
      */
     Pila_max();
+
     /**
      * @brief Constructor de copias
      * @param original La cola de la que se har� la copia.

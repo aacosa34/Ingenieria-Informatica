@@ -5,6 +5,8 @@
 #include <cassert>
 #include "Pila_max_Cola.h"
 
+using namespace std;
+
 // Constructor por defecto
 template <class T>
 Pila_max<T>::Pila_max(){
@@ -41,35 +43,41 @@ bool Pila_max<T>::vacia() const{
 // Poner elemento en la pila
 template <class T>
 void Pila_max<T>::poner(const T & valor){
-    T max = maximo();
-
-    if (valor>maximo())
-        max=valor;
-
-    Celda nueva_celda(valor, max, nullptr);
+    T max;
+    if(tope == nullptr)
+        max = valor;
+    else{
+        max = maximo();
+        if (valor>maximo())
+            max=valor;
+    }
     
-    tope->siguiente = nueva_celda;
+    Celda *nueva_celda = new Celda(valor, max, tope);
 
-    tope = nueva_celda; 
-
+    if(tope == nullptr){
+        tope = fondo = nueva_celda;
+        fondo->siguiente = nullptr;
+    }
+    else{
+        tope = nueva_celda;
+    }
+    
     num_elem++;
 }
 
 // Quitar elemento de la pila
 template <class T>
 void Pila_max<T>::quitar(){
-    Celda * aux = fondo;
+    assert(tope!=nullptr);
 
-    while(aux->siguiente->siguiente)
-        aux = aux->siguiente;
-
-    aux->siguiente = 0;
-
-    delete tope;
-
-    tope = aux;
+    Celda * aux = tope;
+    tope = tope->siguiente;
 
     delete aux;
+
+    if (tope == nullptr){
+        fondo = nullptr;
+    }
 
     num_elem--;    
 }
@@ -109,16 +117,16 @@ void Pila_max<T>::liberar(){
 // Copiar los datos de una pila a otra
 template <class T>
 void Pila_max<T>::copiar(const Pila_max<T> & otra){
-    if (otra.fondo==0)
-        fondo = 0;
-    else{
-        fondo = new Celda;
-        fondo->elemento = otra.fondo->elemento;
-        fondo->max = otra.fondo->max;
-        Celda *orig = otra.fondo,
-              *dest = fondo;
+    if (otra.tope==nullptr)  // si está vacía
+        fondo = tope = nullptr;
+    else{                   // Caso general. Si no lo está
+        tope = fondo = new Celda;   // Creamos la primera celda
+        tope->elemento = otra.tope->elemento;
+        tope->max = otra.tope->max;
+        Celda *orig = otra.tope,
+              *dest = tope;
 
-        while(orig->siguiente!=0){
+        while(orig->siguiente!=nullptr){
             dest->siguiente = new Celda;
             orig = orig->siguiente;
             dest = dest->siguiente;
@@ -126,11 +134,10 @@ void Pila_max<T>::copiar(const Pila_max<T> & otra){
             dest->max = orig->max;
         }
 
-    dest->siguiente = 0;
+    dest->siguiente = nullptr;
     num_elem = otra.num_elem;
     } 
 }
 
-template class Pila_max <char>;
 template class Pila_max <int>;
 template class Pila_max <double>;
