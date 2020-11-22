@@ -22,7 +22,7 @@ int main (){
 
     Imagen prueba3;
 
-    prueba3.contrasteTL("niveles.pgm", "pruebacontraste.pgm", 20, 150);
+    prueba3.contrasteTL("cameraman.pgm", "pruebacontraste.pgm", 20, 150);
  
     // morphing("vacas.pgm", "celulas.pgm", "vacascel");
 

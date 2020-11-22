@@ -29,6 +29,7 @@ template <class T>
 Pila_max<T> & Pila_max<T>::operator=(const Pila_max<T> & otra){
     liberar();
     copiar(otra);
+    return *this;
 }
 
 // Esta vacía la pila
@@ -49,7 +50,7 @@ void Pila_max<T>::poner(const T & valor){
     
     tope->siguiente = nueva_celda;
 
-    tope = nueva_celda; // Si da fallo es esto
+    tope = nueva_celda; 
 
     num_elem++;
 }
@@ -75,20 +76,20 @@ void Pila_max<T>::quitar(){
 
 // Elemento del tope de la pila
 template <class T>
-T& Pila_max<T>::tope(){
+T& Pila_max<T>::tope_pila(){
     return tope->elemento;
 }
 
 // Consulta elemento del tope de la pila
 template <class T>
-const T& Pila_max<T>::tope() const{
+const T& Pila_max<T>::tope_pila() const{
     return tope->elemento;
 }
 
 // Constulta del máximo elemento de la pila
 template <class T>
 const T& Pila_max<T>::maximo() const{
-    return tope->maximo;
+    return tope->max;
 }
 
 template <class T>
@@ -97,7 +98,7 @@ void Pila_max<T>::liberar(){
     
     while(fondo!=0){
         aux = fondo;
-        fondo = fondo->sig;
+        fondo = fondo->siguiente;
         delete aux;
     }
     fondo = 0;
@@ -113,7 +114,7 @@ void Pila_max<T>::copiar(const Pila_max<T> & otra){
     else{
         fondo = new Celda;
         fondo->elemento = otra.fondo->elemento;
-        fondo->maximo = otra.fondo->maximo;
+        fondo->max = otra.fondo->max;
         Celda *orig = otra.fondo,
               *dest = fondo;
 
@@ -122,10 +123,14 @@ void Pila_max<T>::copiar(const Pila_max<T> & otra){
             orig = orig->siguiente;
             dest = dest->siguiente;
             dest->elemento = orig->elemento;
-            dest->maximo = orig->maximo;
+            dest->max = orig->max;
         }
 
-    dest->sig = 0;
+    dest->siguiente = 0;
     num_elem = otra.num_elem;
     } 
 }
+
+template class Pila_max <char>;
+template class Pila_max <int>;
+template class Pila_max <double>;

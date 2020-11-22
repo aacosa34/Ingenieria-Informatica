@@ -9,7 +9,10 @@
 using namespace std ;
 using namespace HM ;
 
-const int num_fumadores = 3;
+const int num_fumadores = 4;
+int num_cigarrillos = 0;
+
+Semaphore espera_par(0);
 
 //**********************************************************************
 // plantilla de función para generar un entero aleatorio uniformemente
@@ -92,7 +95,7 @@ void funcion_hebra_estanquero( MRef<Estanco> monitor )
 {
    while( true ){
       int ingrediente = producir_ingrediente();
-      
+     
       monitor->ponerIngrediente(ingrediente);
       monitor->esperarRecogidaIngrediente();
    }
@@ -127,11 +130,16 @@ void  funcion_hebra_fumador( MRef<Estanco> monitor, int num_fumador )
 {
    while( true )
    {
+       if(num_cigarrillos % 2== 0)
       monitor->obtenerIngrediente(num_fumador);
 
       fumar( num_fumador );
 
       num_cigarrillos++;
+
+      else{
+          
+      }
 
    }
 }

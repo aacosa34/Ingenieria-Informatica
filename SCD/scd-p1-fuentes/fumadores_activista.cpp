@@ -4,12 +4,24 @@
 #include <mutex>
 #include <random> // dispositivos, generadores y distribuciones aleatorias
 #include <chrono> // duraciones (duration), unidades de tiempo
-#include "HoareMonitor.h"
+#include "Semaphore.h"
 
 using namespace std ;
-using namespace HM ;
+using namespace SEM ;
 
 const int num_fumadores = 3;
+
+const int MAX_PROCLAMAS = 8;
+int ingr_mangado;
+int num_proclamas = 0;
+
+unsigned prox_fumador = 0;
+
+Semaphore ing_disp[num_fumadores] = {0, 0, 0};
+
+Semaphore excl_mutua = 1,          
+          mostrador_vacio = 1,
+          manga_ingr = 0;
 
 //**********************************************************************
 // plantilla de función para generar un entero aleatorio uniformemente
@@ -24,44 +36,6 @@ template< int min, int max > int aleatorio()
   return distribucion_uniforme( generador );
 }
 
-class Estanco : public HoareMonitor {
-private:
-    int ing_disp = -1;
-    CondVar mostrador_vacio,
-            ingrediente_producido[num_fumadores];
-public:
-    Estanco();
-    void obtenerIngrediente(int num_fumador);
-    void ponerIngrediente(int num_ingrediente);
-    void esperarRecogidaIngrediente();
-};
-
-Estanco :: Estanco(){
-    mostrador_vacio = newCondVar();
-    for(int i = 0; i < num_fumadores; i++)
-        ingrediente_producido[i] = newCondVar();
-}
-
-void Estanco :: obtenerIngrediente(int num_fumador){
-    if(ing_disp != num_fumador)
-        ingrediente_producido[num_fumador].wait();
-    
-    cout << "Retirado ingrediente " << num_fumador << endl;
-    ing_disp = -1;
-    mostrador_vacio.signal();
-}
-
-void Estanco :: ponerIngrediente(int num_ingrediente){
-    ing_disp = num_ingrediente;
-    cout << "Puesto ingrediente " << num_ingrediente << endl;
-    ingrediente_producido[num_ingrediente].signal();
-}
-
-void Estanco :: esperarRecogidaIngrediente(){
-    if(ing_disp != -1)
-        mostrador_vacio.wait();
-}
-
 //-------------------------------------------------------------------------
 // Función que simula la acción de producir un ingrediente, como un retardo
 // aleatorio de la hebra (devuelve número de ingrediente producido)
@@ -74,7 +48,7 @@ int producir_ingrediente()
    // informa de que comienza a producir
    cout << "Estanquero : empieza a producir ingrediente (" << duracion_produ.count() << " milisegundos)" << endl;
 
-   // espera bloqueada un tiempo igual a 'duracion_produ' milisegundos
+   // espera bloqueada un tiempo igual a ''duracion_produ' milisegundos
    this_thread::sleep_for( duracion_produ );
 
    const int num_ingrediente = aleatorio<0,num_fumadores-1>() ;
@@ -88,13 +62,42 @@ int producir_ingrediente()
 //----------------------------------------------------------------------
 // función que ejecuta la hebra del estanquero
 
-void funcion_hebra_estanquero( MRef<Estanco> monitor )
-{
+void funcion_hebra_estanquero(  )
+{ 
    while( true ){
       int ingrediente = producir_ingrediente();
       
-      monitor->ponerIngrediente(ingrediente);
-      monitor->esperarRecogidaIngrediente();
+      if(num_proclamas<MAX_PROCLAMAS){
+        sem_wait( mostrador_vacio );
+        sem_signal( ing_disp[ingrediente] );
+      }
+      else{
+          sem_wait( mostrador_vacio );
+          ingr_mangado = ingrediente;
+          sem_signal( manga_ingr );
+      }
+   }
+}
+
+//-----------------------------------------------------------------------
+// funcion que ejecuta la hebra del activista
+
+void funcion_hebra_activista( ){
+   int mangado;
+   while (true){
+      if(num_proclamas<MAX_PROCLAMAS){
+      chrono::milliseconds espera_aleatoria( aleatorio<10,100>() );
+      cout << "FUMAR MATA!!" << endl;
+      this_thread::sleep_for(espera_aleatoria);
+      num_proclamas++;
+      }
+      else{
+        sem_wait( manga_ingr );
+        sem_signal( mostrador_vacio );
+        mangado = ingr_mangado;
+        cout << "JA, JA, JA! Destruido ingrediente " << mangado;
+        num_proclamas = 0;
+      }
    }
 }
 
@@ -123,15 +126,18 @@ void fumar( int num_fumador )
 
 //----------------------------------------------------------------------
 // función que ejecuta la hebra del fumador
-void  funcion_hebra_fumador( MRef<Estanco> monitor, int num_fumador )
+void  funcion_hebra_fumador( int num_fumador )
 {
    while( true )
    {
-      monitor->obtenerIngrediente(num_fumador);
+      sem_wait( excl_mutua );
+      sem_signal( excl_mutua );
+
+      sem_wait( ing_disp[num_fumador] );
+      cout << "El fumador " << num_fumador << " retira su ingrediente" << endl;
+      sem_signal( mostrador_vacio );
 
       fumar( num_fumador );
-
-      num_cigarrillos++;
 
    }
 }
@@ -141,21 +147,21 @@ void  funcion_hebra_fumador( MRef<Estanco> monitor, int num_fumador )
 int main()
 {
    cout << "--------------------------------------------------------" << endl
-        << "       Problema de los fumadores con monitor SU.        " << endl
+        << "             Problema de los fumadores.                 " << endl
         << "--------------------------------------------------------" << endl
         << flush;
 
-    MRef<Estanco> monitor = Create<Estanco>();
+   thread hebra_estanquero(funcion_hebra_estanquero),
+          hebra_activista(funcion_hebra_activista),
+          fumadores[num_fumadores];
 
-    thread hebra_estanquero(funcion_hebra_estanquero, monitor);
-    thread hebra_fumadores[num_fumadores];
+   for(int i = 0; i < num_fumadores; i++)
+      fumadores[i] = thread(funcion_hebra_fumador, i);
 
-    for(int i = 0; i < num_fumadores; i++)
-        hebra_fumadores[i] = thread(funcion_hebra_fumador, monitor, i);
+   hebra_estanquero.join();
+   hebra_activista.join();
 
-    hebra_estanquero.join();
-
-    for(int i = 0; i < num_fumadores; i++)
-        hebra_fumadores[i].join();
+   for(int i = 0; i < num_fumadores; i++)
+      fumadores[i].join();
       
 }

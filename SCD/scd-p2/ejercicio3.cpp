@@ -62,6 +62,29 @@ void Estanco :: esperarRecogidaIngrediente(){
         mostrador_vacio.wait();
 }
 
+class Buffer : public HoareMonitor{
+private:
+    int buffer[5];
+    int primera_libre;
+    CondVar lleno;
+public:
+    Buffer();
+
+    void dar_simunistro();
+}
+
+
+Buffer::Buffer(){
+    lleno = newCondVar();
+    primera_libre = 0;
+}
+
+int Buffer::dar_simunistro(){
+   int ingrediente = buffer[primera_libre];
+   primera_libre--;
+   return ingrediente;
+}
+
 //-------------------------------------------------------------------------
 // Función que simula la acción de producir un ingrediente, como un retardo
 // aleatorio de la hebra (devuelve número de ingrediente producido)
@@ -88,10 +111,10 @@ int producir_ingrediente()
 //----------------------------------------------------------------------
 // función que ejecuta la hebra del estanquero
 
-void funcion_hebra_estanquero( MRef<Estanco> monitor )
+void funcion_hebra_estanquero( MRef<Estanco> monitor, MRef<Buffer> buffer )
 {
    while( true ){
-      int ingrediente = producir_ingrediente();
+      int ingrediente = buffer->dar_suministro();
       
       monitor->ponerIngrediente(ingrediente);
       monitor->esperarRecogidaIngrediente();

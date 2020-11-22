@@ -109,13 +109,13 @@ class Pila_max{
      * @brief Devuelve el elemento del frente de la pila
      * @return El elemento del frente de la pila
      */
-    T& tope();
+    T& tope_pila();
 
     /**
      * @brief Devuelve el elemento del frente de la pila de forma constante
      * @return El elemento del frente de la pila
      */
-    const T& tope() const;
+    const T& tope_pila() const;
 
     /**
      * @brief Devuelve el valor máximo de la pila
@@ -141,6 +141,6 @@ private:
 
 };
 
-#include <Pila_max_Cola.cpp>
+#include <../src/Pila_max_Cola.cpp>
 
 #endif // __Pila_max_Cola_H__

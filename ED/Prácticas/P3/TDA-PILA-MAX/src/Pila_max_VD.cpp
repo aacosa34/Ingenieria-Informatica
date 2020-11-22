@@ -57,13 +57,13 @@ void Pila_max<T>::quitar(){
 
 // Elemento del tope de la pila
 template <class T>
-T& Pila_max<T>::tope(){
+T& Pila_max<T>::tope_pila(){
     return datos.back();
 }
 
 // Consulta elemento del tope de la pila
 template <class T>
-const T& Pila_max<T>::tope() const{
+const T& Pila_max<T>::tope_pila() const{
     return datos.back();
 }
 
@@ -72,3 +72,7 @@ template <class T>
 const T& Pila_max<T>::maximo() const{
     return datos.back().maximo;
 }
+
+template class Pila_max <char>;
+template class Pila_max <int>;
+template class Pila_max <double>;

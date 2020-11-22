@@ -9,7 +9,7 @@
 using namespace std ;
 using namespace HM ;
 
-const int num_fumadores = 3;
+const int num_fumadores = 5;
 
 //**********************************************************************
 // plantilla de función para generar un entero aleatorio uniformemente
@@ -24,6 +24,29 @@ template< int min, int max > int aleatorio()
   return distribucion_uniforme( generador );
 }
 
+//-------------------------------------------------------------------------
+// Función que simula la acción de fumar, como un retardo aleatoria de la hebra
+
+void fumar( int num_fumador )
+{
+
+   // calcular milisegundos aleatorios de duración de la acción de fumar)
+   chrono::milliseconds duracion_fumar( aleatorio<20,200>() );
+
+   // informa de que comienza a fumar
+
+    cout << "Fumador " << num_fumador << "  :"
+          << " empieza a fumar (" << duracion_fumar.count() << " milisegundos)" << endl;
+
+   // espera bloqueada un tiempo igual a ''duracion_fumar' milisegundos
+   this_thread::sleep_for( duracion_fumar );
+
+   // informa de que ha terminado de fumar
+
+    cout << "Fumador " << num_fumador << "  : termina de fumar, comienza espera de ingrediente." << endl;
+
+}
+
 class Estanco : public HoareMonitor {
 private:
     int ing_disp = -1;
@@ -34,6 +57,7 @@ public:
     void obtenerIngrediente(int num_fumador);
     void ponerIngrediente(int num_ingrediente);
     void esperarRecogidaIngrediente();
+    void Esperar_mi_ingrediente(int num_fumador);
 };
 
 Estanco :: Estanco(){
@@ -43,10 +67,10 @@ Estanco :: Estanco(){
 }
 
 void Estanco :: obtenerIngrediente(int num_fumador){
-    if(ing_disp != num_fumador)
-        ingrediente_producido[num_fumador].wait();
-    
     cout << "Retirado ingrediente " << num_fumador << endl;
+
+    fumar( num_fumador );
+    
     ing_disp = -1;
     mostrador_vacio.signal();
 }
@@ -60,6 +84,14 @@ void Estanco :: ponerIngrediente(int num_ingrediente){
 void Estanco :: esperarRecogidaIngrediente(){
     if(ing_disp != -1)
         mostrador_vacio.wait();
+}
+
+void Estanco :: Esperar_mi_ingrediente(int num_fumador){
+    if(ing_disp != num_fumador)
+        ingrediente_producido[num_fumador].wait();
+    
+    obtenerIngrediente(num_fumador);
+
 }
 
 //-------------------------------------------------------------------------
@@ -89,37 +121,20 @@ int producir_ingrediente()
 // función que ejecuta la hebra del estanquero
 
 void funcion_hebra_estanquero( MRef<Estanco> monitor )
-{
+{  bool primera = true;
    while( true ){
-      int ingrediente = producir_ingrediente();
-      
-      monitor->ponerIngrediente(ingrediente);
-      monitor->esperarRecogidaIngrediente();
+      if (primera){
+        int ingrediente = producir_ingrediente();
+
+        monitor->ponerIngrediente(ingrediente);
+        monitor->esperarRecogidaIngrediente();
+      }
+      else{
+        
+      }
    }
 }
 
-//-------------------------------------------------------------------------
-// Función que simula la acción de fumar, como un retardo aleatoria de la hebra
-
-void fumar( int num_fumador )
-{
-
-   // calcular milisegundos aleatorios de duración de la acción de fumar)
-   chrono::milliseconds duracion_fumar( aleatorio<20,200>() );
-
-   // informa de que comienza a fumar
-
-    cout << "Fumador " << num_fumador << "  :"
-          << " empieza a fumar (" << duracion_fumar.count() << " milisegundos)" << endl;
-
-   // espera bloqueada un tiempo igual a ''duracion_fumar' milisegundos
-   this_thread::sleep_for( duracion_fumar );
-
-   // informa de que ha terminado de fumar
-
-    cout << "Fumador " << num_fumador << "  : termina de fumar, comienza espera de ingrediente." << endl;
-
-}
 
 //----------------------------------------------------------------------
 // función que ejecuta la hebra del fumador
@@ -127,11 +142,7 @@ void  funcion_hebra_fumador( MRef<Estanco> monitor, int num_fumador )
 {
    while( true )
    {
-      monitor->obtenerIngrediente(num_fumador);
-
-      fumar( num_fumador );
-
-      num_cigarrillos++;
+      monitor->Esperar_mi_ingrediente(num_fumador);
 
    }
 }
