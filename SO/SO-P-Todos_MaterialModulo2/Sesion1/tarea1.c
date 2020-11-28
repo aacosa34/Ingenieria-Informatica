@@ -1,7 +1,7 @@
 /*
 tarea1.c
 Trabajo con llamadas al sistema del Sistema de Archivos ''POSIX 2.10 compliant''
-Probar tras la ejecución del programa: $>cat archivo y $> od -c archivo
+Probar tras la ejecuciï¿½n del programa: $>cat archivo y $> od -c archivo
 */
 #include<unistd.h>
 #include<stdio.h>

@@ -27,7 +27,7 @@ int main(int argc, char* argv[]){
         fdin = STDIN_FILENO;
     }
 
-    if ((fdout = open("salida.txt", O_CREAT | O_TRUNC | O_WRONLY, S_IR          USR | S_IWUSR)) < 0){
+    if ((fdout = open("salida.txt", O_CREAT | O_TRUNC | O_WRONLY, S_IRUSR | S_IWUSR)) < 0){
         printf("\nError %d en open", errno);
         perror("\nError en open");
         exit(-1);
