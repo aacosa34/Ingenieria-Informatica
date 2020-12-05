@@ -6,7 +6,7 @@ LIB = ./lib
 
 $(BIN)/pruebaPila_max : $(OBJ)/pruebaPila_max.o
 	@echo Creando el ejecutable.
-	g++ -o $@ $<
+	g++ -o $@ $<  
 
 $(OBJ)/pruebaPila_max.o : $(SRC)/pruebaPila_max.cpp $(INC)/Pila_max.h
 	@echo Creando pruebaPila_max.o
