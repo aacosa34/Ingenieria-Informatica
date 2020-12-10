@@ -1,0 +1,14 @@
+TRATAMIENTO DE INTERRUPCIONES
+
+A nivel hardware:
+1. El controlador de dispositivos u otro hardware del sistema emite una interrupción.
+2. El procesador finaliza la ejecución de la instrucción actual.
+3. El procesador señala el reconocimiento de la interrupción.
+4. El procesador guarda el PSW y PC en la pila.
+5. El procesador carga el nuevo PC basado en la interrupción.
+
+A nivel software:
+6. Guarda la información del estado del proceso restante.
+7. Procesa la interrupción.
+8. Recupera la información del estado del proceso. (PSI)
+9. Restaura el antiguo PSW y PC.
