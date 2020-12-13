@@ -89,7 +89,7 @@ void funcion_camarero(){
 
    while( true ){
       if (sentados < 4)
-         etiq_aceptable = MPI_ANY_SOURCE;
+         etiq_aceptable = MPI_ANY_TAG;
       else
          etiq_aceptable = etiq_levantarse;
 

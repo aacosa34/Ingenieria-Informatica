@@ -25,11 +25,17 @@ using namespace std::chrono ;
 
 const int
    num_productores		 = 4 ,
-   num_consumidores 	 = 5 ,
+   num_consumidores      = 5 ,
+   id_prod_min           = 0 ,
+   id_prod_max           = 3 ,
+   id_buffer             = 4 ,
+   id_cons_min           = 5 ,
+   id_cons_max           = 9 ,
    num_procesos_esperado = 10,
    num_items             = 20,
    tam_vector            = 10,
    etiq_productor		 = 50,
+   etiq_prodpar          = 40,
    etiq_consumidor		 = 60;
 
 //**********************************************************************
@@ -65,7 +71,7 @@ void funcion_productor(int n_productor)
       int valor_prod = producir(n_productor);
       // enviar valor
       cout << "Productor " << n_productor << " va a enviar valor " << valor_prod << endl << flush;
-      MPI_Ssend( &valor_prod, 1, MPI_INT, num_productores, etiq_productor, MPI_COMM_WORLD );
+      MPI_Ssend( &valor_prod, 1, MPI_INT, id_buffer, etiq_productor, MPI_COMM_WORLD );
    }
 }
 // ---------------------------------------------------------------------
@@ -86,8 +92,8 @@ void funcion_consumidor(int n_consumidor)
 
    for( unsigned int i=0 ; i < num_items/num_consumidores; i++ )
    {
-      MPI_Ssend( &peticion,  1, MPI_INT, num_productores, etiq_consumidor, MPI_COMM_WORLD);
-      MPI_Recv ( &valor_rec, 1, MPI_INT, num_productores, 0, MPI_COMM_WORLD,&estado );
+      MPI_Ssend( &peticion,  1, MPI_INT, id_buffer, etiq_consumidor, MPI_COMM_WORLD);
+      MPI_Recv ( &valor_rec, 1, MPI_INT, id_buffer, 0, MPI_COMM_WORLD,&estado );
       cout << "Consumidor " << n_consumidor << " ha recibido valor " << valor_rec << endl << flush ;
       consumir( valor_rec, n_consumidor );
    }
@@ -154,12 +160,12 @@ int main( int argc, char *argv[] )
 
    if ( num_procesos_esperado == num_procesos_actual )
    {
-      if ( id_propio <  num_productores)
+      if ( id_propio >= id_prod_min && id_propio <=  id_prod_max )
          funcion_productor(id_propio);
-      else if ( id_propio == num_productores )
-         funcion_buffer();
+      else if ( id_propio >= id_cons_min && id_propio <= id_cons_max )
+         funcion_consumidor(id_propio);
       else
-         funcion_consumidor( id_propio % (num_productores + 1));
+         funcion_buffer();
    }
    else
    {
