@@ -97,15 +97,15 @@ void Diccionario<T,U>::AddSignificado_Palabra(const U & s ,const T &p){
 
 template<class T, class U>
 list<U> Diccionario<T,U>::getInfo_Asoc(const T & p) {
-		typename list<data<T,U> >::iterator it;
-		
-		if (!Esta_Clave(p,it)){
-		return list<U>();
-		}
-		else{
-		return (*it).info_asoci;
-		}
-	}
+    typename list<data<T,U> >::iterator it;
+    
+    if (!Esta_Clave(p,it)){
+    return list<U>();
+    }
+    else{
+    return (*it).info_asoci;
+    }
+}
 
 template<class T, class U>
 int Diccionario<T,U>::size()const{
