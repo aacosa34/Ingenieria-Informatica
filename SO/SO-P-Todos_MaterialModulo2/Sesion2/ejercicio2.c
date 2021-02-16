@@ -41,7 +41,7 @@ int main(int argc, char* argv[]){
             if(chmod(pathArchivo, permisos) == 0)
                 printf("%s : %o %o\n", archivo->d_name, permisosAntiguos, permisos);
             else
-                printf("%s : %d %o\n", archivo->d_name, errno, permisos);
+                printf("%s : %d %o\n", archivo->d_name, errno, permisosAntiguos);
         }
        
     }

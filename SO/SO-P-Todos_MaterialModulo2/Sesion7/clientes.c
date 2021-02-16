@@ -39,8 +39,10 @@ if (! (resultado = read (dfifos,&pidproxy,sizeof(int)))) {
 }
 printf("Cliente %d: leido pid %d en fifo de servidor. \n",mipid,pidproxy);
 
+sleep(3);
+
 // Abre el FIFO a utilizar en la comunicacion
-sprintf(nombrefifoproxy,"fifo.%d",pidproxy);
+sprintf(nombrefifoproxy,"/tmp/fifo.%d",pidproxy);
 if ((mififo = open (nombrefifoproxy, O_WRONLY)) == -1) {
   perror ("Cliente: problema al abrir fifo proxy asignado");
   exit(EXIT_FAILURE);
@@ -98,7 +100,6 @@ if (argc < 3) {
 // uno de entrada y otro de salida (desde el punto de vista del servidor).
 sprintf(nombrefifoe,"%se",argv[1]);
 sprintf(nombrefifos,"%ss",argv[1]);
-
 
 if ((dfifoe = open (nombrefifoe, O_WRONLY)) == -1) {
   perror ("Clientes: Problema con el archivo fifo de entrada al servidor");

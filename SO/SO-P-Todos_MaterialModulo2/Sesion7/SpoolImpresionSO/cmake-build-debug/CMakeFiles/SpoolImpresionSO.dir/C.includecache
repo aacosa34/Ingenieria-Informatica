@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/patriciacabrera/CLionProjects/SpoolImpresionSO/Proxy.c
+
+/Users/patriciacabrera/CLionProjects/SpoolImpresionSO/main.c
+stdio.h
+-
+

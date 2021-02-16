@@ -19,4 +19,24 @@ int main(int argc, char *argv[]){
     if(pid < 0){
         perror("\nError en el fork")
     }
+
+    if (pid==0){
+        if(num % 2 == 0){
+            printf("El numero %d es par", num);
+        }
+        else{
+            printf("El numero %d no es par", num);
+        }
+    }
+    else{
+        if(num%4==0){
+            printf("El numero %d es divisible por 4", num);
+        }
+        else{
+            printf("El numero %d no es divisible por 4", num);
+        }
+    }
+
+    return 0;
+
 }

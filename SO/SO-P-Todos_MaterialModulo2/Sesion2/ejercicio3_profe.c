@@ -7,6 +7,7 @@
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+
 #define IFXGRPOTH 011
 
 int regulares = 0;
