@@ -1,4 +1,4 @@
-\input{preambuloSimple.tex}
+\input{preambulo.tex}
 
 %----------------------------------------------------------------------------------------
 %	TÍTULO Y DATOS DEL ALUMNO
@@ -6,7 +6,7 @@
 
 \title{	
 \normalfont \normalsize 
-\textsc{\textbf{Ingeniería de Servidores (2021-2022)} \\ Grado en Ingeniería Informática \\ Universidad de Granada} \\ [25pt] % Your university, school and/or department name(s)
+\textsc{\textbf{Asignatura (2021-2022)} \\ Grado en Ingeniería Informática \\ Universidad de Granada} \\ [25pt] % Your university, school and/or department name(s)
 \horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
 \huge Memoria Práctica 3 \\ % The assignment title
 \horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
@@ -27,7 +27,7 @@
 \newpage %inserta un salto de página
 
 \tableofcontents % para generar el índice de contenidos
-
+ 
 \newpage
 
 %----------------------------------------------------------------------------------------
@@ -66,7 +66,7 @@ El comando a utilizar para ver esto es el siguiente:
 	\caption{Podemos comprobar en la imagen que no supone un problema grave para el sistema.}
 \end{figure}
 
-Sea como sea, la forma de actuar ante estos casos es crear un log para poder informar al administrador del sistema y configurar un servicio de correo para que le notifique en caso de fallo de alguno de los dispositivos. 
+Sea como sea, la forma de actuar ante estos casos es crear un log para poder informar al administrador del sistema y configurar un servicio de correo para que le notifique en caso de fallo de alguno de los dispositivos.
 
 En primer lugar creamos un archivo de configuración al que le redirigimos el resultado de la monitorización del dispositivo afectado con el siguiente comando:
 
@@ -74,7 +74,7 @@ En primer lugar creamos un archivo de configuración al que le redirigimos el re
 	mdadm --detail --scan >> /etc/mdadm.conf
 \end{lstlisting}
 
-Tras crear este archivo, añadimos la variable MAILADDR con la dirección de correo del administrador del sistema para que le notifique en caso de fallo. Lo haríamos de la siguiente manera: 
+Tras crear este archivo, añadimos la variable MAILADDR con la dirección de correo del administrador del sistema para que le notifique en caso de fallo. Lo haríamos de la siguiente manera:
 
 \begin{lstlisting}[language=bash]
 	MAILADDR adrianacosa@correo.ugr.es
@@ -87,7 +87,7 @@ Tras crear este archivo, añadimos la variable MAILADDR con la dirección de cor
 Para la recuperación de nuestro RAID, tenemos que seguir los siguientes pasos:
 
 \begin{enumerate}
-	\item Añadimos el nuevo disco vacío al RAID 
+	\item Añadimos el nuevo disco vacío al RAID
 	\item Marcamos el disco como fallo
 	\item Comprobamos si el disco ha sido marcado como fallo correctamente
 	\item Retiramos el disco fallido
@@ -132,8 +132,8 @@ Tras esto, procedemos a intalar el servidor de Zabbix, su frontend y su agent:
 
 \begin{lstlisting}[language=bash]
 	dnf install zabbix-server-mysql
-	dnf install zabbix-web-mysql 
-	dnf install zabbix-apache-conf 
+	dnf install zabbix-web-mysql
+	dnf install zabbix-apache-conf
 	dnf install zabbix-agent
 \end{lstlisting}
 
@@ -143,27 +143,27 @@ El siguiente paso a realizar es crear la base de datos necesaria para nuestro se
 	CREATE DATABASE zabbix CHARACTER SET utf8 collate utf8_bin;
 	CREATE USER zabbix@localhost IDENTIFIED BY 'password';
 	GRANT ALL PRIVILEGES ON zabbix.* TO zabbix@localhost;
-\end{lstlisting} 
+\end{lstlisting}
 
 \begin{figure}[H]
-	\centering 
-	\includegraphics[scale=0.5]{graphics/img4} 
-	\caption{Puesta a punto de la base de datos de Zabbix} 
-\end{figure} 
-Ahora tenemos que importar los datos iniciales para el servidor. Esto se realiza con el siguiente comando: 
-\begin{lstlisting}[language=bash] 
+	\centering
+	\includegraphics[scale=0.5]{graphics/img4}
+	\caption{Puesta a punto de la base de datos de Zabbix}
+\end{figure}
+Ahora tenemos que importar los datos iniciales para el servidor. Esto se realiza con el siguiente comando:
+\begin{lstlisting}[language=bash]
 	zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz \
-	| mysql -uzabbix -p zabbix 
-\end{lstlisting} 
+	| mysql -uzabbix -p zabbix
+\end{lstlisting}
 
-Una vez hecho esto tendremos que realizar los siguientes pasos: 
+Una vez hecho esto tendremos que realizar los siguientes pasos:
 
-\begin{enumerate} 
+\begin{enumerate}
 	\item Descomentamos la linea DBPassword=password del archivo /etc/zabbix/zabbix\_server.conf.
 
 	\item Descomentamos la linea php\_value[date.timezone] = Europe/Riga del archivo /etc/php-fpm.d/zabbix.conf .
 
-	\item Activamos el servidor Zabbix (zabbix-server, zabbix-agent, httpd y php-fpm) con "systemctl" para que se inicie al iniciar el sistema. 
+	\item Activamos el servidor Zabbix (zabbix-server, zabbix-agent, httpd y php-fpm) con "systemctl" para que se inicie al iniciar el sistema.
 	\item Configuramos el frontend de Zabbix desde la página http://127.0.0.1/zabbix
 \end{enumerate}
 
@@ -242,7 +242,7 @@ Tras esto ya tendríamos Zabbix configurado. Lo último que tenemos que hacer an
 
 \begin{lstlisting}
 	Username: Admin
-	Password: zabbix 
+	Password: zabbix
 \end{lstlisting}
 
 \begin{figure}[H]
@@ -258,16 +258,120 @@ Tras esto ya tendríamos Zabbix configurado. Lo último que tenemos que hacer an
 \end{figure}
 
 \newpage
-\subsection{Monitorización de HTTP con Zabbix}
+\subsection{Monitorización de HTTP y SSH con Zabbix}
 
+Antes de empezar aclarar que las IP de ambos servidores cambian porque lo he hecho en días diferentes y con máquinas distintas.
 
+El servidor de Zabbix está alojado en una máquina con Ubuntu Server en el que previamente hemos hecho las siguientes configuraciones:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{graphics/img20}
+	\caption{Configuración de $/etc/zabbix/zabbix\_agentd.conf$ en Ubuntu (1)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{graphics/img21}
+	\caption{Configuración de $/etc/zabbix/zabbix\_agentd.conf$ en Ubuntu (2)}
+\end{figure}
+
+En CentOS tenemos que indicar la IP del servidor de Zabbix de la siguiente manera:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{graphics/img22}
+	\caption{Configuración de $/etc/zabbix/zabbix\_agentd.conf$ en CentOS (1)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{graphics/img23}
+	\caption{Configuración de $/etc/zabbix/zabbix\_agentd.conf$ en CentOS (2)}
+\end{figure}
+
+Una vez tenemos hecho esto, tenemos que ir al frontend de Zabbix al menú de Configuration/Hosts y le damos al botón de Create Host para crear el host de Ubuntu.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{graphics/img24}
+	\caption{Metemos el Host en los grupos de Linux Server, Virtual Machine y Zabbix Servers. Tambien tenemos que cambiar el puerto a 10051 como indicamos en la configuracion.}
+\end{figure}
 
 \newpage
-\subsection{Monitorización de SSH con Zabbix}
+Una vez hecho esto comprobamos que se ha creado correctamente:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{graphics/img25}
+	\caption{Listado de Host en el Frontend de Zabbix}
+\end{figure}
+
+Para poder realizar la monitorización de los servicios de SSH y HTTP tenemos que añadirle al Host una serie de Templates que proporciona Zabbix:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{graphics/img26}
+	\caption{Listado de Templates añadidos al Host}
+\end{figure}
+
+Para poder monitorizar nuestro servidor de CentOS también tenemos que añadir un nuevo Host:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{graphics/img27}
+	\caption{Creación del Host para CentOS}
+\end{figure}
+
+También es necesario añadirle los mismos templates que al Servidor principal menos el de Zabbix server para poder realizar su monitorización de los servicios SSH y HTTP.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{graphics/img28}
+	\caption{Listado de Templates para CentOS8}
+\end{figure}
+
+\newpage
+Una vez hemos terminado de configurar todo lo necesario para la monitorización de dichos servicios podemos empezar a añadir unos widgets a nuestro dashboard para ayudarnos a visualizar la actividad en ambos servicios.
+
+Para ello nos vamos al menú Monitoring/dashboard y añadimos un widget como el siguiente:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{graphics/img28}
+	\caption{Creación de un widget de monitorización de ambos servicios}
+\end{figure}
+
 
 \newpage
 \subsection{Monitorización de otro servidor con Zabbix}
- 
+
+Finalmente vamos a hacer una monitoriación del servidor de CentOS.
+Para ello vamos al Host, pinchamos en items y le damos a Create Item:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{graphics/img29}
+	\caption{Creación del item para la monitorizacion de SSH de CentOS}
+\end{figure}
+
+Para probar si funciona vamos al final de la página a la sección de test y probamos si funciona:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{graphics/img30}
+	\caption{Test de la monitorizacion de SSH en CentOS}
+\end{figure}
+
+\newpage
+Para HTTP es exactamente lo mismo pero en vez de poner ssh se pone http en nombre del servicio como aparece en la imagen:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{graphics/img31}
+	\caption{Creación de ítem de monitorización de HTTP para CentOS}
+\end{figure}
+
 %----------------------------------------------------------------------------------------
 %	Cuestión 2
 %----------------------------------------------------------------------------------------
@@ -295,7 +399,7 @@ Para empezar, vamos a ver como se instala ansible en nuestro sistema. Lo primero
 Tras esto ya tendremos acceso al paquete de ansible en nuestro sistema. Para instalarlo tenemos que ejecutar:
 
 \begin{lstlisting}[language=bash]
-	sudo dnf install ansible 
+	sudo dnf install ansible
 \end{lstlisting}
 
 \begin{figure}[H]
@@ -317,7 +421,7 @@ Una vez hecho esto ya tendremos disponible ansible en nuestro sistema y podemos 
 \end{figure}
 
 \newpage
-\subsection{Configuración de Ansible
+\subsection{Configuración de Ansible}
 
 Antes de configurar nada, tenemos que saber qué maquinas queremos gestionar a traves del uso de Ansible. Para ello lo primero que tenemos que conocer es la ip de cada uno ya que nos conectaremos por ssh a cada una de las máquinas.
 
@@ -383,9 +487,8 @@ Para comprobar que realmente funciona:
 
 
 
-%------------------------------------------------
-\newpage
-\bibliography{citas} %archivo citas.bib que contiene las entradas 
-\bibliographystyle{plain} % hay varias formas de citar
+%-------Bibliografia-----------------------------
+
+\input{bibliografia.tex}
 
 \end{document}
