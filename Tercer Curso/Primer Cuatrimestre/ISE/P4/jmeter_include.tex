@@ -10,7 +10,7 @@ Ahora vamos a descargar el repositorio de JMeter proporcionado para hacer la pr�
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{JMeter/img2}
+    \includegraphics[scale=0.45]{JMeter/img2}
     \caption{Descarga de la carpeta con JMeter}
 \end{figure}
 
@@ -42,7 +42,7 @@ Para ver si todo se ha iniciado correctamente, lo comprobamos en un navegador po
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{JMeter/img6}
+    \includegraphics[scale=0.4]{JMeter/img6}
     \caption{Pantalla de inicio del servicio}
 \end{figure}
 
@@ -66,7 +66,7 @@ Al abrirlo nos aparecerá una ventana como la siguiente:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.3]{JMeter/img12}
+    \includegraphics[scale=0.25]{JMeter/img12}
     \caption{Pantalla inicial de JMeter}
 \end{figure}
 
@@ -80,6 +80,7 @@ Para lograr parametrizar el Host y el Puerto tenemos que añadir al nodo princip
     \caption{Añadimos las variables de HOST y PORT}
 \end{figure}
 
+\newpage
 \subsubsection{Hacer dos grupos de hebras distintos para alumnos y administradores para simular el acceso concurrente}
 
 Para ello lo primero que tenemos que hacer es ver los archivos .csv que se encuentran en la carpeta iseP4JMeter/jMeter. Ahí encontraremos los archivos alumnos.csv y administradores.csv. Miramos su contenido y cogemos una cuenta de cada uno de los archivos:
@@ -108,7 +109,7 @@ Yo he dejado todo por defecto en cada uno de los grupos de hebras. Añadimos un 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.3]{JMeter/img21}
+    \includegraphics[scale=0.25]{JMeter/img21}
     \caption{Valores por defecto para las Peticiones HTTP}
 \end{figure}
 
@@ -132,7 +133,7 @@ Para poder ver los resultados de ambas peticiones añadimos un árbol de resulta
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.3]{JMeter/img25}
+    \includegraphics[scale=0.5]{JMeter/img25}
     \caption{Ejecución del plan de pruebas}
 \end{figure}
 
@@ -141,13 +142,13 @@ Para solucionar este error añadimos en cada uno un gestor de autorización  HTT
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.3]{JMeter/img27}
+    \includegraphics[scale=0.25]{JMeter/img27}
     \caption{Configuración del gestor de Autorización HTTP}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.3]{JMeter/img28}
+    \includegraphics[scale=0.25]{JMeter/img28}
     \caption{Resultados correctos de los login}
 \end{figure}
 
@@ -165,7 +166,7 @@ Para poder recibir la información usando un GET y el token hace falta que creem
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.3]{JMeter/img31}
+    \includegraphics[scale=0.25]{JMeter/img31}
     \caption{Petición HTTP GET}
 \end{figure}
 
@@ -203,15 +204,15 @@ Con el objetivo de simular un entorno más realista, le añadimos a cada uno de 
     \caption{Adición de temporizador aleatorio Gaussiano}
 \end{figure}
 
+\newpage
 \subsubsection{Peticiones HTTP de los login de Alumno y Administrador}
 
 Para ello lo primero que tenemos que hacer es añadir un elemento llamado CSV Data Set donde se accederá a los usuarios.
 
-\\\\
 En la imagen hay un fallo y es que el archivo no se accede desde donde pongo. Tuve que descargar el repostorio en el host y buscar el archivo manualmente.
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.3]{JMeter/img37}
+    \includegraphics[scale=0.25]{JMeter/img37}
     \caption{Configuración del CSV Data Set}
 \end{figure}
 
@@ -219,7 +220,7 @@ Y lo mismo para los alumnos. Luego hacemos una petición HTTP GET donde pondremo
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.3]{JMeter/img39}
+    \includegraphics[scale=0.25]{JMeter/img39}
     \caption{Login de alumnos}
 \end{figure}
 
