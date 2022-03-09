@@ -1,0 +1,5 @@
+-Creacion de directorios ServerRoot.
+-Uso de archivos .htaccess.
+-Deshabilitar el acceso predeterminado en los archivos del servidor (desactivar acceso de root y hacer alias para el directorio de usuario).
+-Registro de logs y de eventos de Apache.
+-Activar SSL y redireccion a https.
