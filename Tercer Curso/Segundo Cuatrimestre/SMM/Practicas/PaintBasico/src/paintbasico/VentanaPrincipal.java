@@ -23,6 +23,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
         initComponents();
         this.setSize(600, 400);
+        this.setTitle("Paint Basico");
     }
 
     /**
