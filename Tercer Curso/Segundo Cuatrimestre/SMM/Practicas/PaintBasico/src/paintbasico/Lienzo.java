@@ -84,6 +84,11 @@ public class Lienzo extends javax.swing.JPanel {
     public void setHerramienta(Herramienta herramienta) {
         this.herramienta = herramienta;
     }
+    
+    public void setBlank(){
+        p1 = new Point(-10,-10);
+        p2 = new Point(-10,-10);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

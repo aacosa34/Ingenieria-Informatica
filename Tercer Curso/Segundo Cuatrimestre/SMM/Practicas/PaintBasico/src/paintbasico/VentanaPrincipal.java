@@ -60,7 +60,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuNuevo = new javax.swing.JMenuItem();
         menuAbrir = new javax.swing.JMenuItem();
         menuGuardar = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
         menuEdicion = new javax.swing.JMenu();
         menuVerBarraEstado = new javax.swing.JMenuItem();
 
@@ -250,15 +249,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         menuArchivo.add(menuGuardar);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem1.setText("Salir");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        menuArchivo.add(jMenuItem1);
-
         barraMenu.add(menuArchivo);
 
         menuEdicion.setText("Edit");
@@ -281,37 +271,37 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void botonNegroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNegroActionPerformed
         lienzo.setColor(Color.black);
-        this.repaint();
+        lienzo.repaint();
     }//GEN-LAST:event_botonNegroActionPerformed
 
     private void botonRojoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRojoActionPerformed
         lienzo.setColor(Color.red);
-        this.repaint();
+        lienzo.repaint();
     }//GEN-LAST:event_botonRojoActionPerformed
 
     private void botonAzulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAzulActionPerformed
         lienzo.setColor(Color.blue);
-        this.repaint();
+        lienzo.repaint();
     }//GEN-LAST:event_botonAzulActionPerformed
 
     private void botonBlancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBlancoActionPerformed
         lienzo.setColor(Color.white);
-        this.repaint();
+        lienzo.repaint();
     }//GEN-LAST:event_botonBlancoActionPerformed
 
     private void botonAmarilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAmarilloActionPerformed
         lienzo.setColor(Color.yellow);
-        this.repaint();
+        lienzo.repaint();
     }//GEN-LAST:event_botonAmarilloActionPerformed
 
     private void botonVerdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerdeActionPerformed
         lienzo.setColor(Color.green);
-        this.repaint();
+        lienzo.repaint();
     }//GEN-LAST:event_botonVerdeActionPerformed
 
     private void checkFillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkFillActionPerformed
         lienzo.setRelleno(!lienzo.isRelleno());
-        this.repaint();
+        lienzo.repaint();
     }//GEN-LAST:event_checkFillActionPerformed
 
     private void botonPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPuntoActionPerformed
@@ -357,17 +347,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuGuardarActionPerformed
 
     private void menuNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNuevoActionPerformed
-        
+        lienzo.setBlank();
+        lienzo.repaint();
     }//GEN-LAST:event_menuNuevoActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        JFileChooser dlg = new JFileChooser();
-        int resp = dlg.showSaveDialog(this);
-        if( resp == JFileChooser.APPROVE_OPTION) {
-            File f = dlg.getSelectedFile();
-            //Código
-        }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void menuVerBarraEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVerBarraEstadoActionPerformed
         barraEstadoActiva = !barraEstadoActiva;
@@ -392,7 +374,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkFill;
     private javax.swing.ButtonGroup colores;
     private javax.swing.ButtonGroup herramientas;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
