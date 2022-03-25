@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Ejemplo</title>
+  <style>
+    /*label { display: block; }*/
+    .bloque { border: solid 1px red; margin: 10px 10px 30px 10px; padding: 5px; }
+    #items5 > label:nth-child(1) { display: block; }
+    #items5 > input:nth-last-child(1) { display: block; }
+    form > h1 { font-size: 1em; }
+  </style>
+</head>
+<body>
+
+  <h1>Formulario POST</h1>
+  <form action="procesar.php" method="post">
+
+    <!-- No es correcto -->
+    <h1>Etiquetas sin vínculación:</h1>
+    <section class="bloque">
+      <input type="checkbox" name="mejor1" value="beatles"/> The Beatles
+      <input type="checkbox" name="mejor1" value="rolling"/> The Rolling Stones
+      <input type="checkbox" name="mejor1" value="queen" checked/> Queen
+      <input type="checkbox" name="mejor1" value="straits" checked/> Dire Straits
+    </section>
+
+    <!-- Sí es correcto -->
+    <h1>input dentro de etiquetas:</h1>
+    <section class="bloque">
+      <label><input type="checkbox" name="mejor2" value="beatles"/> The Beatles</label>
+      <label><input type="checkbox" name="mejor2" value="rolling"/> The Rolling Stones</label>
+      <label><input type="checkbox" name="mejor2" value="queen" checked/> Queen</label>
+      <label><input type="checkbox" name="mejor2" value="straits" checked/> Dire Straits</label>
+    </section>
+
+    <!-- Sí es correcto y mas versátil -->
+    <h1>Etiquetas vinculadas a input:</h1>
+    <section class="bloque" id="items5">
+      <label for="idcontrol5">Joe Cocker</label>
+
+      <input type="checkbox" name="mejor3" value="beatles" id="idcontrol1"/>
+      <label for="idcontrol1">The Beatles</label>
+      <input type="checkbox" name="mejor3" value="rolling" id="idcontrol2"/>
+      <label for="idcontrol2">The Rolling Stones</label>
+      <input type="checkbox" name="mejor3" value="queen" checked id="idcontrol3"/>
+      <label for="idcontrol3">Queen</label>
+      <input type="checkbox" name="mejor3" value="straits" checked id="idcontrol4"/>
+      <label for="idcontrol4">Dire Straits</label>
+
+      <input type="checkbox" name="mejor3" value="cocker" id="idcontrol5"/>
+    </section>
+
+    <input type="submit" value="Enviar"/>
+  </form>
+
+</body>
+</html>

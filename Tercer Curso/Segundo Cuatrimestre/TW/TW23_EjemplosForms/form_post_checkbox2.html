@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Ejemplo</title>
+  <style>
+    /*label { display: block; }*/
+    .bloque { border: solid 1px red; margin: 10px 10px 30px 10px; padding: 5px; }
+    #items5 > label:nth-child(1) { display: block; }
+    #items5 > input:nth-last-child(1) { display: block; }
+    form > h1 { font-size: 1em; }
+  </style>
+</head>
+<body>
+
+  <h1>Formulario POST</h1>
+  <form action="procesar.php" method="post">
+
+    <h1>Cuidado: solo trasmite un input (el último marcado):</h1>
+    <section class="bloque">
+      <label><input type="checkbox" name="mejor" value="beatles"/> The Beatles</label>
+      <label><input type="checkbox" name="mejor" value="rolling"/> The Rolling Stones</label>
+      <label><input type="checkbox" name="mejor" value="queen" checked/> Queen</label>
+      <label><input type="checkbox" name="mejor" value="straits" checked/> Dire Straits</label>
+    </section>
+
+    <h1>Correcto: una variable por cada checkbox:</h1>
+    <section class="bloque">
+      <label><input type="checkbox" name="mejor_beatles" value="beatles"/> The Beatles</label>
+      <label><input type="checkbox" name="mejor_rolling" value="rolling"/> The Rolling Stones</label>
+      <label><input type="checkbox" name="mejor_queen" value="queen" checked/> Queen</label>
+      <label><input type="checkbox" name="mejor_straits" value="straits" checked/> Dire Straits</label>
+    </section>
+
+    <h1>Correcto: transmite un array con los items marcados:</h1>
+    <section class="bloque">
+      <label><input type="checkbox" name="mejor2[]" value="beatles"/> The Beatles</label>
+      <label><input type="checkbox" name="mejor2[]" value="rolling"/> The Rolling Stones</label>
+      <label><input type="checkbox" name="mejor2[]" value="queen" checked/> Queen</label>
+      <label><input type="checkbox" name="mejor2[]" value="straits" checked/> Dire Straits</label>
+    </section>
+
+    <input type="submit" value="Enviar"/>
+  </form>
+
+</body>
+</html>

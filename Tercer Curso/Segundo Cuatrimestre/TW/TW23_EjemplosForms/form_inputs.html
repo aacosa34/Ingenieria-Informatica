@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Ejemplo</title>
+  <style>
+    label { display: block; }
+  </style>
+</head>
+
+<body>
+
+  <h1>Inputs HTML5: (comparar Chrome, Firefox, Safari, ...)</h1>
+  <!-- <form action="procesar.php" method="post" oninput="rval.value=parseInt(range.value)"> -->
+  <form action="procesar.php" method="post" oninput="rval.value=parseInt(range.value)">
+    <label>Date: <input type="date" name="date" /></label>
+    <label>Time: <input type="time" name="time" /></label>
+    <label>DateTime: <input type="datetime" name="datetime" /></label>
+    <label>Month: <input type="month" name="month" /></label>
+    <label>Week: <input type="week" name="week" /></label>
+    <label>Number: <input type="number" name="number" /></label>
+
+    <label>Range: <input type="range" name="range" min="3" max="9"/>
+    <!--  <output name="rval" for="range">6</output>-->
+    </label>
+
+    <input type="submit" value="Enviar"/>
+  </form>
+
+</body>
+</html>
