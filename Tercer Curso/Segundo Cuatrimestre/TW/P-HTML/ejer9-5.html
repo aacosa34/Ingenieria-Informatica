@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" name="author" content="Adrian Acosa">
+    <title>Formularios</title>
+</head>
+<body>
+    <h1>Datos del usuario</h1>
+    <form action="https://void.ugr.es/procesar.php">
+        <label>
+            Usuario: 
+            <input required type="text" placeholder="Obligatorio: id de usuario" name="usuario" id="usuario"/>
+        </label>
+        <label>
+            Clave:
+            <input type="password" placeholder="Escriba su clave" name="clave" id="clave"/>
+        </label>
+        <label>
+            Nacionalidad:
+            <input type="text" placeholder="Escriba su nacionalidad" name="nacionalidad" value="España" id="nacionalidad"/>
+        </label>
+        <label>
+            Email:
+            <input type="email" placeholder="Escriba su email" name="email" id="email"/>
+        </label>
+        <input type="submit" name="boton" value="Enviar datos"/>
+    </form>
+</body>
+</html>
