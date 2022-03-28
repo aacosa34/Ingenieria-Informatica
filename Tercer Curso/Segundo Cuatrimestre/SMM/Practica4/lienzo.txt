@@ -1,0 +1,23 @@
+1.creamos una clase con la forma de un panel
+2.creamos el metodo paint dentro
+3.arrastrar y soltar el fichero para aniadir el panel
+4.implementar el pintado del punto como en la sesion anterior
+5.crear getters y setters para poder cambiar el color de la variable
+    que acabamos de crear
+6.asignar actionperformed en la ventana principal para cada uno de 
+los botones que tenemos creado. (doble click activa el actionperformed)
+7.para relleno hacer un booleano y hacer lo mismo que para los colores.
+8.actionperformed en ventana principal para cambiar el booleano
+9.enumerado para los distintos modos de dibujado
+10.switch en el paint para elegir el modo
+11.dentro del switch en ovalo y rectangulo un if relleno/no
+
+drawRect primer-punto diferencia
+solo si va hacia abajo a la derecha
+VALOR ABSOLUTO soluciona parte
+SOLUCION
+x -> minimo(x1,x2)
+y -> minimo(y1,y2)
+ancho -> abs(x2-x1)
+alto -> abs(y2-y1)
+

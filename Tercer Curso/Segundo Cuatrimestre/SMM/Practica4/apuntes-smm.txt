@@ -1,0 +1,12 @@
+BORDER LAYOUT
+norte toolbar:
+    - dentro de toolbar toggle buttons agrupados con icono (aplicar icono desde propiedades)
+    - para tener los iconos dentro del proyecto: subcarpeta en el proyecto
+      creando paquete arrastrando las imagenes.
+
+sur panel border layout y dentro otros dos:
+    - abajo etiqueta con borde (propiedad)
+    - arriba border con izquierda colores y derecha checkbox
+        -- panel con grid a la izquierda
+
+centro panel: zona de dibujo
