@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1>Datos del usuario</h1>
-    <form action="https://void.ugr.es/procesar.php">
+    <form action="https://void.ugr.es/procesar2.php">
         <label>
             Usuario: 
             <input required type="text" placeholder="Obligatorio: id de usuario" name="usuario" id="usuario"/>
@@ -61,6 +61,13 @@
             ¿Cuándo es la semana santa este año?:
             <input type="week" name="semana santa">
         </label>
+        <label>
+            Fotografía:
+            <input type="file" name="foto">
+        </label>
+        
+        <input type="hidden" name="num_version" value="1.0">
+        
         <input type="submit" name="boton" value="Enviar datos"/>
     </form>
 </body>
