@@ -20,4 +20,4 @@ while True:
         break
 
 video.release()
-cv2.destroyWindow('VIDEO')
+cv2.destroyWindow('VIDEOe')
