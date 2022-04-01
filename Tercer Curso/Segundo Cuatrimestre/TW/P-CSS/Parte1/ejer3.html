@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio</title>
+    <style>
+        /* Todos los elementos de la pagina */
+        * {
+            color: darkred;
+            font-family: arial;
+        }
+
+        /* Todos los parrafos de la pagina */
+        p {
+            color: darkorchid;
+        }
+
+        /* Todos los párrafos contenidos en un div */
+        div p {
+            color: darkgreen;
+        }
+
+        /* Los span dentro de una clase "desegunda" */
+        .desegunda span {
+            font-size: 1.5em;
+        }
+
+        /* Los títulos de sección */
+        section > :first-child {
+            font-family: impact;
+        }
+
+        /* El título de la sección con id "primera" */
+        section#primera > h2 {
+            color: blue;
+        }
+
+        /* Párrafos que no son descendientes directos de un div */
+        :not(div) > p {
+            font-style: italic;
+        }
+
+        /* A todos los enlaces */
+        a {
+            text-decoration: none;
+            border: 1px solid black;
+            color: red;
+        }
+
+        /* Estilo de los enlaces al pasar el cursor por encima */
+        a:hover {
+            color: lightgray;
+        }
+
+        /* Enlaces visitados */
+        a:visited {
+            color: lightblue;
+        }
+
+        /* Cualquier elemento de clase "especial" */
+        .especial {
+            background-color: yellow;
+        }
+
+        /* El primer párrafo dentro de un div */
+        div > p:first-of-type{ /*para elegir al primero del tipo p*/
+            background-color: lightblue;
+        }
+
+        /* Elementos de primer nivel dentro de section */
+        section > *{
+            margin-left: 20px;
+        }
+
+        /* Elemento de tipo em pero solo si están dentro de un párrafo */
+        p em {
+            padding: 0.7em;
+            font-family: impact;
+        }
+
+        /* Cualquier elemento descendiente de un article */
+        article * {
+            background-color: lightgray;
+            border: 1px solid black;
+        }
+
+        /* Descendientes de article excepto el primero y el último */
+        article > :not(:first-child):not(:last-child){
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Lorem Ipsum</h1>
+        <span>Lorem</span> ipsum dolor sit amet, consectetur adipiscing elit. <strong>Donec vulputate</strong>
+        magna nec condimentum tempor. Praesent purus elit, sagittis sit amet metus sed, posuere consequat ante.
+        Maecenas ac nibh justo. Duis eget posuere diam. Duis nisl leo, sagittis porttitor <a
+            href="http://www.ugr.es">bibendum</a> ut, dapibus id nulla. Orci varius natoque penatibus et magnis dis
+        parturient montes, nascetur ridiculus mus. Nullam in porttitor massa.
+    </header>
+    <main>
+        <section id="primera">
+            <h2>Aliquam varius</h2>
+            <div>
+                Aliquam varius dapibus ornare. Suspendisse <a href="noexiste.html">venenatis</a> at tellus eu auctor.
+                Aliquam mollis, dolor viverra iaculis fringilla, risus metus rutrum felis, in <em>mattis massa</em> ante
+                eu
+                purus. Vestibulum rhoncus justo et lacus ornare hendrerit. Nulla pharetra, est vitae semper pulvinar,
+                magna
+                nibh venenatis magna, eu vestibulum tortor ex vel ante. Nullam quis dolor lobortis, ullamcorper magna
+                consectetur, consectetur magna. <strong>Fusce quis fringilla urna</strong>. Aliquam lectus dui, tempus
+                eu
+                luctus non, placerat pretium ex.
+            </div>
+        </section>
+        <section>
+            <h1>Nulla augue</h1>
+            <div class="desegunda">
+                Nulla augue <span>lorem</span>, varius nec dapibus et, <a href="noexiste.html">vestibulum eget
+                    velit</a>. Maecenas interdum facilisis ligula, ut pellentesque nunc ultrices at. Cras aliquet leo
+                dui, nec
+                tincidunt nisl consectetur id. Sed ornare consequat nisi a pulvinar. Pellentesque vulputate orci ut
+                <span>lorem</span> lobortis maximus.
+            </div>
+            <div class="desegunda">
+                <p>Proin bibendum, dui vel <em class="especial">porta</em> porttitor, neque <em>dolor</em> volutpat
+                    metus, id aliquam ligula sem nec arcu. Ut <em>suscipit</em> elit dui. Integer pretium sagittis est,
+                    et cursus
+                    tellus pulvinar in. Donec at porttitor nibh, sed scelerisque ligula. Fusce ut massa et elit luctus
+                    gravida sed
+                    scelerisque eros. Mauris pretium euismod velit non porta. Donec ullamcorper nulla sed <em>ipsum</em>
+                    volutpat,
+                    id ultricies mi suscipit. Morbi mattis elementum ante, non porttitor eros. Pellentesque molestie
+                    consequat
+                    felis ac semper.</p>
+                <p>Nam eget arcu quis nisi pretium ultricies. Cras volutpat orci nibh, non laoreet urna euismod eget.
+                    Donec et orci vel risus pulvinar blandit. Donec in nisi suscipit ante dignissim pellentesque ac
+                    viverra urna.
+                    Curabitur pretium ac erat ut varius. Donec ornare tincidunt nunc, sed tempor dui finibus ac.</p>
+            </div>
+        </section>
+        <div>
+            <p>Integer gravida et odio id bibendum. Suspendisse pellentesque neque quis tincidunt pharetra. Ut non
+                arcu auctor, ultrices quam id, malesuada mauris. In hac habitasse platea dictumst.</p>
+            <div>
+                <p>Nam eget arcu quis nisi pretium ultricies. Cras volutpat orci nibh, non laoreet urna euismod eget.
+                    Donec et orci vel risus pulvinar blandit. Donec in nisi suscipit ante dignissim pellentesque ac
+                    viverra urna.
+                    Curabitur pretium ac erat ut varius. Donec ornare tincidunt nunc, sed tempor dui finibus ac.</p>
+                <p>Morbi faucibus scelerisque urna vitae mattis. Curabitur in porta felis. <em>Donec nec nunc
+                        venenatis</em>, finibus ipsum non, rhoncus elit. Praesent iaculis, est ut dignissim vehicula,
+                    enim eros
+                    molestie augue, sed ultricies diam eros id arcu. Vestibulum ante ipsum primis in faucibus orci
+                    luctus et
+                    ultrices posuere cubilia Curae; </p>
+            </div>
+            <p>Donec congue eros at luctus semper. Aliquam a aliquet leo, aliquam pellentesque ipsum. Nullam
+                bibendum felis vitae eros hendrerit, a accumsan nibh dictum. Donec vitae augue ut libero lobortis
+                tincidunt
+                consectetur porta ex.</p>
+        </div>
+        <article>
+            <p>Phasellus porttitor vulputate urna, quis mollis massa facilisis id. Curabitur tincidunt vel leo vitae
+                maximus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p>Ut semper mollis felis non congue. Nam id <span>nibh rutrum</span>, luctus elit ut, rutrum lorem.
+                Proin at tellus urna. Mauris malesuada ex nulla. Vestibulum ante ipsum primis in faucibus orci luctus et
+                ultrices posuere cubilia curae.</p>
+            <p>Cras vitae nunc vulputate, aliquet lorem ut, mollis turpis. In vel dignissim ipsum. Sed blandit
+                libero vitae mi semper, id facilisis sapien finibus.</p>
+            <p>Curabitur commodo nulla massa, auctor dapibus dolor aliquam id. Donec vel dolor sit amet mauris
+                facilisis luctus nec et elit. Proin tristique sem et tristique malesuada.</p>
+        </article>
+        <p class="especial">Quisque quis luctus sapien. Nullam euismod accumsan molestie. Maecenas risus nunc,
+            tincidunt in placerat lobortis, sollicitudin ac elit. <strong>Cras</strong> posuere semper
+            <span>lorem</span>,
+            ac semper sem. Sed odio <span>lorem</span>, ultricies eu congue semper, imperdiet eget mi. Nullam faucibus
+            malesuada quam, non feugiat dolor eleifend eget.
+        </p>
+        <p>Etiam eu diam augue. Donec facilisis sed mauris vitae pellentesque. Sed eget enim erat. Vivamus vel
+            purus et leo dignissim porta ac bibendum nunc. Pellentesque ultrices dui enim, id aliquam est vulputate nec.
+        </p>
+    </main>
+</body>
+
+</html>
