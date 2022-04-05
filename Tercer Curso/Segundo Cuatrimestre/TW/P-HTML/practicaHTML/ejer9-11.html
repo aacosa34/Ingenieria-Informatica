@@ -8,10 +8,11 @@
     </style>
 </head>
 <body>
+    <a href="./index.html">Índice</a>  
     <h1>Datos del usuario</h1>
-    <form action="https://void.ugr.es/procesar.php">
+    <form action="https://void.ugr.es/~adrianacosa2122/practicaHTML/procesar2.php" method="POST" enctype="multipart/form-data">
         <label>
-            Usuario: 
+            Usuario:
             <input required type="text" placeholder="Obligatorio: id de usuario" name="usuario" id="usuario"/>
         </label>
         <label>
@@ -40,6 +41,30 @@
                 <option value="NINGUNO">No acepta el almacenamiento ni el envío de datos a terceros</option>
             </select>
         </label>
+        <label>
+            <br>Idioma para las comunicaciones:<br><br>
+            <input checked type="radio" name="idioma" value="Español"/> Español <br>
+            <input type="radio" name="idioma" value="Inglés"/> Inglés <br>
+            <input type="radio" name="idioma" value="Francés"/> Francés <br>
+        </label>
+        <label>
+            <br>Aficiones:<br><br>
+            <input type="checkbox" name="aficiones[]" value="musica">La música<br>
+            <input type="checkbox" name="aficiones[]" value="libros">Leer libros<br>
+            <input type="checkbox" name="aficiones[]" value="cine">El cine<br>
+            <input type="checkbox" name="aficiones[]" value="deporte">El deporte<br>
+        </label>
+        <label>
+            Fecha de nacimiento:
+            <input type="date" name="fecha de nacimiento">
+        </label>
+        <label>
+            ¿Cuándo es la semana santa este año?:
+            <input type="week" name="semana santa">
+        </label>
+
+        <input type="hidden" name="num_version" value="1.0">
+
         <input type="submit" name="boton" value="Enviar datos"/>
     </form>
 </body>
