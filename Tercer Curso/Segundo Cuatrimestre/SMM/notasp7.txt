@@ -1,0 +1,4 @@
+Para implementar el spinner lo que he tenido que hacer ha sido modificar la declaracion del spinner para definir mi 
+propio modelo de spinner que empiece en 1, porque por defecto si al constructor no se le pasa ningun parametro
+el spinner siempre empieza en 1. Luego para cambiar de valor con la ventana lo que hago es usar la clase manejadora
+de las ventanas internas para actualizar el valor segun el grosor que tenga asignado en cada ventana.`

@@ -4,6 +4,8 @@
  */
 package paintbasico;
 
+import sm.aas.ui.Lienzo2D;
+
 /**
  *
  * @author adrian
@@ -15,8 +17,19 @@ public class VentanaInterna extends javax.swing.JInternalFrame {
      */
     public VentanaInterna() {
         initComponents();
+        this.setSize(600,500);
+        this.setTitle("Nuevo lienzo");
     }
 
+    public Lienzo2D getLienzo2D() {
+        return lienzo2D;
+    }
+
+    public void setLienzo2D(Lienzo2D lienzo2D) {
+        this.lienzo2D = lienzo2D;
+    }
+     
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +39,31 @@ public class VentanaInterna extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        lienzo2D = new sm.aas.ui.Lienzo2D();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
+        javax.swing.GroupLayout lienzo2DLayout = new javax.swing.GroupLayout(lienzo2D);
+        lienzo2D.setLayout(lienzo2DLayout);
+        lienzo2DLayout.setHorizontalGroup(
+            lienzo2DLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 394, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+        lienzo2DLayout.setVerticalGroup(
+            lienzo2DLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
+
+        getContentPane().add(lienzo2D, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private sm.aas.ui.Lienzo2D lienzo2D;
     // End of variables declaration//GEN-END:variables
 }

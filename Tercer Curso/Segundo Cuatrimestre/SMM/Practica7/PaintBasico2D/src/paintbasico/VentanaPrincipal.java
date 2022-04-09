@@ -7,7 +7,10 @@ package paintbasico;
 import java.awt.Color;
 import java.io.File;
 import javax.swing.JFileChooser;
-import paintbasico.Lienzo.Herramienta;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SpinnerModel;
+import static sm.aas.ui.Lienzo2D.Formas;
 
 /**
  *
@@ -16,12 +19,14 @@ import paintbasico.Lienzo.Herramienta;
 public class VentanaPrincipal extends javax.swing.JFrame {
     
     private boolean barraEstadoActiva = true;
+    private ManejadorVentanaInterna mvi;
 
     /**
      * Creates new form VentanaPrincipal
      */
     public VentanaPrincipal() {
         initComponents();
+        mvi = new ManejadorVentanaInterna();
         this.setSize(800, 800);
         this.setTitle("Paint Basico");
     }
@@ -54,13 +59,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         colorAmarillo = new javax.swing.JToggleButton();
         colorVerde = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
-        jSpinner2 = new javax.swing.JSpinner();
+        SpinnerModel valor = new SpinnerNumberModel(1,1,20,1);
+        grosorSpinner = new javax.swing.JSpinner(valor);
         relleno = new javax.swing.JCheckBox();
         transparencia = new javax.swing.JCheckBox();
         alisar = new javax.swing.JCheckBox();
         mover = new javax.swing.JCheckBox();
         labelEstado = new javax.swing.JLabel();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        escritorio = new javax.swing.JDesktopPane();
         barraMenu = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
         menuNuevo = new javax.swing.JMenuItem();
@@ -145,6 +151,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         colorNegro.setFocusable(false);
         colorNegro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         colorNegro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        colorNegro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorNegroActionPerformed(evt);
+            }
+        });
         jPanel1.add(colorNegro);
 
         colorRojo.setBackground(java.awt.Color.red);
@@ -153,6 +164,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         colorRojo.setFocusable(false);
         colorRojo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         colorRojo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        colorRojo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorRojoActionPerformed(evt);
+            }
+        });
         jPanel1.add(colorRojo);
 
         colorAzul.setBackground(java.awt.Color.blue);
@@ -161,6 +177,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         colorAzul.setFocusable(false);
         colorAzul.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         colorAzul.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        colorAzul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorAzulActionPerformed(evt);
+            }
+        });
         jPanel1.add(colorAzul);
 
         colorNaranja.setBackground(java.awt.Color.orange);
@@ -169,6 +190,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         colorNaranja.setFocusable(false);
         colorNaranja.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         colorNaranja.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        colorNaranja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorNaranjaActionPerformed(evt);
+            }
+        });
         jPanel1.add(colorNaranja);
 
         colorAmarillo.setBackground(java.awt.Color.yellow);
@@ -177,6 +203,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         colorAmarillo.setFocusable(false);
         colorAmarillo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         colorAmarillo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        colorAmarillo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorAmarilloActionPerformed(evt);
+            }
+        });
         jPanel1.add(colorAmarillo);
 
         colorVerde.setBackground(java.awt.Color.green);
@@ -185,22 +216,52 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         colorVerde.setFocusable(false);
         colorVerde.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         colorVerde.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        colorVerde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorVerdeActionPerformed(evt);
+            }
+        });
         jPanel1.add(colorVerde);
 
         barraAtributos.add(jPanel1);
 
-        jPanel2.add(jSpinner2);
+        grosorSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                grosorSpinnerStateChanged(evt);
+            }
+        });
+        jPanel2.add(grosorSpinner);
 
         relleno.setText("Relleno");
+        relleno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rellenoActionPerformed(evt);
+            }
+        });
         jPanel2.add(relleno);
 
         transparencia.setText("Transparencia");
+        transparencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transparenciaActionPerformed(evt);
+            }
+        });
         jPanel2.add(transparencia);
 
         alisar.setText("Alisar");
+        alisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alisarActionPerformed(evt);
+            }
+        });
         jPanel2.add(alisar);
 
         mover.setText("Mover");
+        mover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                moverActionPerformed(evt);
+            }
+        });
         jPanel2.add(mover);
 
         barraAtributos.add(jPanel2);
@@ -213,7 +274,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel5.add(jPanel6, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel5, java.awt.BorderLayout.PAGE_END);
-        getContentPane().add(jDesktopPane1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(escritorio, java.awt.BorderLayout.CENTER);
 
         menuArchivo.setText("File");
 
@@ -265,27 +326,41 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonTrazoLibreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTrazoLibreActionPerformed
-        lienzo.setHerramienta(Herramienta.TRAZO_LIBRE);
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi != null){
+            vi.getLienzo2D().setFormaActiva(Formas.TRAZO_LIBRE);
+        }
         if(barraEstadoActiva)
-            labelEstado.setText("Punto");
+            labelEstado.setText("Trazo libre");
     }//GEN-LAST:event_botonTrazoLibreActionPerformed
 
     private void botonLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLineaActionPerformed
-        lienzo.setHerramienta(Herramienta.LINEA);
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi != null){
+            vi.getLienzo2D().setFormaActiva(Formas.LINEA);
+        }
         if(barraEstadoActiva)
             labelEstado.setText("Linea");
     }//GEN-LAST:event_botonLineaActionPerformed
 
     private void botonRectanguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRectanguloActionPerformed
-        lienzo.setHerramienta(Herramienta.RECTANGULO);
+        VentanaInterna vi; 
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi != null)
+            vi.getLienzo2D().setFormaActiva(Formas.RECTANGULO);
         if(barraEstadoActiva)
             labelEstado.setText("Rectangulo");
     }//GEN-LAST:event_botonRectanguloActionPerformed
 
     private void botonElipseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonElipseActionPerformed
-        lienzo.setHerramienta(Herramienta.ELIPSE);
+        VentanaInterna vi; 
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi != null)
+            vi.getLienzo2D().setFormaActiva(Formas.ELIPSE);
         if(barraEstadoActiva)
-            labelEstado.setText("Eclipse");
+            labelEstado.setText("Elipse");
     }//GEN-LAST:event_botonElipseActionPerformed
 
     private void menuAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAbrirActionPerformed
@@ -307,8 +382,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuGuardarActionPerformed
 
     private void menuNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNuevoActionPerformed
-        lienzo.setBlank();
-        lienzo.repaint();
+        VentanaInterna vi = new VentanaInterna();
+        escritorio.add(vi);
+        vi.setVisible(true);
+        vi.addInternalFrameListener(mvi);  
     }//GEN-LAST:event_menuNuevoActionPerformed
 
     private void menuVerBarraEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVerBarraEstadoActionPerformed
@@ -316,7 +393,93 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         labelEstado.setText(" ");
     }//GEN-LAST:event_menuVerBarraEstadoActionPerformed
 
+    private void colorNegroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorNegroActionPerformed
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        vi.getLienzo2D().setColor(Color.BLACK);
+        this.repaint();
+    }//GEN-LAST:event_colorNegroActionPerformed
 
+    private void colorRojoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorRojoActionPerformed
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        vi.getLienzo2D().setColor(Color.RED);
+        this.repaint();
+    }//GEN-LAST:event_colorRojoActionPerformed
+
+    private void colorAzulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorAzulActionPerformed
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        vi.getLienzo2D().setColor(Color.BLUE);
+        this.repaint();
+    }//GEN-LAST:event_colorAzulActionPerformed
+
+    private void colorNaranjaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorNaranjaActionPerformed
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        vi.getLienzo2D().setColor(Color.ORANGE);
+        this.repaint();
+    }//GEN-LAST:event_colorNaranjaActionPerformed
+
+    private void colorAmarilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorAmarilloActionPerformed
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        vi.getLienzo2D().setColor(Color.YELLOW);
+        this.repaint();
+    }//GEN-LAST:event_colorAmarilloActionPerformed
+
+    private void colorVerdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorVerdeActionPerformed
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        vi.getLienzo2D().setColor(Color.GREEN);
+        this.repaint();
+    }//GEN-LAST:event_colorVerdeActionPerformed
+
+    private void grosorSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_grosorSpinnerStateChanged
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        vi.getLienzo2D().setGrosor((int)grosorSpinner.getValue());
+        this.repaint();
+    }//GEN-LAST:event_grosorSpinnerStateChanged
+
+    private void rellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rellenoActionPerformed
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        vi.getLienzo2D().setRelleno(!vi.getLienzo2D().isRelleno());
+        this.repaint();
+    }//GEN-LAST:event_rellenoActionPerformed
+
+    private void transparenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transparenciaActionPerformed
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        vi.getLienzo2D().setTrans_activa(!vi.getLienzo2D().isTrans_activa());
+        this.repaint();
+    }//GEN-LAST:event_transparenciaActionPerformed
+
+    private void alisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alisarActionPerformed
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        vi.getLienzo2D().setAlisado(!vi.getLienzo2D().isAlisado());
+        this.repaint();
+    }//GEN-LAST:event_alisarActionPerformed
+
+    private void moverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moverActionPerformed
+        VentanaInterna vi;
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        vi.getLienzo2D().setMover(!vi.getLienzo2D().isMover());
+        this.repaint();
+    }//GEN-LAST:event_moverActionPerformed
+
+    private class ManejadorVentanaInterna extends InternalFrameAdapter{
+        public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt){
+            VentanaInterna vi = (VentanaInterna)evt.getInternalFrame();
+            relleno.setSelected(vi.getLienzo2D().isRelleno()); 
+            transparencia.setSelected(vi.getLienzo2D().isTrans_activa());
+            alisar.setSelected(vi.getLienzo2D().isAlisado());
+            mover.setSelected(vi.getLienzo2D().isMover());
+            grosorSpinner.setValue((int)vi.getLienzo2D().getGrosor());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox alisar;
@@ -335,13 +498,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton colorRojo;
     private javax.swing.JToggleButton colorVerde;
     private javax.swing.ButtonGroup colores;
+    private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JSpinner grosorSpinner;
     private javax.swing.ButtonGroup herramientas;
-    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JSpinner jSpinner2;
     private javax.swing.JLabel labelEstado;
     private javax.swing.JMenuItem menuAbrir;
     private javax.swing.JMenu menuArchivo;
