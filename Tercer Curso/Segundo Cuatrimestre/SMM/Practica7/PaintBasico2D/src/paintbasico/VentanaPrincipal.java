@@ -133,6 +133,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         botonCurva.setFocusable(false);
         botonCurva.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonCurva.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonCurva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCurvaActionPerformed(evt);
+            }
+        });
         barraHerramientas.add(botonCurva);
 
         getContentPane().add(barraHerramientas, java.awt.BorderLayout.PAGE_START);
@@ -469,6 +474,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         vi.getLienzo2D().setMover(!vi.getLienzo2D().isMover());
         this.repaint();
     }//GEN-LAST:event_moverActionPerformed
+
+    private void botonCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCurvaActionPerformed
+        VentanaInterna vi; 
+        vi = (VentanaInterna) escritorio.getSelectedFrame();
+        if(vi != null)
+            vi.getLienzo2D().setFormaActiva(Formas.QUAD_CURVE);
+        if(barraEstadoActiva)
+            labelEstado.setText("Curva");
+    }//GEN-LAST:event_botonCurvaActionPerformed
 
     private class ManejadorVentanaInterna extends InternalFrameAdapter{
         public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt){

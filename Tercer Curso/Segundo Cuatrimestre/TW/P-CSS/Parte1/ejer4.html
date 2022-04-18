@@ -1,9 +1,102 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>Ejercicio</title>
+    <style>
+      /*
+        Especificidad: toda etiqueta cuyo id sea ftecnica
+      */
+      #ftecnica {
+        color: gold;
+      }
+      /*
+        Especificidad: todo section
+      */
+      section {
+        color: green;
+      }
+      /*
+        Especificidad: todo span dentro de un li que no sea el primer hijo
+      */
+      li > span:not(:first-child) {
+        color: aqua;
+      }
+      /*
+        Especificidad: todo span que sea segundo hijo
+      */
+      span:nth-child(2) {
+        color: red;
+      }
+      /*
+        Especificidad: todo span hijo directo de un li
+      */
+      li span {
+        color: blue;
+      }
+      /*
+        Especificidad: toda la clase enfasis
+      */
+      .enfasis {
+        color: pink;
+      }
+      /*
+        Especificidad: todo span dentro de un li que no sea el ultimo hijo
+      */
+      li:not(:nth-last-child) > span  {
+        color: yellow;
+      }
+      /*
+        Especificidad: toda li que sea numero par de hijo
+      */
+      li:nth-child(2n) {
+        color: salmon;
+      }
+      /*
+        Especificidad: toda etiqueta cuyo id sea bryan
+      */
+      #bryan {
+        color: gray;
+      }
+      /*
+        Especificidad: toda etiqueta li de la clase main hijo de un ul y a su vez de un section
+      */
+      section > ul > li.main {
+        color: royalblue;
+      }
+      /*
+        Especificidad: todo h2 descendiente directo de id ftecnica
+      */
+      #ftecnica h2 {
+        color: plum;
+      }
+      /*
+        Especificidad: todo h2 descendiente directo de section
+      */
+      section h2 {
+        color: skyblue;
+      }
+
+      /*
+        Especificidad: todo li que sea ultimo hijo de un section con id ftecnica
+      */
+      section#ftecnica li li:last-child {
+        color : sienna;
+      }
+      /*
+        Especificidad: etiqueta con id betsy
+      */
+      #betsy {
+        color: darkblue;
+      }
+      /*
+        Especificidad: todo li ultimo hijo, hijo de un ul, a su vez de section
+        y a su vez dentro de otro section y este ultimo dentro de la etiqueta main
+      */
+      main > section > section > ul > li:last-child {
+        color : silver;
+      }
+    </style>
 </head>
 <body>
     <header>
