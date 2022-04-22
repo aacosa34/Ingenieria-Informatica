@@ -8,6 +8,7 @@ import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Composite;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -15,15 +16,15 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.Stroke;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.QuadCurve2D;
 import java.awt.geom.RectangularShape;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import sm.aas.graficos.JElipse2D;
-import sm.aas.graficos.JGeneralPath;
-import sm.aas.graficos.JLinea2D;
+import sm.aas.graficos.AElipse2D;
+import sm.aas.graficos.AGeneralPath;
+import sm.aas.graficos.ALinea2D;
 
 /**
  *
@@ -39,6 +40,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     private ArrayList<Shape> vShape = new ArrayList<Shape>();
     private Shape s;
     private boolean puntoControl = false;
+    private boolean volcado = false;
     
     // Propiedades de las figuras
     private boolean relleno = false, mover = false, trans_activa = false, alisado = false;
@@ -48,6 +50,8 @@ public class Lienzo2D extends javax.swing.JPanel {
     private float transparencia = 0.5f;
     private RenderingHints render;
     
+    // Variables relacionadas con procesamiento de imagenes
+    private BufferedImage img;
     
     
 
@@ -63,6 +67,8 @@ public class Lienzo2D extends javax.swing.JPanel {
         super.paint(g);
         
         Graphics2D g2d = (Graphics2D) g;
+        
+        if(img!=null) g2d.drawImage(img,0,0,this);
         
         g2d.setPaint(color);
         g2d.setStroke(stroke);
@@ -151,6 +157,48 @@ public class Lienzo2D extends javax.swing.JPanel {
         }
         return null;
     }
+
+    public BufferedImage getImage() {
+        return img;
+    }
+    
+    // Metodo para poder guardar las imagenes junto con las figuras que hemos
+    // dibujado encima
+    public BufferedImage getImage(boolean drawVector){
+        if(drawVector){
+            BufferedImage imgout = new BufferedImage(img.getWidth(),
+                                                     img.getHeight(),
+                                                     img.getType());
+            boolean opacoActual = this.isOpaque();
+            if(img.getColorModel().hasAlpha()){ // Desactiva la opacidad en el caso de que la imagen tenga canal alfa
+                this.setOpaque(false);
+            }
+            this.paint(imgout.createGraphics());
+            this.setOpaque(opacoActual);
+            return imgout;
+        }
+        else{
+            return img;
+        }
+    }
+
+    public void setImage(BufferedImage img) {
+        this.img = img;
+         
+        if (img != null) {
+            setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
+        }
+    }
+
+    public boolean isVolcado() {
+        return volcado;
+    }
+
+    public void setVolcado(boolean volcado) {
+        this.volcado = volcado;
+    }
+    
+    
     
 
     /**
@@ -200,12 +248,12 @@ public class Lienzo2D extends javax.swing.JPanel {
         else{
             switch(formaActiva){
                 case TRAZO_LIBRE:
-                    s = new JGeneralPath();
-                    ((JGeneralPath)s).moveTo(pAux.x, pAux.y);
+                    s = new AGeneralPath();
+                    ((AGeneralPath)s).moveTo(pAux.x, pAux.y);
                 break;
                 
                 case LINEA:
-                    s = new JLinea2D();
+                    s = new ALinea2D();
                 break;
                 
                 case RECTANGULO:
@@ -213,7 +261,7 @@ public class Lienzo2D extends javax.swing.JPanel {
                 break;
                 
                 case ELIPSE:
-                    s = new JElipse2D();
+                    s = new AElipse2D();
                 break;
                 
                 case QUAD_CURVE:
@@ -230,14 +278,14 @@ public class Lienzo2D extends javax.swing.JPanel {
             if(s instanceof Rectangle){
                 ((Rectangle)s).setLocation(evt.getPoint());
             }
-            else if(s instanceof JElipse2D){
-                ((JElipse2D)s).setLocation(evt.getPoint());
+            else if(s instanceof AElipse2D){
+                ((AElipse2D)s).setLocation(evt.getPoint());
             }
-            else if(s instanceof JLinea2D){
-                ((JLinea2D)s).setLocation(evt.getPoint());
+            else if(s instanceof ALinea2D){
+                ((ALinea2D)s).setLocation(evt.getPoint());
             }
-            else if(s instanceof JGeneralPath){
-                ((JGeneralPath)s).setLocation(evt.getPoint());
+            else if(s instanceof AGeneralPath){
+                ((AGeneralPath)s).setLocation(evt.getPoint());
             }  
            
         }
@@ -245,8 +293,8 @@ public class Lienzo2D extends javax.swing.JPanel {
             if(s instanceof Line2D) ((Line2D)s).setLine(pAux,evt.getPoint());
             else if(s instanceof RectangularShape)
                 ((RectangularShape)s).setFrameFromDiagonal(pAux, evt.getPoint());
-            else if(s instanceof JGeneralPath){
-                ((JGeneralPath)s).lineTo(evt.getX(), evt.getY());
+            else if(s instanceof AGeneralPath){
+                ((AGeneralPath)s).lineTo(evt.getX(), evt.getY());
             }
             else if(s instanceof QuadCurve2D){
                 
