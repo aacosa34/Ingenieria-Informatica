@@ -4,7 +4,13 @@
  */
 package practicasimagen;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -46,7 +52,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         herramientas = new javax.swing.ButtonGroup();
-        grupoColores = new javax.swing.ButtonGroup();
         barraHerramientas = new javax.swing.JToolBar();
         botonNuevoLienzo = new javax.swing.JButton();
         botonAbrir = new javax.swing.JButton();
@@ -122,7 +127,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraHerramientas.add(botonGuardar);
         barraHerramientas.add(jSeparator1);
 
-        botonVolcado.setText("VOLCADO");
+        botonVolcado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-rodillo-24.png"))); // NOI18N
         botonVolcado.setFocusable(false);
         botonVolcado.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonVolcado.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -264,8 +269,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         barraHerramientas.add(botonAlisado);
-
-        listaFiguras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         barraHerramientas.add(listaFiguras);
 
         getContentPane().add(barraHerramientas, java.awt.BorderLayout.PAGE_START);
@@ -455,7 +458,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         vi.addInternalFrameListener(mvi);
         BufferedImage img;
         img = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
+        
+
         vi.getLienzo2D().setImage(img);
+        
     }//GEN-LAST:event_botonNuevoLienzoActionPerformed
 
     private void botonAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAbrirActionPerformed
@@ -549,44 +555,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             botonAlisado.setSelected(vi.getLienzo2D().isAlisado());
             botonMover.setSelected(vi.getLienzo2D().isMover());
             grosorSpinner.setValue((int) vi.getLienzo2D().getGrosor());
+            botonVolcado.setSelected(vi.getLienzo2D().isVolcado());
             
-//            switch(formaActiva){
-//                case TRAZO_LIBRE:
-//                    botonTrazoLibre.setSelected(true);
-//                    botonLinea.setSelected(false);
-//                    botonRectangulo.setSelected(false);
-//                    botonElipse.setSelected(false);
-//                    botonCurva.setSelected(false);
-//                break;
-//                case LINEA:
-//                    botonTrazoLibre.setSelected(false);
-//                    botonLinea.setSelected(true);
-//                    botonRectangulo.setSelected(false);
-//                    botonElipse.setSelected(false);
-//                    botonCurva.setSelected(false);
-//                break;
-//                case RECTANGULO:
-//                    botonTrazoLibre.setSelected(false);
-//                    botonLinea.setSelected(false);
-//                    botonRectangulo.setSelected(true);
-//                    botonElipse.setSelected(false);
-//                    botonCurva.setSelected(false);
-//                break;
-//                case ELIPSE:
-//                    botonTrazoLibre.setSelected(false);
-//                    botonLinea.setSelected(false);
-//                    botonRectangulo.setSelected(false);
-//                    botonElipse.setSelected(true);
-//                    botonCurva.setSelected(false);
-//                break;
-//                case QUAD_CURVE:
-//                    botonTrazoLibre.setSelected(false);
-//                    botonLinea.setSelected(false);
-//                    botonRectangulo.setSelected(false);
-//                    botonElipse.setSelected(false);
-//                    botonCurva.setSelected(true);
-//                break;
-//            }
+            switch(formaActiva){
+                case TRAZO_LIBRE:
+                    botonTrazoLibre.setSelected(true);
+                break;
+                case LINEA:
+                    botonLinea.setSelected(true);
+                break;
+                case RECTANGULO:
+                    botonRectangulo.setSelected(true);
+                break;
+                case ELIPSE:
+                    botonElipse.setSelected(true);
+                break;
+                case QUAD_CURVE:
+                    botonCurva.setSelected(true);
+                break;
+            }
         }
     }
 
@@ -608,7 +595,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton botonVolcado;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JSpinner grosorSpinner;
-    private javax.swing.ButtonGroup grupoColores;
     private javax.swing.ButtonGroup herramientas;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -616,7 +602,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JLabel labelEstado;
-    private javax.swing.JComboBox<String> listaFiguras;
+    private javax.swing.JComboBox<Shape> listaFiguras;
     private javax.swing.JMenuItem menuAbrir;
     private javax.swing.JMenu menuArchivo;
     private javax.swing.JMenu menuEdicion;

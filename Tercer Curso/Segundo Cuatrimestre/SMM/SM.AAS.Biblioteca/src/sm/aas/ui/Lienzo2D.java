@@ -88,8 +88,21 @@ public class Lienzo2D extends javax.swing.JPanel {
         for (Shape forma : vShape) {
             if (relleno) {
                 g2d.fill(forma);
+                if(forma instanceof ALinea2D) g2d.draw(forma);
+            }else{
+                g2d.draw(forma);
             }
-            g2d.draw(forma);
+        }           
+        if(volcado){
+            vShape.clear();
+            if(relleno){
+                g2d.fill(s);
+                if(s instanceof ALinea2D) g2d.draw(s);
+            }
+            else{
+                g2d.draw(s);
+            }
+            
         }
     }
 
@@ -184,9 +197,19 @@ public class Lienzo2D extends javax.swing.JPanel {
 
     public void setImage(BufferedImage img) {
         this.img = img;
-         
+        
         if (img != null) {
-            setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
+            setPreferredSize(new Dimension(img.getWidth(), img.getHeight())); 
+            Graphics2D g2dImagen = img.createGraphics();
+
+            float patronDiscontinuidad[] = {7.0f, 7.0f};
+            Stroke borde = new BasicStroke(1.0f, BasicStroke.CAP_ROUND,
+                    BasicStroke.JOIN_MITER, 1.0f,
+                    patronDiscontinuidad, 1.0f);
+            
+            g2dImagen.setStroke(borde);
+            g2dImagen.setPaint(Color.GRAY);
+            g2dImagen.fill(new Rectangle(new Dimension(img.getWidth(), img.getHeight())));
         }
     }
 
@@ -269,7 +292,7 @@ public class Lienzo2D extends javax.swing.JPanel {
                 break;
                 
             }
-            vShape.add(s);
+            
         }
     }//GEN-LAST:event_formMousePressed
 
@@ -300,6 +323,7 @@ public class Lienzo2D extends javax.swing.JPanel {
                 
             }
             
+            vShape.add(s);
         }
         this.repaint();
     }//GEN-LAST:event_formMouseDragged

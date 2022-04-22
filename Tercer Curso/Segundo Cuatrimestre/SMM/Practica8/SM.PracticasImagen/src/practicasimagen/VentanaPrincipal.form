@@ -4,8 +4,6 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="herramientas">
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="grupoColores">
-    </Component>
     <Menu class="javax.swing.JMenuBar" name="barraMenu">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menuArchivo">
@@ -150,7 +148,9 @@
         </Component>
         <Component class="javax.swing.JToggleButton" name="botonVolcado">
           <Properties>
-            <Property name="text" type="java.lang.String" value="VOLCADO"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/iconos/icons8-rodillo-24.png"/>
+            </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -331,18 +331,8 @@
           </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="listaFiguras">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
-            </Property>
-          </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Shape&gt;"/>
           </AuxValues>
         </Component>
       </SubComponents>
