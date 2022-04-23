@@ -19,4 +19,9 @@ public class AElipse2D extends Ellipse2D.Double {
         Point2D newp2 = new Point2D.Double(this.getX() + dx, this.getY() + dy);
         this.setFrameFromDiagonal(pos, newp2);
     }
+    
+    @Override
+    public String toString(){
+        return "Elipse";
+    }
 }

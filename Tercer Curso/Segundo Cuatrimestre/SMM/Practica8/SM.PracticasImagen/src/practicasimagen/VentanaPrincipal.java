@@ -4,21 +4,21 @@
  */
 package practicasimagen;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SpinnerModel;
 import sm.aas.comboboxcolores.ColorCellRender;
+import sm.aas.eventos.LienzoAdapter;
+import sm.aas.eventos.LienzoEvent;
 import static sm.aas.ui.Lienzo2D.Formas;
 
 /**
@@ -29,6 +29,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private boolean barraEstadoActiva = true;
     private ManejadorVentanaInterna mvi;
+    private ManejadorLienzo mlienzo;
     private Formas formaActiva;
 
     /**
@@ -37,9 +38,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
         initComponents();
         mvi = new ManejadorVentanaInterna();
-        this.setSize(800, 800);
+        mlienzo = new ManejadorLienzo();
+        this.setSize(1000, 1000);
         this.setTitle("Paint Basico");
-        //formaActiva = Formas.TRAZO_LIBRE;
+        formaActiva = Formas.TRAZO_LIBRE;
     }
 
     /**
@@ -435,6 +437,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 vi.setTitle(f.getName());
                 vi.setVisible(true);
                 vi.addInternalFrameListener(mvi);
+                vi.getLienzo2D().addLienzoListener(mlienzo);
             } catch (Exception ex) {
                 System.err.println("Error al leer la imagen");
             }
@@ -446,6 +449,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         escritorio.add(vi);
         vi.setVisible(true);
         vi.addInternalFrameListener(mvi);
+        vi.getLienzo2D().addLienzoListener(mlienzo);
         BufferedImage img;
         img = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
         vi.getLienzo2D().setImage(img);
@@ -456,10 +460,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         escritorio.add(vi);
         vi.setVisible(true);
         vi.addInternalFrameListener(mvi);
+        vi.getLienzo2D().addLienzoListener(mlienzo);
         BufferedImage img;
         img = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
-        
-
         vi.getLienzo2D().setImage(img);
         
     }//GEN-LAST:event_botonNuevoLienzoActionPerformed
@@ -477,6 +480,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 vi.setTitle(f.getName());
                 vi.setVisible(true);
                 vi.addInternalFrameListener(mvi);
+                vi.getLienzo2D().addLienzoListener(mlienzo);
             } catch (Exception ex) {
                 System.err.println("Error al leer la imagen");
             }
@@ -535,7 +539,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
          VentanaInterna vi;
          vi = (VentanaInterna) escritorio.getSelectedFrame();
          vi.getLienzo2D().setVolcado(!vi.getLienzo2D().isVolcado());
-         this.repaint();
     }//GEN-LAST:event_botonVolcadoActionPerformed
 
     private void seleccionColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionColorActionPerformed
@@ -550,6 +553,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             VentanaInterna vi = (VentanaInterna) evt.getInternalFrame();
+            
             botonRelleno.setSelected(vi.getLienzo2D().isRelleno());
             botonTransparencia.setSelected(vi.getLienzo2D().isTrans_activa());
             botonAlisado.setSelected(vi.getLienzo2D().isAlisado());
@@ -574,6 +578,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     botonCurva.setSelected(true);
                 break;
             }
+        }
+    }
+    
+    private class ManejadorLienzo extends LienzoAdapter{
+        public void shapeAdded(LienzoEvent evt){
+            listaFiguras.addItem(evt.getForma());
         }
     }
 

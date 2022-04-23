@@ -18,7 +18,7 @@ public class VentanaInterna extends javax.swing.JInternalFrame {
     public VentanaInterna() {
         initComponents();
         this.setSize(600,500);
-        this.setTitle("Nuevo lienzo");
+        this.setTitle("Nueva imagen");
     }
 
     public Lienzo2D getLienzo2D() {

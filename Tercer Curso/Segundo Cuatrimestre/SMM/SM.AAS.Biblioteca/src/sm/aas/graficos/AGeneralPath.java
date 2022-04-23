@@ -20,4 +20,9 @@ public class AGeneralPath extends GeneralPath.Double {
         at = AffineTransform.getTranslateInstance(pos.getX() - loc.getX(), pos.getY() - loc.getY());
         this.transform(at);
     }
+    
+    @Override
+    public String toString(){
+        return "Trazo libre";
+    }
 }

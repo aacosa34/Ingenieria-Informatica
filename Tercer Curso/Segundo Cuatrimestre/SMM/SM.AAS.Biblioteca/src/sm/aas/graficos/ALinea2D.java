@@ -28,4 +28,9 @@ public class ALinea2D extends Line2D.Double {
         Point2D newp2 = new Point2D.Double(this.getX2() + dx, this.getY2() + dy);
         this.setLine(pos, newp2);
     }
+    
+    @Override
+    public String toString(){
+        return "Línea";
+    }
 }
