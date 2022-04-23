@@ -4,37 +4,47 @@
     <meta charset="utf-8">
     <title>Ejercicio</title>
     <style>
+      nav,p {
+        padding: 10px;
+      }
+
       nav {
         position: relative;
-        right:10%;
-        left:10%;
         width:80%;
         border: black solid 5px;
-        margin:0px;
+        margin:0px auto;
       }
       p {
         background-color: gainsboro;
         display: inline-block;
+        width: 20%;
         border: solid 5px;
       }
       .primero{
         margin:0%;
-        width: 20%;
         border-color: red;
+        text-align: left;
+        float: left;
       }
       .medio{
         margin: 0%;
-        width:60%;
+        width: 60%;
         border-color: greenyellow;
         text-align: center;
+        float:left;
       }
       .final{
         margin:0%;
-        width: max-content;
+        width: 20%;
         border-color: blue;
         text-align: right;
       }
-      
+      .final::after{
+        content: "\00bb"
+      }
+      .primero::before{
+        content: "\00ab"
+      }
 
       
     </style>
@@ -42,7 +52,9 @@
 
   <body>
     <nav>
-     <p class="primero">Anterior</p><p class="medio">Medio</p><p class="final">Siguiente</p>
+     <p class="primero">Anterior</p>
+     <p class="medio">Medio</p>
+     <p class="final">Siguiente</p>
     </nav>
   </body>
 </html>
