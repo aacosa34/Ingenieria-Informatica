@@ -73,20 +73,20 @@ public class Lienzo2D extends javax.swing.JPanel {
         
         Graphics2D g2d = (Graphics2D) g;
         
-        if(img!=null){
-            g2d.drawImage(img,0,0,this);
-            float patronDiscontinuidad[] = {7.0f, 7.0f};
-            Stroke borde = new BasicStroke(1.0f, BasicStroke.CAP_ROUND,
-                    BasicStroke.JOIN_MITER, 1.0f,
-                    patronDiscontinuidad, 1.0f);
-            g2d.setPaint(Color.WHITE);
-            g2d.fill(new Rectangle(new Dimension(img.getWidth(), img.getHeight())));
-            g2d.setStroke(borde);
-            g2d.setPaint(Color.GRAY);
-            g2d.draw(new Rectangle(new Dimension(img.getWidth(), img.getHeight())));
-            
-        }
-        
+//        if(img!=null){
+//            g2d.drawImage(img,0,0,this);
+//            float patronDiscontinuidad[] = {7.0f, 7.0f};
+//            Stroke borde = new BasicStroke(1.0f, BasicStroke.CAP_ROUND,
+//                    BasicStroke.JOIN_MITER, 1.0f,
+//                    patronDiscontinuidad, 1.0f);
+//            g2d.setPaint(Color.WHITE);
+//            g2d.fill(new Rectangle(new Dimension(img.getWidth(), img.getHeight())));
+//            g2d.setStroke(borde);
+//            g2d.setPaint(Color.GRAY);
+//            g2d.draw(new Rectangle(new Dimension(img.getWidth(), img.getHeight())));
+//            
+//        }
+//        
         g2d.setPaint(color);
         g2d.setStroke(stroke);
         
@@ -109,18 +109,7 @@ public class Lienzo2D extends javax.swing.JPanel {
             }else{
                 g2d.draw(forma);
             }
-        }           
-        if(volcado){
-            vShape.clear();
-            if(relleno){
-                g2d.fill(s);
-                if(s instanceof ALinea2D) g2d.draw(s);
-            }
-            else{
-                g2d.draw(s);
-            }
-            
-        }
+        } 
     }
 
     public boolean isRelleno() {
@@ -353,6 +342,7 @@ public class Lienzo2D extends javax.swing.JPanel {
             else if(s instanceof QuadCurve2D){
                 
             }
+            vShape.add(s); 
         }
         
         this.repaint();
@@ -360,7 +350,6 @@ public class Lienzo2D extends javax.swing.JPanel {
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         if(!volcado){
-            vShape.add(s); 
             notifyShapeAddedEvent(new LienzoEvent(this,s,color));
         }
         

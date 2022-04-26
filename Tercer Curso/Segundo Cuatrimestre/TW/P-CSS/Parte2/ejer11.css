@@ -1,67 +1,86 @@
 * {
     margin: 0px;
+    text-decoration: none;
 }
 body {
     margin: 0.7rem;
 }
-header{
+
+.encabezado{
     margin: 0;
-    background-color:lightskyblue;
+    background:lightskyblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-nav{
-    background-color:lightcoral;
-}
-li{
-    margin: 0px 10px;
-}
+
 h1{
     margin: 0 1rem;
 }
-h2{
-  font-size: small;  
+
+nav{
+    background-color:lightcoral;
 }
-ul{
-    list-style: none;
+
+.indice{
+    padding: 5px;
+    justify-items: space-around;
+    align-items: flex-start;
 }
+
+li{
+    margin: 0px 10px;
+}
+
 main{
     display: flex;
+    justify-content: space-between;
 }
+
 .animales{
     display: flex;
-    
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
 }
+
 .imagen{
     display: inline-block;
-    box-sizing: border-box;
     border: black solid 1px;
-    margin: 1px;
+    margin: 5px;
     text-align: center;
+    max-width: 175px;
 }
+
 img{
     display: inline-block;
     box-sizing: border-box;
     max-width: 100%;
 }
-.encabezado{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+h2{
+  font-size: small;  
 }
-.indice{
+
+.continentes{
+    display: flex;
+    flex-basis: 200px;
+    background-color: rgb(99, 102, 117);
+}
+
+ul{
     display: flex;
     padding: 5px;
-    flex-grow: prop;
-    justify-items: space-around;
-    align-items: flex-start;
+    list-style: none;
 }
+
+.lista-continentes{
+    text-align: left;
+    flex-direction: column;
+    align-items: left;
+}
+
 .pie{
     background-color: limegreen;
     text-align: center;
-}
-.continentes{
-    display: flex;
-    flex-grow: prop;
-    justify-items: space-around;
-    align-items: flex-end;
-    background-color: rgb(99, 102, 117);
 }

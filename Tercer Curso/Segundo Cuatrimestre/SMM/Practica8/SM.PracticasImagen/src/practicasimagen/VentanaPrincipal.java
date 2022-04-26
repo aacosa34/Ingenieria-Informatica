@@ -561,23 +561,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             grosorSpinner.setValue((int) vi.getLienzo2D().getGrosor());
             botonVolcado.setSelected(vi.getLienzo2D().isVolcado());
             
-            switch(formaActiva){
-                case TRAZO_LIBRE:
-                    botonTrazoLibre.setSelected(true);
-                break;
-                case LINEA:
-                    botonLinea.setSelected(true);
-                break;
-                case RECTANGULO:
-                    botonRectangulo.setSelected(true);
-                break;
-                case ELIPSE:
-                    botonElipse.setSelected(true);
-                break;
-                case QUAD_CURVE:
-                    botonCurva.setSelected(true);
-                break;
-            }
         }
     }
     
