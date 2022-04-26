@@ -1,5 +1,6 @@
 .galeria{
     margin: 0% auto;
+    width: 100%;
     max-width: 1000px;
     border: gainsboro solid 3px;
     text-align: center; /* Para centrar el contenido de cada uno de los div interiores. Combinado con display: inline-block;*/

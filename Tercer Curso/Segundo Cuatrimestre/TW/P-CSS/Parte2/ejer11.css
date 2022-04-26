@@ -1,0 +1,67 @@
+* {
+    margin: 0px;
+}
+body {
+    margin: 0.7rem;
+}
+header{
+    margin: 0;
+    background-color:lightskyblue;
+}
+nav{
+    background-color:lightcoral;
+}
+li{
+    margin: 0px 10px;
+}
+h1{
+    margin: 0 1rem;
+}
+h2{
+  font-size: small;  
+}
+ul{
+    list-style: none;
+}
+main{
+    display: flex;
+}
+.animales{
+    display: flex;
+    
+}
+.imagen{
+    display: inline-block;
+    box-sizing: border-box;
+    border: black solid 1px;
+    margin: 1px;
+    text-align: center;
+}
+img{
+    display: inline-block;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+.encabezado{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.indice{
+    display: flex;
+    padding: 5px;
+    flex-grow: prop;
+    justify-items: space-around;
+    align-items: flex-start;
+}
+.pie{
+    background-color: limegreen;
+    text-align: center;
+}
+.continentes{
+    display: flex;
+    flex-grow: prop;
+    justify-items: space-around;
+    align-items: flex-end;
+    background-color: rgb(99, 102, 117);
+}
