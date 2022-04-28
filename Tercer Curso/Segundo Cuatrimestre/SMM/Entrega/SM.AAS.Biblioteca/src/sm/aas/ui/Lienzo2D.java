@@ -19,6 +19,7 @@ import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.QuadCurve2D;
+import java.awt.geom.RectangularShape;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import sm.aas.eventos.LienzoEvent;
@@ -38,10 +39,10 @@ public class Lienzo2D extends javax.swing.JPanel {
     private Formas formaActiva = Formas.TRAZO_LIBRE;
     
     // Variables auxiliares para pintar las formas
-    private Point pAux = new Point(), pCurva1 = new Point(), pCurva2 = new Point();
+    private Point pAux = new Point();
     private ArrayList<Shape> vShape = new ArrayList<Shape>();
     private Shape s;
-    private boolean segundo_drag = false;
+    //private boolean puntoControl = false;
     private boolean volcado = false;
     
     // Propiedades de las figuras
@@ -63,7 +64,6 @@ public class Lienzo2D extends javax.swing.JPanel {
      * Creates new form Lienzo2D
      */
     public Lienzo2D() {
-        formaActiva = Formas.TRAZO_LIBRE;
         initComponents();
     }
     
@@ -78,13 +78,13 @@ public class Lienzo2D extends javax.swing.JPanel {
             Stroke borde = new BasicStroke(1.0f, BasicStroke.CAP_ROUND,
                     BasicStroke.JOIN_MITER, 1.0f,
                     patronDiscontinuidad, 1.0f);
-            
             g2d.setPaint(Color.WHITE);
             g2d.fill(new Rectangle(new Dimension(img.getWidth(), img.getHeight())));
             g2d.setStroke(borde);
             g2d.setPaint(Color.GRAY);
             g2d.draw(new Rectangle(new Dimension(img.getWidth(), img.getHeight())));
             g2d.drawImage(img,0,0,this);
+            
         }
         
         g2d.setPaint(color);
@@ -308,9 +308,7 @@ public class Lienzo2D extends javax.swing.JPanel {
                 break;
                 
                 case QUAD_CURVE:
-                    if(!segundo_drag){
-                        s = new QuadCurve2D.Float();
-                    }
+                    s = new QuadCurve2D.Float();
                 break;
                 
             }
@@ -342,23 +340,9 @@ public class Lienzo2D extends javax.swing.JPanel {
                 ((AGeneralPath)s).lineTo(evt.getX(), evt.getY());
             }
             else if(s instanceof QuadCurve2D){
-                if(!segundo_drag){
-                    ((QuadCurve2D)s).setCurve(pAux, evt.getPoint(), evt.getPoint());
-                    pCurva1 = pAux;
-                    pCurva2 = evt.getPoint();
-                    
-                    segundo_drag = true;
-                }
-                else{
-                    ((QuadCurve2D)s).setCurve(pCurva1, evt.getPoint(), pCurva2);
-                    segundo_drag = false;
-                }
                 
             }
-            if(!segundo_drag){
-                vShape.add(s); 
-            }
-            
+            vShape.add(s); 
         }
         
         this.repaint();
