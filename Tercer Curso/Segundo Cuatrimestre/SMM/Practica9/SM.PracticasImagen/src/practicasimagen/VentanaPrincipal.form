@@ -447,6 +447,11 @@
                             <Property name="maximum" type="int" value="20"/>
                             <Property name="value" type="int" value="10"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="contrasteSliderStateChanged"/>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="contrasteSliderFocusGained"/>
+                            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="contrasteSliderFocusLost"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -466,11 +471,14 @@
                     <Component class="javax.swing.JComboBox" name="comboFiltros">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
+                          <StringArray count="7">
+                            <StringItem index="0" value="Media"/>
+                            <StringItem index="1" value="Binomial"/>
+                            <StringItem index="2" value="Laplaciana"/>
+                            <StringItem index="3" value="Relieve"/>
+                            <StringItem index="4" value="Enfoque"/>
+                            <StringItem index="5" value="SobelX"/>
+                            <StringItem index="6" value="SobelY"/>
                           </StringArray>
                         </Property>
                       </Properties>
@@ -483,9 +491,16 @@
                     </Component>
                     <Component class="javax.swing.JSlider" name="filtroSlider">
                       <Properties>
-                        <Property name="maximum" type="int" value="20"/>
-                        <Property name="value" type="int" value="0"/>
+                        <Property name="maximum" type="int" value="31"/>
+                        <Property name="minimum" type="int" value="1"/>
+                        <Property name="toolTipText" type="java.lang.String" value=""/>
+                        <Property name="value" type="int" value="1"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="filtroSliderStateChanged"/>
+                        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="filtroSliderFocusGained"/>
+                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="filtroSliderFocusLost"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

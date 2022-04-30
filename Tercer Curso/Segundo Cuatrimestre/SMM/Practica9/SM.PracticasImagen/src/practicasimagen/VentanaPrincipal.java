@@ -4,8 +4,13 @@
  */
 package practicasimagen;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.ConvolveOp;
@@ -13,6 +18,8 @@ import java.awt.image.Kernel;
 import java.awt.image.RescaleOp;
 import java.awt.image.WritableRaster;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.event.InternalFrameAdapter;
@@ -22,6 +29,7 @@ import sm.aas.comboboxcolores.ColorCellRender;
 import sm.aas.eventos.LienzoAdapter;
 import sm.aas.eventos.LienzoEvent;
 import static sm.aas.ui.Lienzo2D.Formas;
+import sm.image.KernelProducer;
 /**
  *
  * @author adri
@@ -322,6 +330,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         contrasteSlider.setMaximum(20);
         contrasteSlider.setValue(10);
+        contrasteSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                contrasteSliderStateChanged(evt);
+            }
+        });
+        contrasteSlider.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                contrasteSliderFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                contrasteSliderFocusLost(evt);
+            }
+        });
         jPanel2.add(contrasteSlider);
 
         jPanel1.add(jPanel2);
@@ -330,7 +351,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros"));
 
-        comboFiltros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboFiltros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Media", "Binomial", "Laplaciana", "Relieve", "Enfoque", "SobelX", "SobelY" }));
         comboFiltros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboFiltrosActionPerformed(evt);
@@ -338,8 +359,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jPanel3.add(comboFiltros);
 
-        filtroSlider.setMaximum(20);
-        filtroSlider.setValue(0);
+        filtroSlider.setMaximum(31);
+        filtroSlider.setMinimum(1);
+        filtroSlider.setToolTipText("");
+        filtroSlider.setValue(1);
+        filtroSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                filtroSliderStateChanged(evt);
+            }
+        });
+        filtroSlider.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                filtroSliderFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                filtroSliderFocusLost(evt);
+            }
+        });
         jPanel3.add(filtroSlider);
 
         jToolBar1.add(jPanel3);
@@ -535,6 +571,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         vi.getLienzo2D().addLienzoListener(mlienzo);
         BufferedImage img;
         img = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = img.createGraphics();
+        g2d.setPaint(Color.white);
+        g2d.fillRect(0, 0, img.getWidth(), img.getHeight());
         vi.getLienzo2D().setImage(img);
     }//GEN-LAST:event_menuNuevoActionPerformed
 
@@ -546,6 +585,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         vi.getLienzo2D().addLienzoListener(mlienzo);
         BufferedImage img;
         img = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = img.createGraphics();
+        g2d.setPaint(Color.white);
+        g2d.fillRect(0, 0, img.getWidth(), img.getHeight());
         vi.getLienzo2D().setImage(img);
 
     }//GEN-LAST:event_botonNuevoLienzoActionPerformed
@@ -700,21 +742,130 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_brilloSliderFocusLost
 
     private void comboFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiltrosActionPerformed
-        Kernel k;
-        switch(comboFiltros.getSelectedIndex()){
-            case 0:
-                k = KernelProducer.createKernel(KernelProducer.TYPE_MEDIA_3x3);
-                break;
-            case 1:
-                
-                break;
-            case 2:
-                break;
+        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
+        if (vi != null) {
+            BufferedImage img = vi.getLienzo2D().getImage();
+            Kernel k = getKernel(comboFiltros.getSelectedIndex());
+            if (img != null && k != null) {
+                try {
+                    ConvolveOp cop = new ConvolveOp(k);
+
+                    BufferedImage imgdest = cop.filter(img, null); // Al operador de convolucion no se puede almacenar en la misma imagen
+                    vi.getLienzo2D().setImage(imgdest);
+                    
+                    vi.getLienzo2D().repaint();
+                } catch (IllegalArgumentException e) {
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
         }
-        
-        ConvolveOp cop = new ConvolveOp(k,ConvolveOp.EDGE_NO_OP,null);
     }//GEN-LAST:event_comboFiltrosActionPerformed
 
+    private void contrasteSliderFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contrasteSliderFocusGained
+        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
+        if (vi != null) {
+            ColorModel cm = vi.getLienzo2D().getImage().getColorModel();
+            WritableRaster raster = vi.getLienzo2D().getImage().copyData(null);
+            boolean alfaPre = vi.getLienzo2D().getImage().isAlphaPremultiplied();
+            imgFuente = new BufferedImage(cm, raster, alfaPre, null);
+        }
+
+    }//GEN-LAST:event_contrasteSliderFocusGained
+
+    private void contrasteSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_contrasteSliderStateChanged
+        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
+        if (vi != null) {
+            if (imgFuente != null) {
+                try {
+                    RescaleOp rop = new RescaleOp(contrasteSlider.getValue()/10.0F, brilloSlider.getValue(), null);
+                    rop.filter(imgFuente, vi.getLienzo2D().getImage());
+                    vi.getLienzo2D().repaint();
+                } catch (IllegalArgumentException e) {
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_contrasteSliderStateChanged
+
+    private void contrasteSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contrasteSliderFocusLost
+        imgFuente = null;
+        contrasteSlider.setValue(10);
+    }//GEN-LAST:event_contrasteSliderFocusLost
+
+    private void filtroSliderFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_filtroSliderFocusGained
+        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
+        if (vi != null) {
+            ColorModel cm = vi.getLienzo2D().getImage().getColorModel();
+            WritableRaster raster = vi.getLienzo2D().getImage().copyData(null);
+            boolean alfaPre = vi.getLienzo2D().getImage().isAlphaPremultiplied();
+            imgFuente = new BufferedImage(cm, raster, alfaPre, null);
+        }
+    }//GEN-LAST:event_filtroSliderFocusGained
+
+    private void filtroSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_filtroSliderStateChanged
+        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
+        if (vi != null) {
+            if (imgFuente != null) {
+                try {
+                    int tamanio = filtroSlider.getValue();
+                    float filtro[] = new float[tamanio*tamanio];
+                    for(int i = 0; i<tamanio*tamanio; i++){
+                        filtro[i] = (float)1/tamanio;
+                    }
+                    
+                    Kernel k = new Kernel(tamanio, tamanio, filtro);
+                    ConvolveOp cop = new ConvolveOp(k);
+
+                    BufferedImage imgdest = cop.filter(imgFuente, null); // Al operador de convolucion no se puede almacenar en la misma imagen
+                    vi.getLienzo2D().setImage(imgdest);
+                    
+                    vi.getLienzo2D().repaint();
+                } catch (IllegalArgumentException e) {
+                    System.err.println(e.getLocalizedMessage());
+                }              
+            }
+        }
+    }//GEN-LAST:event_filtroSliderStateChanged
+
+    private void filtroSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_filtroSliderFocusLost
+        imgFuente = null;
+        filtroSlider.setValue(1);
+    }//GEN-LAST:event_filtroSliderFocusLost
+
+    private Kernel getKernel(int seleccion){
+        Kernel k = null;
+        int tipoKernel = 0;
+        
+        switch(seleccion){
+            case 0:
+                tipoKernel = KernelProducer.TYPE_MEDIA_3x3;
+                break;
+            case 1:
+                tipoKernel = KernelProducer.TYPE_BINOMIAL_3x3;
+                break;
+            case 2:
+                tipoKernel = KernelProducer.TYPE_LAPLACIANA_3x3;
+                break;
+            case 3:
+                tipoKernel = KernelProducer.TYPE_RELIEVE_3x3;
+                break;
+            case 4:
+                tipoKernel = KernelProducer.TYPE_ENFOQUE_3x3;
+                break;
+            case 5:
+                tipoKernel = KernelProducer.TYPE_SOBELX_3x3;
+                break;
+            case 6:
+                tipoKernel = KernelProducer.TYPE_SOBELY_3x3;
+                break;
+                  
+        }   
+        
+        k = KernelProducer.createKernel(tipoKernel);
+        
+        return k;
+    }
+    
     private class ManejadorVentanaInterna extends InternalFrameAdapter {
 
         @Override

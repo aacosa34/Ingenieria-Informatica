@@ -74,17 +74,7 @@ public class Lienzo2D extends javax.swing.JPanel {
         Graphics2D g2d = (Graphics2D) g;
         
         if(img!=null){
-            float patronDiscontinuidad[] = {7.0f, 7.0f};
-            Stroke borde = new BasicStroke(1.0f, BasicStroke.CAP_ROUND,
-                    BasicStroke.JOIN_MITER, 1.0f,
-                    patronDiscontinuidad, 1.0f);
-            
-            g2d.setPaint(Color.WHITE);
-            g2d.fill(new Rectangle(new Dimension(img.getWidth(), img.getHeight())));
-            g2d.setStroke(borde);
-            g2d.setPaint(Color.GRAY);
-            g2d.draw(new Rectangle(new Dimension(img.getWidth(), img.getHeight())));
-            g2d.drawImage(img,0,0,this);
+            g2d.drawImage(img, 0, 0, this);            
         }
         
         g2d.setPaint(color);
