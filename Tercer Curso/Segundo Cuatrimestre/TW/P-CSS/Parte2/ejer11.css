@@ -39,6 +39,7 @@ main{
 
 .animales{
     display: flex;
+    flex-grow: 2;
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-end;
