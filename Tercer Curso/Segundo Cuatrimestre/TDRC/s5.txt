@@ -1,0 +1,26 @@
+primero montamos 3 switches
+asignacion de IP
+asignacion de MAC para ver como aprenden los switches a encaminar
+comprobar que las tablas dir MAC estan vacias con "arp -a"
+enable / show mac address-table / clear mac address-table dynamic / show mac address-table
+simulation / edit filters / ARP y ICMP
+simular y ver como aprenden las direcciones mac en cada uno de los switches
+
+
+
+escenario 3 consiste en configuracion de vlans
+
+para ello asignamos a cada una de las interfaces del switch que se encuentran conectadas a las maquinas finales:
+switchport mode access / switchport access vlan xxx
+
+y entre switches:
+switchport mode trunk
+
+despues configurar las direcciones IP (las MAC no hacen falta configurarlas)
+
+
+CONEXION ENTRE VLANs
+configurar puerto 5 como troncal (del switch conectado al router).
+configurar el router
+configure terminal / interface gigabitEthernet 0/0/0.100 (subinterfaz) / encapsulation dot1q 100 / ip address 10.0.1.100 255.255.255.0
+conf term / interface gigabitEthernet 0/0/0.200 / encapsulatio dot1q 200 / ip address 10.0.2.100 255.255.255.0 / no shutdown / end 
