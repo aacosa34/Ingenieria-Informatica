@@ -4,14 +4,10 @@
  */
 package practicasimagen;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -24,8 +20,6 @@ import java.awt.image.LookupTable;
 import java.awt.image.RescaleOp;
 import java.awt.image.WritableRaster;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.event.InternalFrameAdapter;
@@ -57,7 +51,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         initComponents();
         mvi = new ManejadorVentanaInterna();
         mlienzo = new ManejadorLienzo();
-        this.setSize(1000, 1000);
+        this.setSize(1600, 900);
         this.setTitle("Paint Basico");
         formaActiva = Formas.TRAZO_LIBRE;
     }
@@ -94,18 +88,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         botonTransparencia = new javax.swing.JToggleButton();
         botonAlisado = new javax.swing.JToggleButton();
         listaFiguras = new javax.swing.JComboBox<>();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
+        panelAuxiliar = new javax.swing.JPanel();
+        panelInferior = new javax.swing.JPanel();
         labelEstado = new javax.swing.JLabel();
         barraImagenes = new javax.swing.JToolBar();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        panelBrilloContraste = new javax.swing.JPanel();
         contrasteSlider = new javax.swing.JSlider();
         brilloSlider = new javax.swing.JSlider();
-        jPanel3 = new javax.swing.JPanel();
+        panelFiltros = new javax.swing.JPanel();
         comboFiltros = new javax.swing.JComboBox<>();
         filtroSlider = new javax.swing.JSlider();
-        jPanel7 = new javax.swing.JPanel();
+        panelTransformaciones = new javax.swing.JPanel();
         botonContraste = new javax.swing.JButton();
         botonLuminosidad = new javax.swing.JButton();
         botonOscurecer = new javax.swing.JButton();
@@ -113,9 +106,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         botonTrapezoidal = new javax.swing.JToggleButton();
         spinnerA = new javax.swing.JSpinner();
         spinnerB = new javax.swing.JSpinner();
-        jPanel9 = new javax.swing.JPanel();
+        panelRotacionEscalado = new javax.swing.JPanel();
         sliderRotacion = new javax.swing.JSlider();
-        jPanel1 = new javax.swing.JPanel();
         bRotar90 = new javax.swing.JButton();
         bRotar180 = new javax.swing.JButton();
         bRotar270 = new javax.swing.JButton();
@@ -134,8 +126,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuConvolveOp = new javax.swing.JMenuItem();
         menuAffineTransformOp = new javax.swing.JMenuItem();
         menuLookupOp = new javax.swing.JMenuItem();
+        menuBandCombineOp = new javax.swing.JMenuItem();
         menuColorConvertOp = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -324,20 +316,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         getContentPane().add(barraHerramientas, java.awt.BorderLayout.PAGE_START);
 
-        jPanel5.setLayout(new java.awt.BorderLayout());
+        panelAuxiliar.setLayout(new java.awt.BorderLayout());
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel6.setLayout(new java.awt.BorderLayout());
+        panelInferior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelInferior.setLayout(new java.awt.BorderLayout());
 
         labelEstado.setText("Barra de estado");
         labelEstado.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel6.add(labelEstado, java.awt.BorderLayout.CENTER);
+        panelInferior.add(labelEstado, java.awt.BorderLayout.CENTER);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Brillo y contraste"));
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        panelBrilloContraste.setBorder(javax.swing.BorderFactory.createTitledBorder("Brillo y contraste"));
+        panelBrilloContraste.setRequestFocusEnabled(false);
+        panelBrilloContraste.setLayout(new java.awt.BorderLayout());
 
         contrasteSlider.setMaximum(20);
         contrasteSlider.setValue(10);
+        contrasteSlider.setPreferredSize(new java.awt.Dimension(80, 40));
         contrasteSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 contrasteSliderStateChanged(evt);
@@ -351,11 +345,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 contrasteSliderFocusLost(evt);
             }
         });
-        jPanel2.add(contrasteSlider, java.awt.BorderLayout.EAST);
+        panelBrilloContraste.add(contrasteSlider, java.awt.BorderLayout.EAST);
 
         brilloSlider.setMaximum(255);
         brilloSlider.setMinimum(-255);
         brilloSlider.setValue(0);
+        brilloSlider.setPreferredSize(new java.awt.Dimension(80, 40));
         brilloSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 brilloSliderStateChanged(evt);
@@ -369,12 +364,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 brilloSliderFocusLost(evt);
             }
         });
-        jPanel2.add(brilloSlider, java.awt.BorderLayout.WEST);
+        panelBrilloContraste.add(brilloSlider, java.awt.BorderLayout.WEST);
 
-        jPanel4.add(jPanel2);
+        barraImagenes.add(panelBrilloContraste);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros"));
-        jPanel3.setLayout(new java.awt.BorderLayout());
+        panelFiltros.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros"));
 
         comboFiltros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Media", "Binomial", "Laplaciana", "Relieve", "Enfoque", "SobelX", "SobelY" }));
         comboFiltros.addActionListener(new java.awt.event.ActionListener() {
@@ -382,12 +376,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 comboFiltrosActionPerformed(evt);
             }
         });
-        jPanel3.add(comboFiltros, java.awt.BorderLayout.WEST);
+        panelFiltros.add(comboFiltros);
 
         filtroSlider.setMaximum(31);
         filtroSlider.setMinimum(1);
         filtroSlider.setToolTipText("");
         filtroSlider.setValue(1);
+        filtroSlider.setPreferredSize(new java.awt.Dimension(80, 30));
         filtroSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 filtroSliderStateChanged(evt);
@@ -401,11 +396,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 filtroSliderFocusLost(evt);
             }
         });
-        jPanel3.add(filtroSlider, java.awt.BorderLayout.EAST);
+        panelFiltros.add(filtroSlider);
 
-        jPanel4.add(jPanel3);
+        barraImagenes.add(panelFiltros);
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Transformaciones"));
+        panelTransformaciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Transformaciones"));
+        panelTransformaciones.setRequestFocusEnabled(false);
 
         botonContraste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/contraste.png"))); // NOI18N
         botonContraste.addActionListener(new java.awt.event.ActionListener() {
@@ -413,7 +409,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 botonContrasteActionPerformed(evt);
             }
         });
-        jPanel7.add(botonContraste);
+        panelTransformaciones.add(botonContraste);
 
         botonLuminosidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/iluminar.png"))); // NOI18N
         botonLuminosidad.addActionListener(new java.awt.event.ActionListener() {
@@ -421,7 +417,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 botonLuminosidadActionPerformed(evt);
             }
         });
-        jPanel7.add(botonLuminosidad);
+        panelTransformaciones.add(botonLuminosidad);
 
         botonOscurecer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/oscurecer.png"))); // NOI18N
         botonOscurecer.addActionListener(new java.awt.event.ActionListener() {
@@ -429,7 +425,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 botonOscurecerActionPerformed(evt);
             }
         });
-        jPanel7.add(botonOscurecer);
+        panelTransformaciones.add(botonOscurecer);
 
         botonCuadratica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cuadratica.png"))); // NOI18N
         botonCuadratica.addActionListener(new java.awt.event.ActionListener() {
@@ -437,22 +433,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 botonCuadraticaActionPerformed(evt);
             }
         });
-        jPanel7.add(botonCuadratica);
+        panelTransformaciones.add(botonCuadratica);
 
         botonTrapezoidal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/trapecio.png"))); // NOI18N
-        jPanel7.add(botonTrapezoidal);
-        jPanel7.add(spinnerA);
-        jPanel7.add(spinnerB);
+        panelTransformaciones.add(botonTrapezoidal);
+        panelTransformaciones.add(spinnerA);
+        panelTransformaciones.add(spinnerB);
 
-        jPanel4.add(jPanel7);
+        barraImagenes.add(panelTransformaciones);
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Rotación y escalado"));
-        jPanel9.setLayout(new java.awt.BorderLayout());
+        panelRotacionEscalado.setBorder(javax.swing.BorderFactory.createTitledBorder("Rotación y escalado"));
 
+        sliderRotacion.setMajorTickSpacing(90);
         sliderRotacion.setMaximum(360);
         sliderRotacion.setPaintTicks(true);
         sliderRotacion.setToolTipText("");
         sliderRotacion.setValue(0);
+        sliderRotacion.setPreferredSize(new java.awt.Dimension(80, 40));
         sliderRotacion.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sliderRotacionStateChanged(evt);
@@ -466,7 +463,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 sliderRotacionFocusLost(evt);
             }
         });
-        jPanel9.add(sliderRotacion, java.awt.BorderLayout.WEST);
+        panelRotacionEscalado.add(sliderRotacion);
 
         bRotar90.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rotacion90.png"))); // NOI18N
         bRotar90.addActionListener(new java.awt.event.ActionListener() {
@@ -474,7 +471,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 bRotar90ActionPerformed(evt);
             }
         });
-        jPanel1.add(bRotar90);
+        panelRotacionEscalado.add(bRotar90);
 
         bRotar180.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rotacion180.png"))); // NOI18N
         bRotar180.addActionListener(new java.awt.event.ActionListener() {
@@ -482,7 +479,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 bRotar180ActionPerformed(evt);
             }
         });
-        jPanel1.add(bRotar180);
+        panelRotacionEscalado.add(bRotar180);
 
         bRotar270.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rotacion270.png"))); // NOI18N
         bRotar270.addActionListener(new java.awt.event.ActionListener() {
@@ -490,7 +487,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 bRotar270ActionPerformed(evt);
             }
         });
-        jPanel1.add(bRotar270);
+        panelRotacionEscalado.add(bRotar270);
 
         bDisminuir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/disminuir.png"))); // NOI18N
         bDisminuir.addActionListener(new java.awt.event.ActionListener() {
@@ -498,7 +495,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 bDisminuirActionPerformed(evt);
             }
         });
-        jPanel1.add(bDisminuir);
+        panelRotacionEscalado.add(bDisminuir);
 
         bAumentar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/aumentar.png"))); // NOI18N
         bAumentar.addActionListener(new java.awt.event.ActionListener() {
@@ -506,19 +503,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 bAumentarActionPerformed(evt);
             }
         });
-        jPanel1.add(bAumentar);
+        panelRotacionEscalado.add(bAumentar);
 
-        jPanel9.add(jPanel1, java.awt.BorderLayout.CENTER);
+        barraImagenes.add(panelRotacionEscalado);
 
-        jPanel4.add(jPanel9);
+        panelInferior.add(barraImagenes, java.awt.BorderLayout.PAGE_START);
 
-        barraImagenes.add(jPanel4);
+        panelAuxiliar.add(panelInferior, java.awt.BorderLayout.CENTER);
 
-        jPanel6.add(barraImagenes, java.awt.BorderLayout.PAGE_START);
-
-        jPanel5.add(jPanel6, java.awt.BorderLayout.CENTER);
-
-        getContentPane().add(jPanel5, java.awt.BorderLayout.PAGE_END);
+        getContentPane().add(panelAuxiliar, java.awt.BorderLayout.PAGE_END);
         getContentPane().add(escritorio, java.awt.BorderLayout.CENTER);
 
         menuArchivo.setText("Archivo");
@@ -599,16 +592,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         menuImagen.add(menuLookupOp);
 
-        menuColorConvertOp.setText("Operador BandCombineOp");
-        menuColorConvertOp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuColorConvertOpActionPerformed(evt);
-            }
-        });
-        menuImagen.add(menuColorConvertOp);
+        menuBandCombineOp.setText("Operador BandCombineOp");
+        menuImagen.add(menuBandCombineOp);
 
-        jMenuItem3.setText("Operador ColorConvertOp");
-        menuImagen.add(jMenuItem3);
+        menuColorConvertOp.setText("Operador ColorConvertOp");
+        menuImagen.add(menuColorConvertOp);
 
         barraMenu.add(menuImagen);
 
@@ -1037,10 +1025,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     }//GEN-LAST:event_menuLookupOpActionPerformed
 
-    private void menuColorConvertOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuColorConvertOpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuColorConvertOpActionPerformed
-
     private void botonContrasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonContrasteActionPerformed
         VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
         if (vi != null) {
@@ -1374,15 +1358,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JSlider filtroSlider;
     private javax.swing.JSpinner grosorSpinner;
     private javax.swing.ButtonGroup herramientas;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
@@ -1391,6 +1366,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuAbrir;
     private javax.swing.JMenuItem menuAffineTransformOp;
     private javax.swing.JMenu menuArchivo;
+    private javax.swing.JMenuItem menuBandCombineOp;
     private javax.swing.JMenuItem menuColorConvertOp;
     private javax.swing.JMenuItem menuConvolveOp;
     private javax.swing.JMenu menuEdicion;
@@ -1400,6 +1376,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuNuevo;
     private javax.swing.JMenuItem menuRescaleOp;
     private javax.swing.JMenuItem menuVerBarraEstado;
+    private javax.swing.JPanel panelAuxiliar;
+    private javax.swing.JPanel panelBrilloContraste;
+    private javax.swing.JPanel panelFiltros;
+    private javax.swing.JPanel panelInferior;
+    private javax.swing.JPanel panelRotacionEscalado;
+    private javax.swing.JPanel panelTransformaciones;
     private javax.swing.JComboBox<Color> seleccionColor;
     private javax.swing.JSlider sliderRotacion;
     private javax.swing.JSpinner spinnerA;
