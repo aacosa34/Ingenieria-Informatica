@@ -436,6 +436,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelTransformaciones.add(botonCuadratica);
 
         botonTrapezoidal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/trapecio.png"))); // NOI18N
+        botonTrapezoidal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonTrapezoidalActionPerformed(evt);
+            }
+        });
         panelTransformaciones.add(botonTrapezoidal);
         panelTransformaciones.add(spinnerA);
         panelTransformaciones.add(spinnerB);
@@ -813,6 +818,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaInterna vi;
         vi = (VentanaInterna) escritorio.getSelectedFrame();
         vi.getLienzo2D().setVolcado(!vi.getLienzo2D().isVolcado());
+        listaFiguras.removeAll();
     }//GEN-LAST:event_botonVolcadoActionPerformed
 
     private void seleccionColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionColorActionPerformed
@@ -1205,8 +1211,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void sliderRotacionStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderRotacionStateChanged
         VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
         if (vi != null) {
-            BufferedImage img = vi.getLienzo2D().getImage();
-            if (img != null) {
+            if (imgFuente != null) {
                 try {
                     double r = Math.toRadians(this.sliderRotacion.getValue());
                     Point p = new Point(imgFuente.getWidth() / 2, imgFuente.getHeight() / 2);
@@ -1228,6 +1233,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         imgFuente = null;
         sliderRotacion.setValue(0);
     }//GEN-LAST:event_sliderRotacionFocusLost
+
+    private void botonTrapezoidalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTrapezoidalActionPerformed
+        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
+        if(botonTrapezoidal.isSelected()){
+            if (vi != null) {
+                this.imgFuente = vi.getLienzo2D().getImage();
+                if (imgFuente != null) {
+                    try {
+                        LookupTable lt = this.trapezoidal((int)spinnerA.getValue(), (int)spinnerB.getValue());
+                        LookupOp lop = new LookupOp(lt, null);
+                        lop.filter(imgFuente, imgFuente); // Imagen origen y destino iguales
+                        vi.getLienzo2D().repaint();
+                    } catch (Exception e) {
+                        System.err.println(e.getLocalizedMessage());
+                    }
+                }
+            }
+        }else{
+            imgFuente = null;
+        }
+    }//GEN-LAST:event_botonTrapezoidalActionPerformed
 
     private Kernel getKernel(int seleccion){
         Kernel k = null;
@@ -1275,6 +1301,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         byte lt[] = new byte[256];
         for (int x = 0; x < 256; x++) {
             lt[x] = (byte) (K*((1.0 / 100.0)*Math.pow((double)x - m, 2)));
+        }
+        ByteLookupTable slt = new ByteLookupTable(0, lt);
+        return slt;
+    }
+    
+    public LookupTable trapezoidal(int a, int b){
+        double K = 255.0;
+        byte lt[] = new byte[256];
+        for (int x = 0; x < 256; x++){
+            if(x==0){
+                lt[x] = (byte)(K * 0);
+            }else if(x > 0 && x < a){
+                lt[x] = (byte)(K * (x / (double)a));
+            }else if(x>=a && x<=b){
+                lt[x] = (byte) (K * 1);
+            }else if(x > b && x < 255){
+                lt[x] = (byte) (K * ((255.0 - x) / (255.0 - a)));
+            }else if(x==255){
+                lt[x]= (byte) (K * 0);
+            }
         }
         ByteLookupTable slt = new ByteLookupTable(0, lt);
         return slt;

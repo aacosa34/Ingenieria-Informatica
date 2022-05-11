@@ -48,9 +48,9 @@ public class Lienzo2D extends javax.swing.JPanel {
     private boolean relleno = false, mover = false, trans_activa = false, alisado = false;
     private Color color = Color.BLACK;
     private Stroke stroke = new BasicStroke();
-    private Composite comp;
+    private Composite comp = null;
     private final float transparencia = 0.5f;
-    private RenderingHints render;
+    private RenderingHints render = null;
     
     // Variables relacionadas con procesamiento de imagenes
     private BufferedImage img;
@@ -78,28 +78,47 @@ public class Lienzo2D extends javax.swing.JPanel {
         }
         
         g2d.setPaint(color);
-        g2d.setStroke(stroke);
+        g2d.setStroke(stroke);        
         
         if (trans_activa) {
-            comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, transparencia);
+            comp = AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, transparencia);
             g2d.setComposite(comp);
         }
         
         if (alisado){
             render = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
                                         RenderingHints.VALUE_ANTIALIAS_ON);
-            
             g2d.setRenderingHints(render);
         }
         
-        for (Shape forma : vShape) {
-            if (relleno) {
-                g2d.fill(forma);
-                if(forma instanceof ALinea2D) g2d.draw(forma);
-            }else{
-                g2d.draw(forma);
+        if(volcado){
+            for (Shape forma : vShape) {
+                if (relleno) {
+                    g2d.fill(forma);
+                    if(forma instanceof ALinea2D) g2d.draw(forma);
+                }else{
+                    g2d.draw(forma);
+                }
             }
-        } 
+            vShape.clear();
+            
+            if(relleno){
+                g2d.fill(s);
+            }
+            else{
+                g2d.draw(s);
+            }
+        }
+        else{
+            for (Shape forma : vShape) {
+                if (relleno) {
+                    g2d.fill(forma);
+                    if(forma instanceof ALinea2D) g2d.draw(forma);
+                }else{
+                    g2d.draw(forma);
+                }
+            } 
+        }
     }
 
     public boolean isRelleno() {
@@ -322,7 +341,10 @@ public class Lienzo2D extends javax.swing.JPanel {
             else if(s instanceof AGeneralPath){
                 ((AGeneralPath)s).setLocation(evt.getPoint());
             }   
-        }else{            
+        }else if(segundo_drag && s instanceof QuadCurve2D){
+            ((QuadCurve2D)s).setCurve(pCurva1, evt.getPoint(), pCurva2);
+            segundo_drag = false;
+        }else{
             if(s instanceof Line2D) ((Line2D)s).setLine(pAux,evt.getPoint());
             else if(s instanceof ARectangulo2D)
                 ((ARectangulo2D)s).setFrameFromDiagonal(pAux, evt.getPoint());
@@ -334,21 +356,20 @@ public class Lienzo2D extends javax.swing.JPanel {
             else if(s instanceof QuadCurve2D){
                 if(!segundo_drag){
                     ((QuadCurve2D)s).setCurve(pAux, evt.getPoint(), evt.getPoint());
-                    pCurva1 = pAux;
+                    pCurva1 = new Point(pAux.x, pAux.y);
                     pCurva2 = evt.getPoint();
                     
                     segundo_drag = true;
                 }
-                else{
-                    ((QuadCurve2D)s).setCurve(pCurva1, evt.getPoint(), pCurva2);
-                    segundo_drag = false;
-                }
                 
             }
-            if(!segundo_drag){
-                vShape.add(s); 
-            }
+//            if(!segundo_drag){
+//                vShape.add(s); 
+//            }
             
+            if(!volcado){
+                vShape.add(s);
+            }
         }
         
         this.repaint();
@@ -357,6 +378,10 @@ public class Lienzo2D extends javax.swing.JPanel {
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         if(!volcado){
             notifyShapeAddedEvent(new LienzoEvent(this,s,color));
+        }
+        else{
+            Graphics2D g2dimagen = img.createGraphics();
+            this.paint(g2dimagen);
         }
         
         this.formMouseDragged(evt);
