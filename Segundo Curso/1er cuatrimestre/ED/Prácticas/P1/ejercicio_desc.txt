@@ -1,0 +1,3 @@
+El algoritmo de este código se encarga de realizar una búsqueda binaria
+dentro de un vector.
+Su eficiencia teórica es de un O(n).

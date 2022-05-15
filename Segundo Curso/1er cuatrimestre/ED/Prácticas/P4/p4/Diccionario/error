@@ -1,0 +1,1325 @@
+echo Creando main.o
+Creando main.o
+g++ --std=c++11 -I./include -I./src  src/pruebas_diccionario.cpp src/Diccionario.cpp include/Diccionario.h -o bin/main
+In file included from ./include/Diccionario.h:259,
+                 from src/pruebas_diccionario.cpp:2:
+./include/../src/Diccionario.cpp:122:6: error: no declaration matches ‘void Diccionario<T, U>::add(data<T, U>)’
+  122 | void Diccionario<T,U>::add(const data<T,U> d){
+      |      ^~~~~~~~~~~~~~~~
+./include/../src/Diccionario.cpp:122:6: note: no functions named ‘void Diccionario<T, U>::add(data<T, U>)’
+In file included from src/pruebas_diccionario.cpp:2:
+./include/Diccionario.h:56:7: note: ‘class Diccionario<T, U>’ defined here
+   56 | class Diccionario{
+      |       ^~~~~~~~~~~
+In file included from ./include/Diccionario.h:259,
+                 from src/pruebas_diccionario.cpp:2:
+./include/../src/Diccionario.cpp:127:38: error: no declaration matches ‘Diccionario<T, U>::iterator Diccionario<T, U>::begin()’
+  127 | typename Diccionario<T, U>::iterator Diccionario<T,U>::begin(){
+      |                                      ^~~~~~~~~~~~~~~~
+In file included from src/pruebas_diccionario.cpp:2:
+./include/Diccionario.h:166:46: note: candidates are: ‘typename std::__cxx11::list<data<T, U> >::const_iterator& Diccionario<T, U>::begin() const’
+  166 |  typename list<data<T,U> >::const_iterator & begin()const;
+      |                                              ^~~~~
+./include/Diccionario.h:156:40: note:                 ‘typename std::__cxx11::list<data<T, U> >::iterator& Diccionario<T, U>::begin()’
+  156 |  typename list<data<T,U> >::iterator & begin();
+      |                                        ^~~~~
+./include/Diccionario.h:56:7: note: ‘class Diccionario<T, U>’ defined here
+   56 | class Diccionario{
+      |       ^~~~~~~~~~~
+In file included from ./include/Diccionario.h:259,
+                 from src/pruebas_diccionario.cpp:2:
+./include/../src/Diccionario.cpp:132:38: error: no declaration matches ‘Diccionario<T, U>::iterator Diccionario<T, U>::end()’
+  132 | typename Diccionario<T, U>::iterator Diccionario<T,U>::end(){
+      |                                      ^~~~~~~~~~~~~~~~
+In file included from src/pruebas_diccionario.cpp:2:
+./include/Diccionario.h:171:46: note: candidates are: ‘typename std::__cxx11::list<data<T, U> >::const_iterator& Diccionario<T, U>::end() const’
+  171 |  typename list<data<T,U> >::const_iterator & end()const;
+      |                                              ^~~
+./include/Diccionario.h:161:39: note:                 ‘typename std::__cxx11::list<data<T, U> >::iterator& Diccionario<T, U>::end()’
+  161 |  typename list<data<T,U> >::iterator &end();
+      |                                       ^~~
+./include/Diccionario.h:56:7: note: ‘class Diccionario<T, U>’ defined here
+   56 | class Diccionario{
+      |       ^~~~~~~~~~~
+In file included from ./include/Diccionario.h:259,
+                 from src/pruebas_diccionario.cpp:2:
+./include/../src/Diccionario.cpp:137:45: error: no declaration matches ‘Diccionario<T, U>::const_iterator& Diccionario<T, U>::begin() const’
+  137 | typename Diccionario<T,U>::const_iterator & Diccionario<T,U>::begin()const{
+      |                                             ^~~~~~~~~~~~~~~~
+In file included from src/pruebas_diccionario.cpp:2:
+./include/Diccionario.h:166:46: note: candidates are: ‘typename std::__cxx11::list<data<T, U> >::const_iterator& Diccionario<T, U>::begin() const’
+  166 |  typename list<data<T,U> >::const_iterator & begin()const;
+      |                                              ^~~~~
+./include/Diccionario.h:156:40: note:                 ‘typename std::__cxx11::list<data<T, U> >::iterator& Diccionario<T, U>::begin()’
+  156 |  typename list<data<T,U> >::iterator & begin();
+      |                                        ^~~~~
+./include/Diccionario.h:56:7: note: ‘class Diccionario<T, U>’ defined here
+   56 | class Diccionario{
+      |       ^~~~~~~~~~~
+In file included from ./include/Diccionario.h:259,
+                 from src/pruebas_diccionario.cpp:2:
+./include/../src/Diccionario.cpp:142:45: error: no declaration matches ‘Diccionario<T, U>::const_iterator& Diccionario<T, U>::end() const’
+  142 | typename Diccionario<T,U>::const_iterator & Diccionario<T,U>::end()const {
+      |                                             ^~~~~~~~~~~~~~~~
+In file included from src/pruebas_diccionario.cpp:2:
+./include/Diccionario.h:171:46: note: candidates are: ‘typename std::__cxx11::list<data<T, U> >::const_iterator& Diccionario<T, U>::end() const’
+  171 |  typename list<data<T,U> >::const_iterator & end()const;
+      |                                              ^~~
+./include/Diccionario.h:161:39: note:                 ‘typename std::__cxx11::list<data<T, U> >::iterator& Diccionario<T, U>::end()’
+  161 |  typename list<data<T,U> >::iterator &end();
+      |                                       ^~~
+./include/Diccionario.h:56:7: note: ‘class Diccionario<T, U>’ defined here
+   56 | class Diccionario{
+      |       ^~~~~~~~~~~
+In file included from ./include/Diccionario.h:259,
+                 from src/pruebas_diccionario.cpp:2:
+./include/../src/Diccionario.cpp:287:10: error: expected nested-name-specifier before ‘Dicconario’
+  287 | typename Dicconario<T,U>::const_iterator & Dicconario<T,U>::const_iterator::operator++(){
+      |          ^~~~~~~~~~
+./include/../src/Diccionario.cpp:287:20: error: expected initializer before ‘<’ token
+  287 | typename Dicconario<T,U>::const_iterator & Dicconario<T,U>::const_iterator::operator++(){
+      |                    ^
+./include/../src/Diccionario.cpp:311:16: error: expected initializer before ‘<’ token
+  311 | bool Dicconario<T,U>::const_iterator::operator!=(const const_iterator &it) const{
+      |                ^
+src/pruebas_diccionario.cpp: In function ‘int main()’:
+src/pruebas_diccionario.cpp:11:18: error: no match for ‘operator=’ (operand types are ‘std::__cxx11::list<int, std::allocator<int> >’ and ‘int’)
+   11 |     s.info_asoci=10;
+      |                  ^~
+In file included from /usr/include/c++/9/list:64,
+                 from ./include/Diccionario.h:12,
+                 from src/pruebas_diccionario.cpp:2:
+/usr/include/c++/9/bits/list.tcc:267:5: note: candidate: ‘std::__cxx11::list<_Tp, _Alloc>& std::__cxx11::list<_Tp, _Alloc>::operator=(const std::__cxx11::list<_Tp, _Alloc>&) [with _Tp = int; _Alloc = std::allocator<int>]’
+  267 |     list<_Tp, _Alloc>::
+      |     ^~~~~~~~~~~~~~~~~
+/usr/include/c++/9/bits/list.tcc:268:27: note:   no known conversion for argument 1 from ‘int’ to ‘const std::__cxx11::list<int, std::allocator<int> >&’
+  268 |     operator=(const list& __x)
+      |               ~~~~~~~~~~~~^~~
+In file included from /usr/include/c++/9/list:63,
+                 from ./include/Diccionario.h:12,
+                 from src/pruebas_diccionario.cpp:2:
+/usr/include/c++/9/bits/stl_list.h:849:7: note: candidate: ‘std::__cxx11::list<_Tp, _Alloc>& std::__cxx11::list<_Tp, _Alloc>::operator=(std::__cxx11::list<_Tp, _Alloc>&&) [with _Tp = int; _Alloc = std::allocator<int>]’
+  849 |       operator=(list&& __x)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/stl_list.h:849:24: note:   no known conversion for argument 1 from ‘int’ to ‘std::__cxx11::list<int, std::allocator<int> >&&’
+  849 |       operator=(list&& __x)
+      |                 ~~~~~~~^~~
+/usr/include/c++/9/bits/stl_list.h:867:7: note: candidate: ‘std::__cxx11::list<_Tp, _Alloc>& std::__cxx11::list<_Tp, _Alloc>::operator=(std::initializer_list<_Tp>) [with _Tp = int; _Alloc = std::allocator<int>]’
+  867 |       operator=(initializer_list<value_type> __l)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/stl_list.h:867:46: note:   no known conversion for argument 1 from ‘int’ to ‘std::initializer_list<int>’
+  867 |       operator=(initializer_list<value_type> __l)
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+src/pruebas_diccionario.cpp:13:8: error: ‘class Diccionario<int, int>’ has no member named ‘add’
+   13 |     mi.add(s);
+      |        ^~~
+src/pruebas_diccionario.cpp:17:18: error: no match for ‘operator=’ (operand types are ‘std::__cxx11::list<int, std::allocator<int> >’ and ‘int’)
+   17 |     s.info_asoci=20;
+      |                  ^~
+In file included from /usr/include/c++/9/list:64,
+                 from ./include/Diccionario.h:12,
+                 from src/pruebas_diccionario.cpp:2:
+/usr/include/c++/9/bits/list.tcc:267:5: note: candidate: ‘std::__cxx11::list<_Tp, _Alloc>& std::__cxx11::list<_Tp, _Alloc>::operator=(const std::__cxx11::list<_Tp, _Alloc>&) [with _Tp = int; _Alloc = std::allocator<int>]’
+  267 |     list<_Tp, _Alloc>::
+      |     ^~~~~~~~~~~~~~~~~
+/usr/include/c++/9/bits/list.tcc:268:27: note:   no known conversion for argument 1 from ‘int’ to ‘const std::__cxx11::list<int, std::allocator<int> >&’
+  268 |     operator=(const list& __x)
+      |               ~~~~~~~~~~~~^~~
+In file included from /usr/include/c++/9/list:63,
+                 from ./include/Diccionario.h:12,
+                 from src/pruebas_diccionario.cpp:2:
+/usr/include/c++/9/bits/stl_list.h:849:7: note: candidate: ‘std::__cxx11::list<_Tp, _Alloc>& std::__cxx11::list<_Tp, _Alloc>::operator=(std::__cxx11::list<_Tp, _Alloc>&&) [with _Tp = int; _Alloc = std::allocator<int>]’
+  849 |       operator=(list&& __x)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/stl_list.h:849:24: note:   no known conversion for argument 1 from ‘int’ to ‘std::__cxx11::list<int, std::allocator<int> >&&’
+  849 |       operator=(list&& __x)
+      |                 ~~~~~~~^~~
+/usr/include/c++/9/bits/stl_list.h:867:7: note: candidate: ‘std::__cxx11::list<_Tp, _Alloc>& std::__cxx11::list<_Tp, _Alloc>::operator=(std::initializer_list<_Tp>) [with _Tp = int; _Alloc = std::allocator<int>]’
+  867 |       operator=(initializer_list<value_type> __l)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/stl_list.h:867:46: note:   no known conversion for argument 1 from ‘int’ to ‘std::initializer_list<int>’
+  867 |       operator=(initializer_list<value_type> __l)
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+src/pruebas_diccionario.cpp:19:8: error: ‘class Diccionario<int, int>’ has no member named ‘add’
+   19 |     mi.add(s);
+      |        ^~~
+src/pruebas_diccionario.cpp:21:48: error: ‘Diccionario<T, U>::iterator::iterator(typename std::__cxx11::list<data<T, U> >::iterator) [with T = int; U = int; typename std::__cxx11::list<data<T, U> >::iterator = std::_List_iterator<data<int, int> >]’ is private within this context
+   21 |   Diccionario<int, int>::iterator it(mi.begin());
+      |                                                ^
+In file included from ./include/Diccionario.h:259,
+                 from src/pruebas_diccionario.cpp:2:
+./include/../src/Diccionario.cpp:203:1: note: declared private here
+  203 | Diccionario<T, U>::iterator::iterator(typename list<data<T, U>>::iterator it) {
+      | ^~~~~~~~~~~~~~~~~
+src/pruebas_diccionario.cpp:24:23: error: ‘Diccionario<T, U>::iterator::iterator(typename std::__cxx11::list<data<T, U> >::iterator) [with T = int; U = int; typename std::__cxx11::list<data<T, U> >::iterator = std::_List_iterator<data<int, int> >]’ is private within this context
+   24 |   while (it != mi.end()){
+      |                       ^
+In file included from ./include/Diccionario.h:259,
+                 from src/pruebas_diccionario.cpp:2:
+./include/../src/Diccionario.cpp:203:1: note: declared private here
+  203 | Diccionario<T, U>::iterator::iterator(typename list<data<T, U>>::iterator it) {
+      | ^~~~~~~~~~~~~~~~~
+src/pruebas_diccionario.cpp:26:34: error: no match for ‘operator<<’ (operand types are ‘std::basic_ostream<char>’ and ‘std::__cxx11::list<int, std::allocator<int> >’)
+   26 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^~ ~~~~~~~~~~~~
+      |                     |                 |
+      |                     |                 std::__cxx11::list<int, std::allocator<int> >
+      |                     std::basic_ostream<char>
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:108:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__ostream_type& (*)(std::basic_ostream<_CharT, _Traits>::__ostream_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  108 |       operator<<(__ostream_type& (*__pf)(__ostream_type&))
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:108:36: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::basic_ostream<char>::__ostream_type& (*)(std::basic_ostream<char>::__ostream_type&)’ {aka ‘std::basic_ostream<char>& (*)(std::basic_ostream<char>&)’}
+  108 |       operator<<(__ostream_type& (*__pf)(__ostream_type&))
+      |                  ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/ostream:117:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__ios_type& (*)(std::basic_ostream<_CharT, _Traits>::__ios_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>; std::basic_ostream<_CharT, _Traits>::__ios_type = std::basic_ios<char>]’
+  117 |       operator<<(__ios_type& (*__pf)(__ios_type&))
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:117:32: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::basic_ostream<char>::__ios_type& (*)(std::basic_ostream<char>::__ios_type&)’ {aka ‘std::basic_ios<char>& (*)(std::basic_ios<char>&)’}
+  117 |       operator<<(__ios_type& (*__pf)(__ios_type&))
+      |                  ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/ostream:127:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::ios_base& (*)(std::ios_base&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  127 |       operator<<(ios_base& (*__pf) (ios_base&))
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:127:30: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::ios_base& (*)(std::ios_base&)’
+  127 |       operator<<(ios_base& (*__pf) (ios_base&))
+      |                  ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+/usr/include/c++/9/ostream:166:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  166 |       operator<<(long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:166:23: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long int’
+  166 |       operator<<(long __n)
+      |                  ~~~~~^~~
+/usr/include/c++/9/ostream:170:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  170 |       operator<<(unsigned long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:170:32: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long unsigned int’
+  170 |       operator<<(unsigned long __n)
+      |                  ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:174:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(bool) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  174 |       operator<<(bool __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:174:23: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘bool’
+  174 |       operator<<(bool __n)
+      |                  ~~~~~^~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:91:5: note: candidate: ‘std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short int) [with _CharT = char; _Traits = std::char_traits<char>]’
+   91 |     basic_ostream<_CharT, _Traits>::
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:92:22: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘short int’
+   92 |     operator<<(short __n)
+      |                ~~~~~~^~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:181:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(short unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  181 |       operator<<(unsigned short __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:181:33: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘short unsigned int’
+  181 |       operator<<(unsigned short __n)
+      |                  ~~~~~~~~~~~~~~~^~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:105:5: note: candidate: ‘std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(int) [with _CharT = char; _Traits = std::char_traits<char>]’
+  105 |     basic_ostream<_CharT, _Traits>::
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:106:20: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘int’
+  106 |     operator<<(int __n)
+      |                ~~~~^~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:192:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  192 |       operator<<(unsigned int __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:192:31: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘unsigned int’
+  192 |       operator<<(unsigned int __n)
+      |                  ~~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:201:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long long int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  201 |       operator<<(long long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:201:28: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long long int’
+  201 |       operator<<(long long __n)
+      |                  ~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:205:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long long unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  205 |       operator<<(unsigned long long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:205:37: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long long unsigned int’
+  205 |       operator<<(unsigned long long __n)
+      |                  ~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:220:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(double) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  220 |       operator<<(double __f)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:220:25: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘double’
+  220 |       operator<<(double __f)
+      |                  ~~~~~~~^~~
+/usr/include/c++/9/ostream:224:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(float) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  224 |       operator<<(float __f)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:224:24: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘float’
+  224 |       operator<<(float __f)
+      |                  ~~~~~~^~~
+/usr/include/c++/9/ostream:232:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long double) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  232 |       operator<<(long double __f)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:232:30: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long double’
+  232 |       operator<<(long double __f)
+      |                  ~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:245:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(const void*) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  245 |       operator<<(const void* __p)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:245:30: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘const void*’
+  245 |       operator<<(const void* __p)
+      |                  ~~~~~~~~~~~~^~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:119:5: note: candidate: ‘std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__streambuf_type*) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__streambuf_type = std::basic_streambuf<char>]’
+  119 |     basic_ostream<_CharT, _Traits>::
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:120:34: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::basic_ostream<char>::__streambuf_type*’ {aka ‘std::basic_streambuf<char>*’}
+  120 |     operator<<(__streambuf_type* __sbin)
+      |                ~~~~~~~~~~~~~~~~~~^~~~~~
+In file included from /usr/include/c++/9/string:55,
+                 from /usr/include/c++/9/bits/locale_classes.h:40,
+                 from /usr/include/c++/9/bits/ios_base.h:41,
+                 from /usr/include/c++/9/ios:42,
+                 from /usr/include/c++/9/ostream:38,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/basic_string.h:6416:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&)’
+ 6416 |     operator<<(basic_ostream<_CharT, _Traits>& __os,
+      |     ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:6416:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:26:39: note:   ‘std::__cxx11::list<int, std::allocator<int> >’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>’
+   26 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                       ^~~~~~~~~~
+In file included from /usr/include/c++/9/bits/ios_base.h:46,
+                 from /usr/include/c++/9/ios:42,
+                 from /usr/include/c++/9/ostream:38,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/system_error:217:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const std::error_code&)’
+  217 |     operator<<(basic_ostream<_CharT, _Traits>& __os, const error_code& __e)
+      |     ^~~~~~~~
+/usr/include/c++/9/system_error:217:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:26:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const std::error_code&’
+   26 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:506:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, _CharT)’
+  506 |     operator<<(basic_ostream<_CharT, _Traits>& __out, _CharT __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:506:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:26:39: note:   deduced conflicting types for parameter ‘_CharT’ (‘char’ and ‘std::__cxx11::list<int, std::allocator<int> >’)
+   26 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                       ^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:511:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, char)’
+  511 |     operator<<(basic_ostream<_CharT, _Traits>& __out, char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:511:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:26:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘char’
+   26 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:517:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, char)’
+  517 |     operator<<(basic_ostream<char, _Traits>& __out, char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:517:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:26:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘char’
+   26 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:523:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, signed char)’
+  523 |     operator<<(basic_ostream<char, _Traits>& __out, signed char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:523:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:26:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘signed char’
+   26 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:528:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, unsigned char)’
+  528 |     operator<<(basic_ostream<char, _Traits>& __out, unsigned char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:528:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:26:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘unsigned char’
+   26 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:548:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const _CharT*)’
+  548 |     operator<<(basic_ostream<_CharT, _Traits>& __out, const _CharT* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:548:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:26:39: note:   mismatched types ‘const _CharT*’ and ‘std::__cxx11::list<int, std::allocator<int> >’
+   26 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                       ^~~~~~~~~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:321:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const char*)’
+  321 |     operator<<(basic_ostream<_CharT, _Traits>& __out, const char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:321:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:26:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const char*’
+   26 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:565:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const char*)’
+  565 |     operator<<(basic_ostream<char, _Traits>& __out, const char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:565:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:26:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const char*’
+   26 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:578:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const signed char*)’
+  578 |     operator<<(basic_ostream<char, _Traits>& __out, const signed char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:578:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:26:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const signed char*’
+   26 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:583:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const unsigned char*)’
+  583 |     operator<<(basic_ostream<char, _Traits>& __out, const unsigned char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:583:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:26:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const unsigned char*’
+   26 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:691:5: note: candidate: ‘template<class _Ostream, class _Tp> typename std::enable_if<std::__and_<std::__not_<std::is_lvalue_reference<_Tp> >, std::__is_convertible_to_basic_ostream<_Ostream>, std::__is_insertable<typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type, const _Tp&, void> >::value, typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type>::type std::operator<<(_Ostream&&, const _Tp&)’
+  691 |     operator<<(_Ostream&& __os, const _Tp& __x)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:691:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/9/ostream: In substitution of ‘template<class _Ostream, class _Tp> typename std::enable_if<std::__and_<std::__not_<std::is_lvalue_reference<_Tp> >, std::__is_convertible_to_basic_ostream<_Ostream>, std::__is_insertable<typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type, const _Tp&, void> >::value, typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type>::type std::operator<<(_Ostream&&, const _Tp&) [with _Ostream = std::basic_ostream<char>&; _Tp = std::__cxx11::list<int, std::allocator<int> >]’:
+src/pruebas_diccionario.cpp:26:39:   required from here
+/usr/include/c++/9/ostream:691:5: error: no type named ‘type’ in ‘struct std::enable_if<false, std::basic_ostream<char>&>’
+src/pruebas_diccionario.cpp:33:48: error: ‘Diccionario<T, U>::iterator::iterator(typename std::__cxx11::list<data<T, U> >::iterator) [with T = int; U = int; typename std::__cxx11::list<data<T, U> >::iterator = std::_List_iterator<data<int, int> >]’ is private within this context
+   33 |   Diccionario<int, int>::iterator it_e(mi.end());
+      |                                                ^
+In file included from ./include/Diccionario.h:259,
+                 from src/pruebas_diccionario.cpp:2:
+./include/../src/Diccionario.cpp:203:1: note: declared private here
+  203 | Diccionario<T, U>::iterator::iterator(typename list<data<T, U>>::iterator it) {
+      | ^~~~~~~~~~~~~~~~~
+src/pruebas_diccionario.cpp:35:32: error: no match for ‘operator<<’ (operand types are ‘std::basic_ostream<char>’ and ‘std::__cxx11::list<int, std::allocator<int> >’)
+   35 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^~ ~~~~~~~~~~~~
+      |                   |                 |
+      |                   |                 std::__cxx11::list<int, std::allocator<int> >
+      |                   std::basic_ostream<char>
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:108:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__ostream_type& (*)(std::basic_ostream<_CharT, _Traits>::__ostream_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  108 |       operator<<(__ostream_type& (*__pf)(__ostream_type&))
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:108:36: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::basic_ostream<char>::__ostream_type& (*)(std::basic_ostream<char>::__ostream_type&)’ {aka ‘std::basic_ostream<char>& (*)(std::basic_ostream<char>&)’}
+  108 |       operator<<(__ostream_type& (*__pf)(__ostream_type&))
+      |                  ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/ostream:117:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__ios_type& (*)(std::basic_ostream<_CharT, _Traits>::__ios_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>; std::basic_ostream<_CharT, _Traits>::__ios_type = std::basic_ios<char>]’
+  117 |       operator<<(__ios_type& (*__pf)(__ios_type&))
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:117:32: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::basic_ostream<char>::__ios_type& (*)(std::basic_ostream<char>::__ios_type&)’ {aka ‘std::basic_ios<char>& (*)(std::basic_ios<char>&)’}
+  117 |       operator<<(__ios_type& (*__pf)(__ios_type&))
+      |                  ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/ostream:127:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::ios_base& (*)(std::ios_base&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  127 |       operator<<(ios_base& (*__pf) (ios_base&))
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:127:30: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::ios_base& (*)(std::ios_base&)’
+  127 |       operator<<(ios_base& (*__pf) (ios_base&))
+      |                  ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+/usr/include/c++/9/ostream:166:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  166 |       operator<<(long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:166:23: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long int’
+  166 |       operator<<(long __n)
+      |                  ~~~~~^~~
+/usr/include/c++/9/ostream:170:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  170 |       operator<<(unsigned long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:170:32: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long unsigned int’
+  170 |       operator<<(unsigned long __n)
+      |                  ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:174:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(bool) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  174 |       operator<<(bool __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:174:23: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘bool’
+  174 |       operator<<(bool __n)
+      |                  ~~~~~^~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:91:5: note: candidate: ‘std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short int) [with _CharT = char; _Traits = std::char_traits<char>]’
+   91 |     basic_ostream<_CharT, _Traits>::
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:92:22: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘short int’
+   92 |     operator<<(short __n)
+      |                ~~~~~~^~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:181:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(short unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  181 |       operator<<(unsigned short __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:181:33: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘short unsigned int’
+  181 |       operator<<(unsigned short __n)
+      |                  ~~~~~~~~~~~~~~~^~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:105:5: note: candidate: ‘std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(int) [with _CharT = char; _Traits = std::char_traits<char>]’
+  105 |     basic_ostream<_CharT, _Traits>::
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:106:20: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘int’
+  106 |     operator<<(int __n)
+      |                ~~~~^~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:192:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  192 |       operator<<(unsigned int __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:192:31: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘unsigned int’
+  192 |       operator<<(unsigned int __n)
+      |                  ~~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:201:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long long int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  201 |       operator<<(long long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:201:28: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long long int’
+  201 |       operator<<(long long __n)
+      |                  ~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:205:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long long unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  205 |       operator<<(unsigned long long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:205:37: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long long unsigned int’
+  205 |       operator<<(unsigned long long __n)
+      |                  ~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:220:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(double) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  220 |       operator<<(double __f)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:220:25: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘double’
+  220 |       operator<<(double __f)
+      |                  ~~~~~~~^~~
+/usr/include/c++/9/ostream:224:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(float) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  224 |       operator<<(float __f)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:224:24: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘float’
+  224 |       operator<<(float __f)
+      |                  ~~~~~~^~~
+/usr/include/c++/9/ostream:232:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long double) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  232 |       operator<<(long double __f)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:232:30: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long double’
+  232 |       operator<<(long double __f)
+      |                  ~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:245:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(const void*) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  245 |       operator<<(const void* __p)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:245:30: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘const void*’
+  245 |       operator<<(const void* __p)
+      |                  ~~~~~~~~~~~~^~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:119:5: note: candidate: ‘std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__streambuf_type*) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__streambuf_type = std::basic_streambuf<char>]’
+  119 |     basic_ostream<_CharT, _Traits>::
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:120:34: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::basic_ostream<char>::__streambuf_type*’ {aka ‘std::basic_streambuf<char>*’}
+  120 |     operator<<(__streambuf_type* __sbin)
+      |                ~~~~~~~~~~~~~~~~~~^~~~~~
+In file included from /usr/include/c++/9/string:55,
+                 from /usr/include/c++/9/bits/locale_classes.h:40,
+                 from /usr/include/c++/9/bits/ios_base.h:41,
+                 from /usr/include/c++/9/ios:42,
+                 from /usr/include/c++/9/ostream:38,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/basic_string.h:6416:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&)’
+ 6416 |     operator<<(basic_ostream<_CharT, _Traits>& __os,
+      |     ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:6416:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:35:37: note:   ‘std::__cxx11::list<int, std::allocator<int> >’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>’
+   35 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ^~~~~~~~~~
+In file included from /usr/include/c++/9/bits/ios_base.h:46,
+                 from /usr/include/c++/9/ios:42,
+                 from /usr/include/c++/9/ostream:38,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/system_error:217:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const std::error_code&)’
+  217 |     operator<<(basic_ostream<_CharT, _Traits>& __os, const error_code& __e)
+      |     ^~~~~~~~
+/usr/include/c++/9/system_error:217:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:35:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const std::error_code&’
+   35 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:506:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, _CharT)’
+  506 |     operator<<(basic_ostream<_CharT, _Traits>& __out, _CharT __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:506:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:35:37: note:   deduced conflicting types for parameter ‘_CharT’ (‘char’ and ‘std::__cxx11::list<int, std::allocator<int> >’)
+   35 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:511:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, char)’
+  511 |     operator<<(basic_ostream<_CharT, _Traits>& __out, char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:511:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:35:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘char’
+   35 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:517:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, char)’
+  517 |     operator<<(basic_ostream<char, _Traits>& __out, char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:517:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:35:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘char’
+   35 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:523:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, signed char)’
+  523 |     operator<<(basic_ostream<char, _Traits>& __out, signed char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:523:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:35:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘signed char’
+   35 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:528:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, unsigned char)’
+  528 |     operator<<(basic_ostream<char, _Traits>& __out, unsigned char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:528:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:35:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘unsigned char’
+   35 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:548:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const _CharT*)’
+  548 |     operator<<(basic_ostream<_CharT, _Traits>& __out, const _CharT* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:548:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:35:37: note:   mismatched types ‘const _CharT*’ and ‘std::__cxx11::list<int, std::allocator<int> >’
+   35 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ^~~~~~~~~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:321:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const char*)’
+  321 |     operator<<(basic_ostream<_CharT, _Traits>& __out, const char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:321:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:35:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const char*’
+   35 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:565:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const char*)’
+  565 |     operator<<(basic_ostream<char, _Traits>& __out, const char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:565:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:35:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const char*’
+   35 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:578:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const signed char*)’
+  578 |     operator<<(basic_ostream<char, _Traits>& __out, const signed char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:578:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:35:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const signed char*’
+   35 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:583:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const unsigned char*)’
+  583 |     operator<<(basic_ostream<char, _Traits>& __out, const unsigned char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:583:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:35:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const unsigned char*’
+   35 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:691:5: note: candidate: ‘template<class _Ostream, class _Tp> typename std::enable_if<std::__and_<std::__not_<std::is_lvalue_reference<_Tp> >, std::__is_convertible_to_basic_ostream<_Ostream>, std::__is_insertable<typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type, const _Tp&, void> >::value, typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type>::type std::operator<<(_Ostream&&, const _Tp&)’
+  691 |     operator<<(_Ostream&& __os, const _Tp& __x)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:691:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/9/ostream: In substitution of ‘template<class _Ostream, class _Tp> typename std::enable_if<std::__and_<std::__not_<std::is_lvalue_reference<_Tp> >, std::__is_convertible_to_basic_ostream<_Ostream>, std::__is_insertable<typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type, const _Tp&, void> >::value, typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type>::type std::operator<<(_Ostream&&, const _Tp&) [with _Ostream = std::basic_ostream<char>&; _Tp = std::__cxx11::list<int, std::allocator<int> >]’:
+src/pruebas_diccionario.cpp:35:37:   required from here
+/usr/include/c++/9/ostream:691:5: error: no type named ‘type’ in ‘struct std::enable_if<false, std::basic_ostream<char>&>’
+src/pruebas_diccionario.cpp:40:32: error: no match for ‘operator<<’ (operand types are ‘std::basic_ostream<char>’ and ‘std::__cxx11::list<int, std::allocator<int> >’)
+   40 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^~ ~~~~~~~~~~~~
+      |                   |                 |
+      |                   |                 std::__cxx11::list<int, std::allocator<int> >
+      |                   std::basic_ostream<char>
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:108:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__ostream_type& (*)(std::basic_ostream<_CharT, _Traits>::__ostream_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  108 |       operator<<(__ostream_type& (*__pf)(__ostream_type&))
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:108:36: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::basic_ostream<char>::__ostream_type& (*)(std::basic_ostream<char>::__ostream_type&)’ {aka ‘std::basic_ostream<char>& (*)(std::basic_ostream<char>&)’}
+  108 |       operator<<(__ostream_type& (*__pf)(__ostream_type&))
+      |                  ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/ostream:117:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__ios_type& (*)(std::basic_ostream<_CharT, _Traits>::__ios_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>; std::basic_ostream<_CharT, _Traits>::__ios_type = std::basic_ios<char>]’
+  117 |       operator<<(__ios_type& (*__pf)(__ios_type&))
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:117:32: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::basic_ostream<char>::__ios_type& (*)(std::basic_ostream<char>::__ios_type&)’ {aka ‘std::basic_ios<char>& (*)(std::basic_ios<char>&)’}
+  117 |       operator<<(__ios_type& (*__pf)(__ios_type&))
+      |                  ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/ostream:127:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::ios_base& (*)(std::ios_base&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  127 |       operator<<(ios_base& (*__pf) (ios_base&))
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:127:30: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::ios_base& (*)(std::ios_base&)’
+  127 |       operator<<(ios_base& (*__pf) (ios_base&))
+      |                  ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+/usr/include/c++/9/ostream:166:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  166 |       operator<<(long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:166:23: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long int’
+  166 |       operator<<(long __n)
+      |                  ~~~~~^~~
+/usr/include/c++/9/ostream:170:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  170 |       operator<<(unsigned long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:170:32: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long unsigned int’
+  170 |       operator<<(unsigned long __n)
+      |                  ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:174:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(bool) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  174 |       operator<<(bool __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:174:23: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘bool’
+  174 |       operator<<(bool __n)
+      |                  ~~~~~^~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:91:5: note: candidate: ‘std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short int) [with _CharT = char; _Traits = std::char_traits<char>]’
+   91 |     basic_ostream<_CharT, _Traits>::
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:92:22: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘short int’
+   92 |     operator<<(short __n)
+      |                ~~~~~~^~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:181:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(short unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  181 |       operator<<(unsigned short __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:181:33: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘short unsigned int’
+  181 |       operator<<(unsigned short __n)
+      |                  ~~~~~~~~~~~~~~~^~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:105:5: note: candidate: ‘std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(int) [with _CharT = char; _Traits = std::char_traits<char>]’
+  105 |     basic_ostream<_CharT, _Traits>::
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:106:20: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘int’
+  106 |     operator<<(int __n)
+      |                ~~~~^~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:192:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  192 |       operator<<(unsigned int __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:192:31: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘unsigned int’
+  192 |       operator<<(unsigned int __n)
+      |                  ~~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:201:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long long int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  201 |       operator<<(long long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:201:28: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long long int’
+  201 |       operator<<(long long __n)
+      |                  ~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:205:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long long unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  205 |       operator<<(unsigned long long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:205:37: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long long unsigned int’
+  205 |       operator<<(unsigned long long __n)
+      |                  ~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:220:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(double) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  220 |       operator<<(double __f)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:220:25: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘double’
+  220 |       operator<<(double __f)
+      |                  ~~~~~~~^~~
+/usr/include/c++/9/ostream:224:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(float) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  224 |       operator<<(float __f)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:224:24: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘float’
+  224 |       operator<<(float __f)
+      |                  ~~~~~~^~~
+/usr/include/c++/9/ostream:232:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long double) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  232 |       operator<<(long double __f)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:232:30: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long double’
+  232 |       operator<<(long double __f)
+      |                  ~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:245:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(const void*) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  245 |       operator<<(const void* __p)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:245:30: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘const void*’
+  245 |       operator<<(const void* __p)
+      |                  ~~~~~~~~~~~~^~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:119:5: note: candidate: ‘std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__streambuf_type*) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__streambuf_type = std::basic_streambuf<char>]’
+  119 |     basic_ostream<_CharT, _Traits>::
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:120:34: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::basic_ostream<char>::__streambuf_type*’ {aka ‘std::basic_streambuf<char>*’}
+  120 |     operator<<(__streambuf_type* __sbin)
+      |                ~~~~~~~~~~~~~~~~~~^~~~~~
+In file included from /usr/include/c++/9/string:55,
+                 from /usr/include/c++/9/bits/locale_classes.h:40,
+                 from /usr/include/c++/9/bits/ios_base.h:41,
+                 from /usr/include/c++/9/ios:42,
+                 from /usr/include/c++/9/ostream:38,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/basic_string.h:6416:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&)’
+ 6416 |     operator<<(basic_ostream<_CharT, _Traits>& __os,
+      |     ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:6416:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:40:37: note:   ‘std::__cxx11::list<int, std::allocator<int> >’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>’
+   40 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ^~~~~~~~~~
+In file included from /usr/include/c++/9/bits/ios_base.h:46,
+                 from /usr/include/c++/9/ios:42,
+                 from /usr/include/c++/9/ostream:38,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/system_error:217:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const std::error_code&)’
+  217 |     operator<<(basic_ostream<_CharT, _Traits>& __os, const error_code& __e)
+      |     ^~~~~~~~
+/usr/include/c++/9/system_error:217:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:40:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const std::error_code&’
+   40 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:506:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, _CharT)’
+  506 |     operator<<(basic_ostream<_CharT, _Traits>& __out, _CharT __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:506:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:40:37: note:   deduced conflicting types for parameter ‘_CharT’ (‘char’ and ‘std::__cxx11::list<int, std::allocator<int> >’)
+   40 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:511:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, char)’
+  511 |     operator<<(basic_ostream<_CharT, _Traits>& __out, char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:511:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:40:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘char’
+   40 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:517:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, char)’
+  517 |     operator<<(basic_ostream<char, _Traits>& __out, char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:517:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:40:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘char’
+   40 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:523:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, signed char)’
+  523 |     operator<<(basic_ostream<char, _Traits>& __out, signed char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:523:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:40:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘signed char’
+   40 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:528:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, unsigned char)’
+  528 |     operator<<(basic_ostream<char, _Traits>& __out, unsigned char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:528:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:40:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘unsigned char’
+   40 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:548:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const _CharT*)’
+  548 |     operator<<(basic_ostream<_CharT, _Traits>& __out, const _CharT* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:548:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:40:37: note:   mismatched types ‘const _CharT*’ and ‘std::__cxx11::list<int, std::allocator<int> >’
+   40 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ^~~~~~~~~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:321:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const char*)’
+  321 |     operator<<(basic_ostream<_CharT, _Traits>& __out, const char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:321:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:40:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const char*’
+   40 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:565:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const char*)’
+  565 |     operator<<(basic_ostream<char, _Traits>& __out, const char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:565:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:40:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const char*’
+   40 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:578:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const signed char*)’
+  578 |     operator<<(basic_ostream<char, _Traits>& __out, const signed char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:578:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:40:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const signed char*’
+   40 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:583:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const unsigned char*)’
+  583 |     operator<<(basic_ostream<char, _Traits>& __out, const unsigned char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:583:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:40:37: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const unsigned char*’
+   40 |   cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                   ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:691:5: note: candidate: ‘template<class _Ostream, class _Tp> typename std::enable_if<std::__and_<std::__not_<std::is_lvalue_reference<_Tp> >, std::__is_convertible_to_basic_ostream<_Ostream>, std::__is_insertable<typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type, const _Tp&, void> >::value, typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type>::type std::operator<<(_Ostream&&, const _Tp&)’
+  691 |     operator<<(_Ostream&& __os, const _Tp& __x)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:691:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/9/ostream: In substitution of ‘template<class _Ostream, class _Tp> typename std::enable_if<std::__and_<std::__not_<std::is_lvalue_reference<_Tp> >, std::__is_convertible_to_basic_ostream<_Ostream>, std::__is_insertable<typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type, const _Tp&, void> >::value, typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type>::type std::operator<<(_Ostream&&, const _Tp&) [with _Ostream = std::basic_ostream<char>&; _Tp = std::__cxx11::list<int, std::allocator<int> >]’:
+src/pruebas_diccionario.cpp:40:37:   required from here
+/usr/include/c++/9/ostream:691:5: error: no type named ‘type’ in ‘struct std::enable_if<false, std::basic_ostream<char>&>’
+src/pruebas_diccionario.cpp:43:27: error: ‘Diccionario<T, U>::iterator::iterator(typename std::__cxx11::list<data<T, U> >::iterator) [with T = int; U = int; typename std::__cxx11::list<data<T, U> >::iterator = std::_List_iterator<data<int, int> >]’ is private within this context
+   43 |   while (it_e != mi.begin()){
+      |                           ^
+In file included from ./include/Diccionario.h:259,
+                 from src/pruebas_diccionario.cpp:2:
+./include/../src/Diccionario.cpp:203:1: note: declared private here
+  203 | Diccionario<T, U>::iterator::iterator(typename list<data<T, U>>::iterator it) {
+      | ^~~~~~~~~~~~~~~~~
+src/pruebas_diccionario.cpp:45:34: error: no match for ‘operator<<’ (operand types are ‘std::basic_ostream<char>’ and ‘std::__cxx11::list<int, std::allocator<int> >’)
+   45 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^~ ~~~~~~~~~~~~
+      |                     |                 |
+      |                     |                 std::__cxx11::list<int, std::allocator<int> >
+      |                     std::basic_ostream<char>
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:108:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__ostream_type& (*)(std::basic_ostream<_CharT, _Traits>::__ostream_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  108 |       operator<<(__ostream_type& (*__pf)(__ostream_type&))
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:108:36: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::basic_ostream<char>::__ostream_type& (*)(std::basic_ostream<char>::__ostream_type&)’ {aka ‘std::basic_ostream<char>& (*)(std::basic_ostream<char>&)’}
+  108 |       operator<<(__ostream_type& (*__pf)(__ostream_type&))
+      |                  ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/ostream:117:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__ios_type& (*)(std::basic_ostream<_CharT, _Traits>::__ios_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>; std::basic_ostream<_CharT, _Traits>::__ios_type = std::basic_ios<char>]’
+  117 |       operator<<(__ios_type& (*__pf)(__ios_type&))
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:117:32: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::basic_ostream<char>::__ios_type& (*)(std::basic_ostream<char>::__ios_type&)’ {aka ‘std::basic_ios<char>& (*)(std::basic_ios<char>&)’}
+  117 |       operator<<(__ios_type& (*__pf)(__ios_type&))
+      |                  ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/ostream:127:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::ios_base& (*)(std::ios_base&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  127 |       operator<<(ios_base& (*__pf) (ios_base&))
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:127:30: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::ios_base& (*)(std::ios_base&)’
+  127 |       operator<<(ios_base& (*__pf) (ios_base&))
+      |                  ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+/usr/include/c++/9/ostream:166:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  166 |       operator<<(long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:166:23: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long int’
+  166 |       operator<<(long __n)
+      |                  ~~~~~^~~
+/usr/include/c++/9/ostream:170:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  170 |       operator<<(unsigned long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:170:32: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long unsigned int’
+  170 |       operator<<(unsigned long __n)
+      |                  ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:174:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(bool) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  174 |       operator<<(bool __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:174:23: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘bool’
+  174 |       operator<<(bool __n)
+      |                  ~~~~~^~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:91:5: note: candidate: ‘std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short int) [with _CharT = char; _Traits = std::char_traits<char>]’
+   91 |     basic_ostream<_CharT, _Traits>::
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:92:22: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘short int’
+   92 |     operator<<(short __n)
+      |                ~~~~~~^~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:181:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(short unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  181 |       operator<<(unsigned short __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:181:33: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘short unsigned int’
+  181 |       operator<<(unsigned short __n)
+      |                  ~~~~~~~~~~~~~~~^~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:105:5: note: candidate: ‘std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(int) [with _CharT = char; _Traits = std::char_traits<char>]’
+  105 |     basic_ostream<_CharT, _Traits>::
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:106:20: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘int’
+  106 |     operator<<(int __n)
+      |                ~~~~^~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:192:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  192 |       operator<<(unsigned int __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:192:31: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘unsigned int’
+  192 |       operator<<(unsigned int __n)
+      |                  ~~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:201:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long long int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  201 |       operator<<(long long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:201:28: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long long int’
+  201 |       operator<<(long long __n)
+      |                  ~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:205:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long long unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  205 |       operator<<(unsigned long long __n)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:205:37: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long long unsigned int’
+  205 |       operator<<(unsigned long long __n)
+      |                  ~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:220:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(double) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  220 |       operator<<(double __f)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:220:25: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘double’
+  220 |       operator<<(double __f)
+      |                  ~~~~~~~^~~
+/usr/include/c++/9/ostream:224:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(float) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  224 |       operator<<(float __f)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:224:24: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘float’
+  224 |       operator<<(float __f)
+      |                  ~~~~~~^~~
+/usr/include/c++/9/ostream:232:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long double) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  232 |       operator<<(long double __f)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:232:30: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘long double’
+  232 |       operator<<(long double __f)
+      |                  ~~~~~~~~~~~~^~~
+/usr/include/c++/9/ostream:245:7: note: candidate: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(const void*) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]’
+  245 |       operator<<(const void* __p)
+      |       ^~~~~~~~
+/usr/include/c++/9/ostream:245:30: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘const void*’
+  245 |       operator<<(const void* __p)
+      |                  ~~~~~~~~~~~~^~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:119:5: note: candidate: ‘std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__streambuf_type*) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__streambuf_type = std::basic_streambuf<char>]’
+  119 |     basic_ostream<_CharT, _Traits>::
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:120:34: note:   no known conversion for argument 1 from ‘std::__cxx11::list<int, std::allocator<int> >’ to ‘std::basic_ostream<char>::__streambuf_type*’ {aka ‘std::basic_streambuf<char>*’}
+  120 |     operator<<(__streambuf_type* __sbin)
+      |                ~~~~~~~~~~~~~~~~~~^~~~~~
+In file included from /usr/include/c++/9/string:55,
+                 from /usr/include/c++/9/bits/locale_classes.h:40,
+                 from /usr/include/c++/9/bits/ios_base.h:41,
+                 from /usr/include/c++/9/ios:42,
+                 from /usr/include/c++/9/ostream:38,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/basic_string.h:6416:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&)’
+ 6416 |     operator<<(basic_ostream<_CharT, _Traits>& __os,
+      |     ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:6416:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:45:39: note:   ‘std::__cxx11::list<int, std::allocator<int> >’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>’
+   45 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                       ^~~~~~~~~~
+In file included from /usr/include/c++/9/bits/ios_base.h:46,
+                 from /usr/include/c++/9/ios:42,
+                 from /usr/include/c++/9/ostream:38,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/system_error:217:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const std::error_code&)’
+  217 |     operator<<(basic_ostream<_CharT, _Traits>& __os, const error_code& __e)
+      |     ^~~~~~~~
+/usr/include/c++/9/system_error:217:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:45:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const std::error_code&’
+   45 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:506:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, _CharT)’
+  506 |     operator<<(basic_ostream<_CharT, _Traits>& __out, _CharT __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:506:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:45:39: note:   deduced conflicting types for parameter ‘_CharT’ (‘char’ and ‘std::__cxx11::list<int, std::allocator<int> >’)
+   45 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                       ^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:511:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, char)’
+  511 |     operator<<(basic_ostream<_CharT, _Traits>& __out, char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:511:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:45:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘char’
+   45 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:517:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, char)’
+  517 |     operator<<(basic_ostream<char, _Traits>& __out, char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:517:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:45:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘char’
+   45 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:523:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, signed char)’
+  523 |     operator<<(basic_ostream<char, _Traits>& __out, signed char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:523:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:45:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘signed char’
+   45 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:528:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, unsigned char)’
+  528 |     operator<<(basic_ostream<char, _Traits>& __out, unsigned char __c)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:528:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:45:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘unsigned char’
+   45 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:548:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const _CharT*)’
+  548 |     operator<<(basic_ostream<_CharT, _Traits>& __out, const _CharT* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:548:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:45:39: note:   mismatched types ‘const _CharT*’ and ‘std::__cxx11::list<int, std::allocator<int> >’
+   45 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                       ^~~~~~~~~~
+In file included from /usr/include/c++/9/ostream:702,
+                 from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/bits/ostream.tcc:321:5: note: candidate: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const char*)’
+  321 |     operator<<(basic_ostream<_CharT, _Traits>& __out, const char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/bits/ostream.tcc:321:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:45:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const char*’
+   45 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:565:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const char*)’
+  565 |     operator<<(basic_ostream<char, _Traits>& __out, const char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:565:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:45:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const char*’
+   45 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:578:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const signed char*)’
+  578 |     operator<<(basic_ostream<char, _Traits>& __out, const signed char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:578:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:45:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const signed char*’
+   45 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:583:5: note: candidate: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const unsigned char*)’
+  583 |     operator<<(basic_ostream<char, _Traits>& __out, const unsigned char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:583:5: note:   template argument deduction/substitution failed:
+src/pruebas_diccionario.cpp:45:39: note:   cannot convert ‘s.data<int, int>::info_asoci’ (type ‘std::__cxx11::list<int, std::allocator<int> >’) to type ‘const unsigned char*’
+   45 |     cout << s.clave << " Clave " << s.info_asoci << " Info asoci " << endl;
+      |                                     ~~^~~~~~~~~~
+In file included from /usr/include/c++/9/iostream:39,
+                 from src/pruebas_diccionario.cpp:1:
+/usr/include/c++/9/ostream:691:5: note: candidate: ‘template<class _Ostream, class _Tp> typename std::enable_if<std::__and_<std::__not_<std::is_lvalue_reference<_Tp> >, std::__is_convertible_to_basic_ostream<_Ostream>, std::__is_insertable<typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type, const _Tp&, void> >::value, typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type>::type std::operator<<(_Ostream&&, const _Tp&)’
+  691 |     operator<<(_Ostream&& __os, const _Tp& __x)
+      |     ^~~~~~~~
+/usr/include/c++/9/ostream:691:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/9/ostream: In substitution of ‘template<class _Ostream, class _Tp> typename std::enable_if<std::__and_<std::__not_<std::is_lvalue_reference<_Tp> >, std::__is_convertible_to_basic_ostream<_Ostream>, std::__is_insertable<typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type, const _Tp&, void> >::value, typename std::__is_convertible_to_basic_ostream<_Tp>::__ostream_type>::type std::operator<<(_Ostream&&, const _Tp&) [with _Ostream = std::basic_ostream<char>&; _Tp = std::__cxx11::list<int, std::allocator<int> >]’:
+src/pruebas_diccionario.cpp:45:39:   required from here
+/usr/include/c++/9/ostream:691:5: error: no type named ‘type’ in ‘struct std::enable_if<false, std::basic_ostream<char>&>’
+In file included from src/../include/Diccionario.h:259,
+                 from src/Diccionario.cpp:2:
+src/../include/../src/Diccionario.cpp:122:6: error: no declaration matches ‘void Diccionario<T, U>::add(data<T, U>)’
+  122 | void Diccionario<T,U>::add(const data<T,U> d){
+      |      ^~~~~~~~~~~~~~~~
+src/../include/../src/Diccionario.cpp:122:6: note: no functions named ‘void Diccionario<T, U>::add(data<T, U>)’
+In file included from src/Diccionario.cpp:2:
+src/../include/Diccionario.h:56:7: note: ‘class Diccionario<T, U>’ defined here
+   56 | class Diccionario{
+      |       ^~~~~~~~~~~
+In file included from src/../include/Diccionario.h:259,
+                 from src/Diccionario.cpp:2:
+src/../include/../src/Diccionario.cpp:127:38: error: no declaration matches ‘Diccionario<T, U>::iterator Diccionario<T, U>::begin()’
+  127 | typename Diccionario<T, U>::iterator Diccionario<T,U>::begin(){
+      |                                      ^~~~~~~~~~~~~~~~
+In file included from src/Diccionario.cpp:2:
+src/../include/Diccionario.h:166:46: note: candidates are: ‘typename std::__cxx11::list<data<T, U> >::const_iterator& Diccionario<T, U>::begin() const’
+  166 |  typename list<data<T,U> >::const_iterator & begin()const;
+      |                                              ^~~~~
+src/../include/Diccionario.h:156:40: note:                 ‘typename std::__cxx11::list<data<T, U> >::iterator& Diccionario<T, U>::begin()’
+  156 |  typename list<data<T,U> >::iterator & begin();
+      |                                        ^~~~~
+src/../include/Diccionario.h:56:7: note: ‘class Diccionario<T, U>’ defined here
+   56 | class Diccionario{
+      |       ^~~~~~~~~~~
+In file included from src/../include/Diccionario.h:259,
+                 from src/Diccionario.cpp:2:
+src/../include/../src/Diccionario.cpp:132:38: error: no declaration matches ‘Diccionario<T, U>::iterator Diccionario<T, U>::end()’
+  132 | typename Diccionario<T, U>::iterator Diccionario<T,U>::end(){
+      |                                      ^~~~~~~~~~~~~~~~
+In file included from src/Diccionario.cpp:2:
+src/../include/Diccionario.h:171:46: note: candidates are: ‘typename std::__cxx11::list<data<T, U> >::const_iterator& Diccionario<T, U>::end() const’
+  171 |  typename list<data<T,U> >::const_iterator & end()const;
+      |                                              ^~~
+src/../include/Diccionario.h:161:39: note:                 ‘typename std::__cxx11::list<data<T, U> >::iterator& Diccionario<T, U>::end()’
+  161 |  typename list<data<T,U> >::iterator &end();
+      |                                       ^~~
+src/../include/Diccionario.h:56:7: note: ‘class Diccionario<T, U>’ defined here
+   56 | class Diccionario{
+      |       ^~~~~~~~~~~
+In file included from src/../include/Diccionario.h:259,
+                 from src/Diccionario.cpp:2:
+src/../include/../src/Diccionario.cpp:137:45: error: no declaration matches ‘Diccionario<T, U>::const_iterator& Diccionario<T, U>::begin() const’
+  137 | typename Diccionario<T,U>::const_iterator & Diccionario<T,U>::begin()const{
+      |                                             ^~~~~~~~~~~~~~~~
+In file included from src/Diccionario.cpp:2:
+src/../include/Diccionario.h:166:46: note: candidates are: ‘typename std::__cxx11::list<data<T, U> >::const_iterator& Diccionario<T, U>::begin() const’
+  166 |  typename list<data<T,U> >::const_iterator & begin()const;
+      |                                              ^~~~~
+src/../include/Diccionario.h:156:40: note:                 ‘typename std::__cxx11::list<data<T, U> >::iterator& Diccionario<T, U>::begin()’
+  156 |  typename list<data<T,U> >::iterator & begin();
+      |                                        ^~~~~
+src/../include/Diccionario.h:56:7: note: ‘class Diccionario<T, U>’ defined here
+   56 | class Diccionario{
+      |       ^~~~~~~~~~~
+In file included from src/../include/Diccionario.h:259,
+                 from src/Diccionario.cpp:2:
+src/../include/../src/Diccionario.cpp:142:45: error: no declaration matches ‘Diccionario<T, U>::const_iterator& Diccionario<T, U>::end() const’
+  142 | typename Diccionario<T,U>::const_iterator & Diccionario<T,U>::end()const {
+      |                                             ^~~~~~~~~~~~~~~~
+In file included from src/Diccionario.cpp:2:
+src/../include/Diccionario.h:171:46: note: candidates are: ‘typename std::__cxx11::list<data<T, U> >::const_iterator& Diccionario<T, U>::end() const’
+  171 |  typename list<data<T,U> >::const_iterator & end()const;
+      |                                              ^~~
+src/../include/Diccionario.h:161:39: note:                 ‘typename std::__cxx11::list<data<T, U> >::iterator& Diccionario<T, U>::end()’
+  161 |  typename list<data<T,U> >::iterator &end();
+      |                                       ^~~
+src/../include/Diccionario.h:56:7: note: ‘class Diccionario<T, U>’ defined here
+   56 | class Diccionario{
+      |       ^~~~~~~~~~~
+In file included from src/../include/Diccionario.h:259,
+                 from src/Diccionario.cpp:2:
+src/../include/../src/Diccionario.cpp:287:10: error: expected nested-name-specifier before ‘Dicconario’
+  287 | typename Dicconario<T,U>::const_iterator & Dicconario<T,U>::const_iterator::operator++(){
+      |          ^~~~~~~~~~
+src/../include/../src/Diccionario.cpp:287:20: error: expected initializer before ‘<’ token
+  287 | typename Dicconario<T,U>::const_iterator & Dicconario<T,U>::const_iterator::operator++(){
+      |                    ^
+src/../include/../src/Diccionario.cpp:311:16: error: expected initializer before ‘<’ token
+  311 | bool Dicconario<T,U>::const_iterator::operator!=(const const_iterator &it) const{
+      |                ^
+In file included from include/Diccionario.h:259:
+include/../src/Diccionario.cpp:122:6: error: no declaration matches ‘void Diccionario<T, U>::add(data<T, U>)’
+  122 | void Diccionario<T,U>::add(const data<T,U> d){
+      |      ^~~~~~~~~~~~~~~~
+include/../src/Diccionario.cpp:122:6: note: no functions named ‘void Diccionario<T, U>::add(data<T, U>)’
+include/Diccionario.h:56:7: note: ‘class Diccionario<T, U>’ defined here
+   56 | class Diccionario{
+      |       ^~~~~~~~~~~
+In file included from include/Diccionario.h:259:
+include/../src/Diccionario.cpp:127:38: error: no declaration matches ‘Diccionario<T, U>::iterator Diccionario<T, U>::begin()’
+  127 | typename Diccionario<T, U>::iterator Diccionario<T,U>::begin(){
+      |                                      ^~~~~~~~~~~~~~~~
+include/Diccionario.h:166:46: note: candidates are: ‘typename std::__cxx11::list<data<T, U> >::const_iterator& Diccionario<T, U>::begin() const’
+  166 |  typename list<data<T,U> >::const_iterator & begin()const;
+      |                                              ^~~~~
+include/Diccionario.h:156:40: note:                 ‘typename std::__cxx11::list<data<T, U> >::iterator& Diccionario<T, U>::begin()’
+  156 |  typename list<data<T,U> >::iterator & begin();
+      |                                        ^~~~~
+include/Diccionario.h:56:7: note: ‘class Diccionario<T, U>’ defined here
+   56 | class Diccionario{
+      |       ^~~~~~~~~~~
+In file included from include/Diccionario.h:259:
+include/../src/Diccionario.cpp:132:38: error: no declaration matches ‘Diccionario<T, U>::iterator Diccionario<T, U>::end()’
+  132 | typename Diccionario<T, U>::iterator Diccionario<T,U>::end(){
+      |                                      ^~~~~~~~~~~~~~~~
+include/Diccionario.h:171:46: note: candidates are: ‘typename std::__cxx11::list<data<T, U> >::const_iterator& Diccionario<T, U>::end() const’
+  171 |  typename list<data<T,U> >::const_iterator & end()const;
+      |                                              ^~~
+include/Diccionario.h:161:39: note:                 ‘typename std::__cxx11::list<data<T, U> >::iterator& Diccionario<T, U>::end()’
+  161 |  typename list<data<T,U> >::iterator &end();
+      |                                       ^~~
+include/Diccionario.h:56:7: note: ‘class Diccionario<T, U>’ defined here
+   56 | class Diccionario{
+      |       ^~~~~~~~~~~
+In file included from include/Diccionario.h:259:
+include/../src/Diccionario.cpp:137:45: error: no declaration matches ‘Diccionario<T, U>::const_iterator& Diccionario<T, U>::begin() const’
+  137 | typename Diccionario<T,U>::const_iterator & Diccionario<T,U>::begin()const{
+      |                                             ^~~~~~~~~~~~~~~~
+include/Diccionario.h:166:46: note: candidates are: ‘typename std::__cxx11::list<data<T, U> >::const_iterator& Diccionario<T, U>::begin() const’
+  166 |  typename list<data<T,U> >::const_iterator & begin()const;
+      |                                              ^~~~~
+include/Diccionario.h:156:40: note:                 ‘typename std::__cxx11::list<data<T, U> >::iterator& Diccionario<T, U>::begin()’
+  156 |  typename list<data<T,U> >::iterator & begin();
+      |                                        ^~~~~
+include/Diccionario.h:56:7: note: ‘class Diccionario<T, U>’ defined here
+   56 | class Diccionario{
+      |       ^~~~~~~~~~~
+In file included from include/Diccionario.h:259:
+include/../src/Diccionario.cpp:142:45: error: no declaration matches ‘Diccionario<T, U>::const_iterator& Diccionario<T, U>::end() const’
+  142 | typename Diccionario<T,U>::const_iterator & Diccionario<T,U>::end()const {
+      |                                             ^~~~~~~~~~~~~~~~
+include/Diccionario.h:171:46: note: candidates are: ‘typename std::__cxx11::list<data<T, U> >::const_iterator& Diccionario<T, U>::end() const’
+  171 |  typename list<data<T,U> >::const_iterator & end()const;
+      |                                              ^~~
+include/Diccionario.h:161:39: note:                 ‘typename std::__cxx11::list<data<T, U> >::iterator& Diccionario<T, U>::end()’
+  161 |  typename list<data<T,U> >::iterator &end();
+      |                                       ^~~
+include/Diccionario.h:56:7: note: ‘class Diccionario<T, U>’ defined here
+   56 | class Diccionario{
+      |       ^~~~~~~~~~~
+In file included from include/Diccionario.h:259:
+include/../src/Diccionario.cpp:287:10: error: expected nested-name-specifier before ‘Dicconario’
+  287 | typename Dicconario<T,U>::const_iterator & Dicconario<T,U>::const_iterator::operator++(){
+      |          ^~~~~~~~~~
+include/../src/Diccionario.cpp:287:20: error: expected initializer before ‘<’ token
+  287 | typename Dicconario<T,U>::const_iterator & Dicconario<T,U>::const_iterator::operator++(){
+      |                    ^
+include/../src/Diccionario.cpp:311:16: error: expected initializer before ‘<’ token
+  311 | bool Dicconario<T,U>::const_iterator::operator!=(const const_iterator &it) const{
+      |                ^
+make: *** [makefile:10: bin/main] Error 1

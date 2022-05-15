@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Conversor</title>
+  <style>
+    .error {
+      color: red;
+    }
+
+    p:nth-child(3), p:nth-child(11) {
+      margin: 0;
+    }
+
+    p:nth-child(4) {
+      margin-bottom: 0;
+    }
+
+    label:not(:first-of-type):after {
+      content: '';
+      display: block;
+    }
+
+    [type="submit"] {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Conversor de temperaturas</h1>
+  <form action="conversor.php" method="get">
+    <label>Temperatura en Celsius: 
+         <input type="text" name="celsius"/>
+         </label>
+    <input type="submit" value="Convertir"/>
+  </form>
+  <p>(Envio de datos con GET)</p>
+</body>
+</html>

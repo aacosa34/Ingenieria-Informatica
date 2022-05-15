@@ -1,0 +1,2 @@
+-El estado de un objeto viene dado por el valor de los atributos.
+

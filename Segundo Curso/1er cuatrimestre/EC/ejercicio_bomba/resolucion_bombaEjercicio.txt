@@ -1,0 +1,144 @@
+Hecho por: Adrián Acosa Sánchez
+
+Contraseña original: "padawan\n"
+Pin        original: 2001
+
+CONTRASEÑA
+
+Al iniciar la busqueda de la contraseña, tenemos que inciar el gdb con las
+opciones -tui y al iniciarse ponemos las órdenes:
+    > file bomba_ejercicio
+    > layout asm
+
+Se nos abrirá la pantalla con el código en ensamblador, y lo primero que vamos
+a buscar son las siguientes líneas:
+
+   0x12d4 <main+85>        callq  0x10e0 <fgets@plt>                                             │
+   0x12d9 <main+90>        test   %rax,%rax                                                      │
+   0x12dc <main+93>        je     0x12ad <main+46>                                               │
+   0x12de <main+95>        lea    0x30(%rsp),%rbx                                                │
+   0x12e3 <main+100>       mov    %rbx,%rdi                                                      │
+   0x12e6 <main+103>       callq  0x1249 <codifica_pw>                                           │
+   0x12eb <main+108>       mov    $0x9,%edx                                                      │
+   0x12f0 <main+113>       lea    0x2d21(%rip),%rsi        # 0x4018 <password>                   │
+   0x12f7 <main+120>       mov    %rbx,%rdi                                                      │
+   0x12fa <main+123>       callq  0x10b0 <strncmp@plt>
+
+Justo después de la llamada a gets, el programa nos pedirá una contraseña 
+donde nosotros introduciremos por ejemplo la cadena "hola\n".
+
+Le seguimos la pista a nuestra contraseña y vemos que se hace una llamada a
+una función llamada "codifica_pw". Comprobamos antes de la llamada a la funcion
+que nuestra cadena está correctamente comprobando el registro %rdi:
+
+    > p (char*) $rdi
+
+Intuimos según el nombre de la función que lo que hará será coger una contraseña
+(la que acabamos de introducir) y codificarla con algún patron. Nos vamos a la 
+llamada a la función strncmp, donde suponemos que se comparará la contraseña que
+hemos introducido con la de la bomba.
+
+Llegados al punto de la ejecución de <main+123> (llegamos con un break point)
+comprobamos los argumentos que se le pasa a strncmp que serán las dos cadenas que
+nos interesan. En este caso al hacer un print a nuestra cadena observamos lo 
+siguiente:
+    > p (char*) $rdi
+    $13 = "cjg\\\n"
+
+Vemos que la contraseña ha cambiado, y fijandonos rápidamente en el codigo
+en ensamblador de la funcion codifica_pw, vemos que se produce una resta 
+entre el argumento de la función y 0x5:
+
+   0x126d <codifica_pw+36> sub    $0x5,%eax 
+
+Sabiendo esto, solo nos queda saber cual es la contraseña del programa, la cual
+podemos ver fácilmente en el registro %rsi:
+
+    > p (char*) $rsi
+    $2 = 0x4018 <password> "padawan\n"
+
+Entonces ya sabemos en qué registro se encuentra y cuál es la contraseña. Con 
+una conversión podemos saltarnos la primera bomba. También podemos saltarla
+como vamos a hacer a continuación para no volver a ejecutar el programa
+
+    > ni
+    > set $eax=0
+    > ni
+
+Luego nos damos cuenta de que hay una función que controla el tiempo que
+tardamos en introducir la contraseña, y que hay un salto condicional
+si no lo hacemos en menos de 5 segundos (main+166).
+
+   0x1321 <main+162>       cmp    $0x5,%rax                                                      │
+   0x1325 <main+166>       jle    0x132c <main+173>
+
+Vamos a hacer que salte la comprobación poniendo %rax a 0 (cualquier número
+menor que 5):
+
+    > set $rax=0
+
+PIN 
+
+Como hemos hecho antes, buscamos otra llamada a boom. Nos fijamos en la parte anterior
+a la llamada a boom:
+
+   0x136a <main+235>       callq  0x1100 <__isoc99_scanf@plt>                                    │
+   0x136f <main+240>       cmp    $0x1,%ebx                                                      │
+   0x1372 <main+243>       jne    0x132c <main+173>                                              │
+   0x1374 <main+245>       mov    0xc(%rsp),%edi                                                 │
+   0x1378 <main+249>       callq  0x1277 <codifica_pc>                                           │
+   0x137d <main+254>       mov    %eax,0xc(%rsp)                                                 │
+   0x1381 <main+258>       cmp    0x2c89(%rip),%eax        # 0x4010 <passcode>                   │
+   0x1387 <main+264>       je     0x138e <main+271>                                              │
+   0x1389 <main+266>       callq  0x1209 <boom> 
+
+Observamos que hay una llamada a otra función que se llama "codifica_pc", que
+suponemos que también codifica el PIN. Luego ponemos un break point en dicha 
+función y ejecutamos hasta la misma. Cuando nos pide la contraseña introducimos
+1234, y comprobamos antes de la llamada que se ha introducido bien (ya que vemos
+que se pide un parámetro en la función e intuimos que hace algo con nuestro 
+código):
+
+    > p $edi
+    $2 = 1234
+
+Ejecutamos la llamada a codifica_pc y comprobamos el valor tras dicha ejecución:
+
+    > ni
+    > p $eax # Registro donde se devuelven los valores
+    $4 = 1214
+
+Podemos ver que la función lo que realiza es una resta al valor que introducimos.
+Luego sólo nos falta saber cuál es el PIN para tener en cuenta la resta y 
+poder saltarnos las bombas.
+
+Para poder adivinar la contraseña, nos fijamos en que hay una comparación entre
+%eax y %rip+0x2c89. Con esto podemos deducir que el PIN del programa estará
+dentro de éste último registro, por lo que miramos su contenido justo en la 
+orden cmp, ya que a su derecha vemos el siguiente comentario: # 0x555555558010 <passcode>.
+Luego vamos a mirar en su direccion de memoria:
+
+    > p (int) passcode
+    $5 = 2000
+
+Luego ya sabemos cuales son la contraseña y el PIN. 
+
+La contraseña que hay que poner es sumarle 5 a cada letra de "padawan\n", lo 
+cual queda como "ufif|fs", para que al restar salga la contraseña. Con el 
+PIN lo mismo, solo que sumandole 20, por lo que habría que poner 2020.
+
+CAMBIO DE CONTRASEÑA Y DE PIN
+
+Lo único que hay que hacer para cambiar la contraseña y el pin del programa es
+seguir las instrucciones siguientes:
+
+    > set write on 
+    > file bomba_ejercicio
+    > set {char[9]} 0x4018="ufif|fs\n"
+    > set {int} 0x4010=2020
+
+Tras esto, la contraseña y el pin que hay que introducir al ejecutar el archivo
+son:
+
+Contraseña: "padawan\n"
+PIN       : 2000
