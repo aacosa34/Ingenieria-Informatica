@@ -1,12 +1,12 @@
 <?php
 # HEAD PARA TODO HTML
-function preambuloHTML($title) {
+function preambuloHTML($title, $style) {
     echo <<< HTML
     <!DOCTYPE html>
     <html>
         <head>
             <meta charset="utf-8">
-            <link rel="stylesheet" href="estilo.css">
+            <link rel="stylesheet" href=$style>
             <title>$title</title>
         </head>
         <body>
@@ -14,8 +14,8 @@ function preambuloHTML($title) {
 }
 
 # HEAD CON H1 Y H3 
-function preambuloHTML_titulos($titulo, $h1, $h3) {
-    preambuloHTML($titulo);
+function preambuloHTML_titulos($titulo, $h1, $h3, $style) {
+    preambuloHTML($titulo, $style);
     echo <<< HTML
             <header>
                 <h1>$h1</h1>

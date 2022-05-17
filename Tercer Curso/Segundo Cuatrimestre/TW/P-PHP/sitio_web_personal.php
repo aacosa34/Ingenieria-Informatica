@@ -6,7 +6,7 @@ $opcion = 0;
 if (isset($_GET["p"]) && ($_GET["p"]>=0 || $_GET["p"]<=3))
   $opcion = $_GET['p'];
 
-preambuloHTML_titulos("Sitio Web Personal", "Sitio Web Personal", "Hecho por Adrián Acosa Sánchez");
+preambuloHTML_titulos("Sitio Web Personal", "Sitio Web Personal", "Hecho por Adrián Acosa Sánchez", "estilo.css");
 
 navHTML($opcion);
 switch($opcion) {
