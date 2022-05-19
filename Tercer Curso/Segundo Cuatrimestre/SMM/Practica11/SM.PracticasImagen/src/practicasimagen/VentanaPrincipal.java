@@ -121,7 +121,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         bAumentar = new javax.swing.JButton();
         panelColor = new javax.swing.JPanel();
         bCombinacionColores = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        espaciosDeColor = new javax.swing.JComboBox<>();
         panelCombinacionBandas = new javax.swing.JPanel();
         bCombinacionBandas = new javax.swing.JButton();
         escritorio = new javax.swing.JDesktopPane();
@@ -453,7 +453,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         panelTransformaciones.add(botonTrapezoidal);
+
+        spinnerA.setModel(new javax.swing.SpinnerNumberModel(128, 0, 255, 1));
+        spinnerA.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spinnerAStateChanged(evt);
+            }
+        });
         panelTransformaciones.add(spinnerA);
+
+        spinnerB.setModel(new javax.swing.SpinnerNumberModel(128, 0, 255, 1));
         panelTransformaciones.add(spinnerB);
 
         barraImagenes.add(panelTransformaciones);
@@ -535,8 +544,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         panelColor.add(bCombinacionColores);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RGB", "YCC", "GREY" }));
-        panelColor.add(jComboBox1);
+        espaciosDeColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RGB", "YCC", "GRAY" }));
+        espaciosDeColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                espaciosDeColorActionPerformed(evt);
+            }
+        });
+        panelColor.add(espaciosDeColor);
 
         barraImagenes.add(panelColor);
 
@@ -1046,7 +1060,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if (img != null) {
                 try {
                     AffineTransform at = AffineTransform.getScaleInstance(1.5, 1.5);
-                    AffineTransformOp atop = new AffineTransformOp(at, null);
+                    AffineTransformOp atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
                     BufferedImage imgdest = atop.filter(img, null);
                     vi.getLienzo2D().setImage(imgdest);
                     vi.getLienzo2D().repaint();
@@ -1084,67 +1098,34 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuLookupOpActionPerformed
 
     private void botonContrasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonContrasteActionPerformed
-        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
-        if (vi != null) {
-            BufferedImage img = vi.getLienzo2D().getImage();
-            if (img != null) {
-                try {
-                    int type = LookupTableProducer.TYPE_SFUNCION;
-                    LookupTable lt = LookupTableProducer.createLookupTable(type);
-                    LookupOp lop = new LookupOp(lt, null);
-                    lop.filter(img, img); // Imagen origen y destino iguales
-                    vi.getLienzo2D().repaint();
-                } catch (Exception e) {
-                    System.err.println(e.getLocalizedMessage());
-                }
-            }
-        }
+        LookupTable lt = LookupTableProducer.createLookupTable(LookupTableProducer.TYPE_SFUNCION);
+        aplicarLookup(lt);
     }//GEN-LAST:event_botonContrasteActionPerformed
 
     private void botonLuminosidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLuminosidadActionPerformed
-        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
-        if (vi != null) {
-            BufferedImage img = vi.getLienzo2D().getImage();
-            if (img != null) {
-                try {
-                    int type = LookupTableProducer.TYPE_LOGARITHM;
-                    LookupTable lt = LookupTableProducer.createLookupTable(type);
-                    LookupOp lop = new LookupOp(lt, null);
-                    lop.filter(img, img); // Imagen origen y destino iguales
-                    vi.getLienzo2D().repaint();
-                } catch (Exception e) {
-                    System.err.println(e.getLocalizedMessage());
-                }
-            }
-        }
+        LookupTable lt = LookupTableProducer.createLookupTable(LookupTableProducer.TYPE_LOGARITHM);
+        aplicarLookup(lt);
     }//GEN-LAST:event_botonLuminosidadActionPerformed
 
     private void botonOscurecerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOscurecerActionPerformed
-        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
-        if (vi != null) {
-            BufferedImage img = vi.getLienzo2D().getImage();
-            if (img != null) {
-                try {
-                    int type = LookupTableProducer.TYPE_POWER;
-                    LookupTable lt = LookupTableProducer.createLookupTable(type);
-                    LookupOp lop = new LookupOp(lt, null);
-                    lop.filter(img, img); // Imagen origen y destino iguales
-                    vi.getLienzo2D().repaint();
-                } catch (Exception e) {
-                    System.err.println(e.getLocalizedMessage());
-                }
-            }
-        }
+        LookupTable lt = LookupTableProducer.createLookupTable(LookupTableProducer.TYPE_POWER);
+        aplicarLookup(lt);
     }//GEN-LAST:event_botonOscurecerActionPerformed
-
+    
     private void botonCuadraticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCuadraticaActionPerformed
+        LookupTable lt = this.cuadratica(128);
+        aplicarLookup(lt);
+    }//GEN-LAST:event_botonCuadraticaActionPerformed
+    
+    // Funcion que aplica la tabla Lookup pasada como parametro a la imagen
+    // de la ventana activa. Sirve para generalizar las 4 operaciones de arriba.
+    private void aplicarLookup(LookupTable tabla){
         VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
         if (vi != null) {
             BufferedImage img = vi.getLienzo2D().getImage();
             if (img != null) {
                 try {
-                    LookupTable lt = this.cuadratica(128);
-                    LookupOp lop = new LookupOp(lt, null);
+                    LookupOp lop = new LookupOp(tabla, null);
                     lop.filter(img, img); // Imagen origen y destino iguales
                     vi.getLienzo2D().repaint();
                 } catch (Exception e) {
@@ -1152,57 +1133,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_botonCuadraticaActionPerformed
-
+    }
+    
     private void bRotar90ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRotar90ActionPerformed
-        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
-        if (vi != null) {
-            BufferedImage img = vi.getLienzo2D().getImage();
-            if (img != null) {
-                try {
-                    double r = Math.toRadians(90);
-                    Point p = new Point(img.getWidth() / 2, img.getHeight() / 2);
-                    AffineTransform at = AffineTransform.getRotateInstance(r, p.x, p.y);
-                    AffineTransformOp atop;
-                    atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-                    BufferedImage imgdest = atop.filter(img, null);
-                    vi.getLienzo2D().setImage(imgdest);
-                    vi.getLienzo2D().repaint();
-                } catch (IllegalArgumentException e) {
-                    System.err.println(e.getLocalizedMessage());
-                }
-            }
-        }
+        aplicarRotacion(90);
     }//GEN-LAST:event_bRotar90ActionPerformed
 
     private void bRotar180ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRotar180ActionPerformed
-        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
-        if (vi != null) {
-            BufferedImage img = vi.getLienzo2D().getImage();
-            if (img != null) {
-                try {
-                    double r = Math.toRadians(180);
-                    Point p = new Point(img.getWidth() / 2, img.getHeight() / 2);
-                    AffineTransform at = AffineTransform.getRotateInstance(r, p.x, p.y);
-                    AffineTransformOp atop;
-                    atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-                    BufferedImage imgdest = atop.filter(img, null);
-                    vi.getLienzo2D().setImage(imgdest);
-                    vi.getLienzo2D().repaint();
-                } catch (IllegalArgumentException e) {
-                    System.err.println(e.getLocalizedMessage());
-                }
-            }
-        }
+        aplicarRotacion(180);
     }//GEN-LAST:event_bRotar180ActionPerformed
 
     private void bRotar270ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRotar270ActionPerformed
+        aplicarRotacion(270);
+    }//GEN-LAST:event_bRotar270ActionPerformed
+
+    private void aplicarRotacion(int grados){
         VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
         if (vi != null) {
             BufferedImage img = vi.getLienzo2D().getImage();
             if (img != null) {
                 try {
-                    double r = Math.toRadians(270);
+                    double r = Math.toRadians(grados);
                     Point p = new Point(img.getWidth() / 2, img.getHeight() / 2);
                     AffineTransform at = AffineTransform.getRotateInstance(r, p.x, p.y);
                     AffineTransformOp atop;
@@ -1215,34 +1166,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_bRotar270ActionPerformed
-
+    }
+    
     private void bAumentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAumentarActionPerformed
-        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
-        if (vi != null) {
-            BufferedImage img = vi.getLienzo2D().getImage();
-            if (img != null) {
-                try {
-                    AffineTransform at = AffineTransform.getScaleInstance(1.25, 1.25);
-                    AffineTransformOp atop = new AffineTransformOp(at, null);
-                    BufferedImage imgdest = atop.filter(img, null);
-                    vi.getLienzo2D().setImage(imgdest);
-                    vi.getLienzo2D().repaint();
-                } catch (IllegalArgumentException e) {
-                    System.err.println(e.getLocalizedMessage());
-                }
-            }
-        }
+        this.aplicarEscalado(1.25);
     }//GEN-LAST:event_bAumentarActionPerformed
 
     private void bDisminuirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDisminuirActionPerformed
+        this.aplicarEscalado(0.75);
+    }//GEN-LAST:event_bDisminuirActionPerformed
+
+    private void aplicarEscalado(double valor){
         VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
         if (vi != null) {
             BufferedImage img = vi.getLienzo2D().getImage();
             if (img != null) {
                 try {
-                    AffineTransform at = AffineTransform.getScaleInstance(0.75, 0.75);
-                    AffineTransformOp atop = new AffineTransformOp(at, null);
+                    AffineTransform at = AffineTransform.getScaleInstance(valor, valor);
+                    AffineTransformOp atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
                     BufferedImage imgdest = atop.filter(img, null);
                     vi.getLienzo2D().setImage(imgdest);
                     vi.getLienzo2D().repaint();
@@ -1251,8 +1192,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_bDisminuirActionPerformed
-
+    }
+    
     private void sliderRotacionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sliderRotacionFocusGained
         VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
         if (vi != null) {
@@ -1278,7 +1219,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 }
             }
         }
-        
     }//GEN-LAST:event_sliderRotacionStateChanged
 
     private void sliderRotacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sliderRotacionFocusLost
@@ -1287,14 +1227,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_sliderRotacionFocusLost
 
     private void botonTrapezoidalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTrapezoidalActionPerformed
-        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
         if(botonTrapezoidal.isSelected()){
+            VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
             if (vi != null) {
-                this.imgFuente = vi.getLienzo2D().getImage();
+                imgFuente = vi.getLienzo2D().getImage();
                 if (imgFuente != null) {
                     try {
-                        LookupTable lt = this.trapezoidal((int)spinnerA.getValue(), (int)spinnerB.getValue());
-                        LookupOp lop = new LookupOp(lt, null);
+                        LookupTable tabla = this.trapezoidal((int)this.spinnerA.getValue(), (int)this.spinnerB.getValue());
+                        LookupOp lop = new LookupOp(tabla, null);
                         lop.filter(imgFuente, imgFuente); // Imagen origen y destino iguales
                         vi.getLienzo2D().repaint();
                     } catch (Exception e) {
@@ -1302,9 +1242,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     }
                 }
             }
-        }else{
+        }
+        else{
             imgFuente = null;
         }
+        
     }//GEN-LAST:event_botonTrapezoidalActionPerformed
 
     private void menuBandCombineOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBandCombineOpActionPerformed
@@ -1314,11 +1256,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if (img != null) {
                 try {
                     float[][] matriz = {{1.0F, 0.0F, 0.0F},
-                    {0.0F, 0.0F, 1.0F},
-                    {0.0F, 1.0F, 0.0F}};
+                                        {0.0F, 0.0F, 1.0F},
+                                        {0.0F, 1.0F, 0.0F}};
                     BandCombineOp bcop = new BandCombineOp(matriz, null);
                     bcop.filter(img.getRaster(), img.getRaster());
-                    vi.getLienzo2D().repaint();
+                    vi.getLienzo2D().repaint(); 
                 } catch (IllegalArgumentException e) {
                     System.err.println(e.getLocalizedMessage());
                 }
@@ -1350,9 +1292,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             BufferedImage img = vi.getLienzo2D().getImage();
             if (img != null) {
                 try {
-                    float[][] matriz = {{1.0F, 0.0F, 0.0F},
-                    {0.0F, 0.0F, 1.0F},
-                    {0.0F, 1.0F, 0.0F}};
+                    float[][] matriz = {{0.0F, 1.0F, 0.0F},
+                                        {1.0F, 1.0F, 1.0F},
+                                        {0.0F, 1.0F, 0.0F}};
                     BandCombineOp bcop = new BandCombineOp(matriz, null);
                     bcop.filter(img.getRaster(), img.getRaster());
                     vi.getLienzo2D().repaint();
@@ -1368,18 +1310,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if (vi != null) {
             BufferedImage img = vi.getLienzo2D().getImage();
             if (img != null) {
-                try {
-                    int num_componentes = img.getColorModel().getNumColorComponents();
-                    for(int i = 0; i<num_componentes; i++){
-                        VentanaInterna ventanaBanda = new VentanaInterna();
-                        ventanaBanda.setTitle(vi.getTitle()+" [Banda "+i+"]");
-                        BufferedImage imagenBanda = this.getImageBand(img, i);
-                        ventanaBanda.getLienzo2D().setImage(imagenBanda);
-                        escritorio.add(ventanaBanda);
-                        ventanaBanda.setVisible(true);
-                    }
-                } catch (IllegalArgumentException e) {
-                    System.err.println(e.getLocalizedMessage());
+                String titulo = vi.getTitle();
+                for(int i = 0; i < img.getRaster().getNumBands(); i++){
+                    BufferedImage imgBanda = getImageBand(img, i);
+                    vi = new VentanaInterna();
+                    vi.setTitle(titulo+" [Banda "+i+"]");
+                    vi.getLienzo2D().setImage(imgBanda);
+                    escritorio.add(vi);
+                    vi.setVisible(true);
                 }
             }
         }
@@ -1389,14 +1327,60 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         //Creamos el modelo de color de la nueva imagen basado en un espcio de color GRAY
         ColorSpace cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
         ComponentColorModel cm = new ComponentColorModel(cs, false, false,
-                                                        Transparency.OPAQUE,
-                                                        DataBuffer.TYPE_BYTE);
+                Transparency.OPAQUE,
+                DataBuffer.TYPE_BYTE);
         //Creamos el nuevo raster a partir del raster de la imagen original
         int vband[] = {banda};
         WritableRaster bRaster = (WritableRaster) img.getRaster().createWritableChild(0, 0,
                 img.getWidth(), img.getHeight(), 0, 0, vband);
         //Creamos una nueva imagen que contiene como raster el correspondiente a la banda
         return new BufferedImage(cm, bRaster, false, null);
+    }
+    
+    private void spinnerAStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerAStateChanged
+        
+    }//GEN-LAST:event_spinnerAStateChanged
+
+    private void espaciosDeColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_espaciosDeColorActionPerformed
+        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
+        if (vi != null) {
+            BufferedImage img = vi.getLienzo2D().getImage();
+            if (img != null) {
+                ColorSpace cs = this.getColorSpace(espaciosDeColor.getSelectedIndex());
+                
+                try {
+                    ColorConvertOp op = new ColorConvertOp(cs, null);
+                    BufferedImage imgdest = op.filter(img,null);
+                    
+                    vi = new VentanaInterna();
+                    vi.setTitle("Cambio espacio de color");
+                    vi.getLienzo2D().setImage(imgdest);
+                    
+                    escritorio.add(vi);
+                    vi.setVisible(true);
+                } catch (IllegalArgumentException e) {
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_espaciosDeColorActionPerformed
+ 
+    private ColorSpace getColorSpace(int seleccion){
+        ColorSpace cs = null;
+        
+        switch(seleccion){
+            case 0:
+                cs = ColorSpace.getInstance(ColorSpace.CS_sRGB);
+            break;
+            case 1:
+                cs = ColorSpace.getInstance(ColorSpace.CS_PYCC);
+            break;
+            case 2:
+                cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
+            break;
+        }
+        
+        return cs;
     }
     
     private Kernel getKernel(int seleccion){
@@ -1547,10 +1531,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboFiltros;
     private javax.swing.JSlider contrasteSlider;
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JComboBox<String> espaciosDeColor;
     private javax.swing.JSlider filtroSlider;
     private javax.swing.JSpinner grosorSpinner;
     private javax.swing.ButtonGroup herramientas;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
