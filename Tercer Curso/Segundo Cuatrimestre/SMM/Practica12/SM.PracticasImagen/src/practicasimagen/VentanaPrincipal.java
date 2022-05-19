@@ -1383,9 +1383,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             BufferedImage img = vi.getLienzo2D().getImage();
             if (img != null) {
                 try {
-                    float[][] matriz = {{0.0F, 1.0F, 0.0F},
-                                        {1.0F, 1.0F, 1.0F},
-                                        {0.0F, 1.0F, 0.0F}};
+                    float[][] matriz = {{0.0F, 1/2.0F, 1/2.0F},
+                                        {1/2.0F, 0.0F, 1/2.0F},
+                                        {1/2.0F, 1/2.0F, 0.0F}};
                     BandCombineOp bcop = new BandCombineOp(matriz, null);
                     bcop.filter(img.getRaster(), img.getRaster());
                     vi.getLienzo2D().repaint();
