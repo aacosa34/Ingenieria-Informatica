@@ -622,6 +622,9 @@
                           <SpinnerModel initial="128" maximum="255" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spinnerBStateChanged"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -814,6 +817,8 @@
                       <Properties>
                         <Property name="maximum" type="int" value="20"/>
                         <Property name="minimum" type="int" value="2"/>
+                        <Property name="toolTipText" type="java.lang.String" value=""/>
+                        <Property name="value" type="int" value="2"/>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[50, 20]"/>
                         </Property>
@@ -824,12 +829,20 @@
                         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="sliderPosterizarFocusLost"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JSlider" name="jSlider2">
+                    <Component class="javax.swing.JSlider" name="sliderBordeado">
                       <Properties>
+                        <Property name="maximum" type="int" value="255"/>
+                        <Property name="minimum" type="int" value="1"/>
+                        <Property name="value" type="int" value="1"/>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[50, 20]"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sliderBordeadoStateChanged"/>
+                        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="sliderBordeadoFocusGained"/>
+                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="sliderBordeadoFocusLost"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

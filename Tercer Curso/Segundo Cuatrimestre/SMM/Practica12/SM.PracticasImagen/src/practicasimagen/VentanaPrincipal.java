@@ -34,6 +34,7 @@ import javax.swing.SpinnerModel;
 import sm.aas.comboboxcolores.ColorCellRender;
 import sm.aas.eventos.LienzoAdapter;
 import sm.aas.eventos.LienzoEvent;
+import sm.aas.imagen.BordesOp;
 import sm.aas.imagen.PosterizarOp;
 import sm.aas.imagen.RedOp;
 import static sm.aas.ui.Lienzo2D.Formas;
@@ -62,7 +63,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         initComponents();
         mvi = new ManejadorVentanaInterna();
         mlienzo = new ManejadorLienzo();
-        this.setSize(1600, 900);
+        this.setSize(1800, 900);
         this.setTitle("Paint Basico");
         formaActiva = Formas.TRAZO_LIBRE;
     }
@@ -134,7 +135,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         bEcualizacion = new javax.swing.JButton();
         bRealceRojo = new javax.swing.JButton();
         sliderPosterizar = new javax.swing.JSlider();
-        jSlider2 = new javax.swing.JSlider();
+        sliderBordeado = new javax.swing.JSlider();
         escritorio = new javax.swing.JDesktopPane();
         barraMenu = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
@@ -474,6 +475,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelTransformaciones.add(spinnerA);
 
         spinnerB.setModel(new javax.swing.SpinnerNumberModel(128, 0, 255, 1));
+        spinnerB.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spinnerBStateChanged(evt);
+            }
+        });
         panelTransformaciones.add(spinnerB);
 
         barraImagenes.add(panelTransformaciones);
@@ -611,6 +617,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         sliderPosterizar.setMaximum(20);
         sliderPosterizar.setMinimum(2);
+        sliderPosterizar.setToolTipText("");
+        sliderPosterizar.setValue(2);
         sliderPosterizar.setPreferredSize(new java.awt.Dimension(50, 20));
         sliderPosterizar.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -627,8 +635,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         panelCombinacionBandas.add(sliderPosterizar);
 
-        jSlider2.setPreferredSize(new java.awt.Dimension(50, 20));
-        panelCombinacionBandas.add(jSlider2);
+        sliderBordeado.setMaximum(255);
+        sliderBordeado.setMinimum(1);
+        sliderBordeado.setValue(1);
+        sliderBordeado.setPreferredSize(new java.awt.Dimension(50, 20));
+        sliderBordeado.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sliderBordeadoStateChanged(evt);
+            }
+        });
+        sliderBordeado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                sliderBordeadoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                sliderBordeadoFocusLost(evt);
+            }
+        });
+        panelCombinacionBandas.add(sliderBordeado);
 
         barraImagenes.add(panelCombinacionBandas);
 
@@ -952,7 +976,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonVolcadoActionPerformed
 
     private void seleccionColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionColorActionPerformed
-        Color colorSelecionado = seleccionColor.getItemAt(seleccionColor.getSelectedIndex());
+        Color colorSelecionado = this.getColorSeleccionado();
         VentanaInterna vi;
         vi = (VentanaInterna) escritorio.getSelectedFrame();
         if(vi != null){
@@ -1405,7 +1429,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
     
     private void spinnerAStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerAStateChanged
-        
+      
     }//GEN-LAST:event_spinnerAStateChanged
 
     private void espaciosDeColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_espaciosDeColorActionPerformed
@@ -1438,7 +1462,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             BufferedImage img = vi.getLienzo2D().getImage();
             if (img != null) {
                 try {
-                    TintOp tintado = new TintOp(seleccionColor.getItemAt(seleccionColor.getSelectedIndex()),0.5f);
+                    TintOp tintado = new TintOp(this.getColorSeleccionado(),0.5f);
                     tintado.filter(img,img);
                     vi.getLienzo2D().repaint();
                 } catch (IllegalArgumentException e) {
@@ -1513,7 +1537,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             BufferedImage img = vi.getLienzo2D().getImage();
             if (img != null) {
                 try {
-                    RedOp realceRojo = new RedOp(100);
+                    RedOp realceRojo = new RedOp(20);
                     realceRojo.filter(img,img);
                     vi.getLienzo2D().repaint();
                 } catch (IllegalArgumentException e) {
@@ -1522,6 +1546,38 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_bRealceRojoActionPerformed
+
+    private void sliderBordeadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sliderBordeadoFocusGained
+        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
+        if (vi != null) {
+            this.imgFuente = vi.getLienzo2D().getImage();
+        }
+    }//GEN-LAST:event_sliderBordeadoFocusGained
+
+    private void sliderBordeadoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderBordeadoStateChanged
+        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
+        if (vi != null) {
+            if (imgFuente != null) {
+                try {
+                    BordesOp bop = new BordesOp(sliderBordeado.getValue(), this.getColorSeleccionado());
+                    BufferedImage imgdest = bop.filter(imgFuente,null);
+                    vi.getLienzo2D().setImage(imgdest);
+                    vi.getLienzo2D().repaint();
+                } catch (IllegalArgumentException e) {
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_sliderBordeadoStateChanged
+
+    private void sliderBordeadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sliderBordeadoFocusLost
+        imgFuente = null;
+        sliderRotacion.setValue(2);
+    }//GEN-LAST:event_sliderBordeadoFocusLost
+
+    private void spinnerBStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerBStateChanged
+        
+    }//GEN-LAST:event_spinnerBStateChanged
  
     private ColorSpace getColorSpace(int seleccion){
         ColorSpace cs = null;
@@ -1575,7 +1631,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         return k;
     }
     
-    public LookupTable cuadratica(double m){
+    private LookupTable cuadratica(double m){
         double Max;
         if(m>=128){
             Max = (byte) ((1.0 / 100.0)*Math.pow(0.0 - m, 2));
@@ -1592,7 +1648,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         return slt;
     }
     
-    public LookupTable trapezoidal(int a, int b){
+    private LookupTable trapezoidal(int a, int b){
         double K = 255.0;
         byte lt[] = new byte[256];
         for (int x = 0; x < 256; x++){
@@ -1610,6 +1666,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
         ByteLookupTable slt = new ByteLookupTable(0, lt);
         return slt;
+    }
+    
+    private Color getColorSeleccionado(){
+        return seleccionColor.getItemAt(seleccionColor.getSelectedIndex());
     }
     
     private class ManejadorVentanaInterna extends InternalFrameAdapter {
@@ -1700,7 +1760,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
-    private javax.swing.JSlider jSlider2;
     private javax.swing.JLabel labelEstado;
     private javax.swing.JComboBox<Shape> listaFiguras;
     private javax.swing.JMenuItem menuAbrir;
@@ -1725,6 +1784,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel panelRotacionEscalado;
     private javax.swing.JPanel panelTransformaciones;
     private javax.swing.JComboBox<Color> seleccionColor;
+    private javax.swing.JSlider sliderBordeado;
     private javax.swing.JSlider sliderPosterizar;
     private javax.swing.JSlider sliderRotacion;
     private javax.swing.JSpinner spinnerA;

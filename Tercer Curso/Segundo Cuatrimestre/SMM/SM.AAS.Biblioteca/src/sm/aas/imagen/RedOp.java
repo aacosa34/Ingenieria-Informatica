@@ -36,11 +36,12 @@ public class RedOp extends BufferedImageOpAdapter {
                 srcRaster.getPixel(x, y, pixelComp);
                 
                 //Implementacion necesaria para el filter
-                if(pixelComp[0] - pixelComp[1] - pixelComp[2] < umbral){
-                    int media = (int)((pixelComp[0] + pixelComp[1] + pixelComp[2])/3);
-                    pixelCompDest[0] = media;
-                    pixelCompDest[1] = media;
-                    pixelCompDest[2] = media;
+                if((pixelComp[0]-pixelComp[1]-pixelComp[2]) < umbral){
+                    int media = (int) ((pixelComp[0]+pixelComp[1]+pixelComp[2])/3);
+                    pixelCompDest[0] = pixelCompDest[1] = pixelCompDest[2] = media;
+                }
+                else{
+                    pixelCompDest = pixelComp;
                 }
                 
                 destRaster.setPixel(x, y, pixelCompDest);
