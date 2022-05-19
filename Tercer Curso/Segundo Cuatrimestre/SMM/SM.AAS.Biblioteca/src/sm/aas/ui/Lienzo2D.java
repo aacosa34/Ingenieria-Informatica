@@ -41,8 +41,8 @@ public class Lienzo2D extends javax.swing.JPanel {
     private Point pAux = new Point(), pCurva1 = new Point(), pCurva2 = new Point();
     private ArrayList<Shape> vShape = new ArrayList<Shape>();
     private Shape s;
-    private boolean segundo_drag = false;
     private boolean volcado = false;
+    private int pasoCurva = 0;
     
     // Propiedades de las figuras
     private boolean relleno = false, mover = false, trans_activa = false, alisado = false;
@@ -81,44 +81,22 @@ public class Lienzo2D extends javax.swing.JPanel {
         g2d.setStroke(stroke);        
         
         if (trans_activa) {
-            comp = AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, transparencia);
             g2d.setComposite(comp);
         }
         
         if (alisado){
-            render = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
-                                        RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.setRenderingHints(render);
         }
         
-        if(volcado){
-            for (Shape forma : vShape) {
-                if (relleno) {
-                    g2d.fill(forma);
-                    if(forma instanceof ALinea2D) g2d.draw(forma);
-                }else{
-                    g2d.draw(forma);
-                }
+        for (Shape forma : vShape) {
+            if (relleno) {
+                g2d.fill(forma);
+                if(forma instanceof ALinea2D) g2d.draw(forma);
+            }else{
+                g2d.draw(forma);
             }
-            vShape.clear();
-            
-            if(relleno){
-                g2d.fill(s);
-            }
-            else{
-                g2d.draw(s);
-            }
-        }
-        else{
-            for (Shape forma : vShape) {
-                if (relleno) {
-                    g2d.fill(forma);
-                    if(forma instanceof ALinea2D) g2d.draw(forma);
-                }else{
-                    g2d.draw(forma);
-                }
-            } 
-        }
+        } 
+        
     }
 
     public boolean isRelleno() {
@@ -166,6 +144,10 @@ public class Lienzo2D extends javax.swing.JPanel {
     }
 
     public void setTrans_activa(boolean trans_activa) {
+        if(trans_activa && comp == null){
+            comp = AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, transparencia);
+        }
+        
         this.trans_activa = trans_activa;
     }
 
@@ -174,6 +156,11 @@ public class Lienzo2D extends javax.swing.JPanel {
     }
 
     public void setAlisado(boolean alisado) {
+        if(alisado && render == null){
+            render = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
+                                        RenderingHints.VALUE_ANTIALIAS_ON);
+        }
+        
         this.alisado = alisado;
     }
     
@@ -317,8 +304,9 @@ public class Lienzo2D extends javax.swing.JPanel {
                 break;
                 
                 case QUAD_CURVE:
-                    if(!segundo_drag){
+                    if(pasoCurva == 0){
                         s = new QuadCurve2D.Float();
+                        pasoCurva++;
                     }
                 break;
                 
@@ -341,9 +329,6 @@ public class Lienzo2D extends javax.swing.JPanel {
             else if(s instanceof AGeneralPath){
                 ((AGeneralPath)s).setLocation(evt.getPoint());
             }   
-        }else if(segundo_drag && s instanceof QuadCurve2D){
-            ((QuadCurve2D)s).setCurve(pCurva1, evt.getPoint(), pCurva2);
-            segundo_drag = false;
         }else{
             if(s instanceof Line2D) ((Line2D)s).setLine(pAux,evt.getPoint());
             else if(s instanceof ARectangulo2D)
@@ -354,21 +339,12 @@ public class Lienzo2D extends javax.swing.JPanel {
                 ((AGeneralPath)s).lineTo(evt.getX(), evt.getY());
             }
             else if(s instanceof QuadCurve2D){
-                if(!segundo_drag){
-                    ((QuadCurve2D)s).setCurve(pAux, evt.getPoint(), evt.getPoint());
-                    pCurva1 = new Point(pAux.x, pAux.y);
-                    pCurva2 = evt.getPoint();
-                    
-                    segundo_drag = true;
+                if(pasoCurva == 1){
+                    ((QuadCurve2D)s).setCurve(pAux, pAux, evt.getPoint());
                 }
-                
-            }
-//            if(!segundo_drag){
-//                vShape.add(s); 
-//            }
-            
-            if(!volcado){
-                vShape.add(s);
+                else if(pasoCurva == 2){
+                    ((QuadCurve2D)s).setCurve(((QuadCurve2D)s).getP1(), evt.getPoint(), ((QuadCurve2D)s).getP2());
+                }
             }
         }
         
@@ -378,10 +354,44 @@ public class Lienzo2D extends javax.swing.JPanel {
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         if(!volcado){
             notifyShapeAddedEvent(new LienzoEvent(this,s,color));
+            vShape.add(s);
         }
         else{
-            Graphics2D g2dimagen = img.createGraphics();
-            this.paint(g2dimagen);
+            Graphics2D g2dimg = img.createGraphics();
+
+            g2dimg.setPaint(color);
+            g2dimg.setStroke(stroke);        
+
+            if (trans_activa) {
+                g2dimg.setComposite(comp);
+            }
+
+            if (alisado){
+                g2dimg.setRenderingHints(render);
+            }
+            
+            if(!vShape.isEmpty()){
+                for(Shape forma : vShape){
+                    if(relleno){
+                        g2dimg.fill(forma);
+                    }else{
+                        g2dimg.draw(forma);
+                    }
+                }
+            }
+            
+            if(relleno){
+                g2dimg.fill(s);
+            }else{
+                g2dimg.draw(s);
+            }
+            
+        }
+        
+        if(pasoCurva == 1){
+            pasoCurva++;
+        }else{
+            pasoCurva=0;
         }
         
         this.formMouseDragged(evt);

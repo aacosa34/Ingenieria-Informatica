@@ -64,7 +64,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         mvi = new ManejadorVentanaInterna();
         mlienzo = new ManejadorLienzo();
         this.setSize(1800, 900);
-        this.setTitle("Paint Basico");
+        this.setTitle("Paint");
         formaActiva = Formas.TRAZO_LIBRE;
     }
 
@@ -1438,13 +1438,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             BufferedImage img = vi.getLienzo2D().getImage();
             if (img != null) {
                 ColorSpace cs = this.getColorSpace(espaciosDeColor.getSelectedIndex());
-                
                 try {
                     ColorConvertOp op = new ColorConvertOp(cs, null);
                     BufferedImage imgdest = op.filter(img,null);
-                    
+                    String titulo = vi.getTitle();
                     vi = new VentanaInterna();
-                    vi.setTitle("Cambio espacio de color");
+                    vi.setTitle(titulo+" ["+espaciosDeColor.getItemAt(espaciosDeColor.getSelectedIndex())+"]");
                     vi.getLienzo2D().setImage(imgdest);
                     
                     escritorio.add(vi);
@@ -1510,7 +1509,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if (imgFuente != null) {
                 try {
                     PosterizarOp posterizacion = new PosterizarOp(sliderPosterizar.getValue());
-                    posterizacion.filter(imgFuente,imgFuente);
+                    BufferedImage imgdestino = posterizacion.filter(imgFuente,null);
+                    vi.getLienzo2D().setImage(imgdestino);
                     vi.getLienzo2D().repaint();
                 } catch (IllegalArgumentException e) {
                     System.err.println(e.getLocalizedMessage());
@@ -1652,7 +1652,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         double K = 255.0;
         byte lt[] = new byte[256];
         for (int x = 0; x < 256; x++){
-            if(x==0){
+            if(x<=0){
                 lt[x] = (byte)(K * 0);
             }else if(x > 0 && x < a){
                 lt[x] = (byte)(K * (x / (double)a));
@@ -1660,7 +1660,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 lt[x] = (byte) (K * 1);
             }else if(x > b && x < 255){
                 lt[x] = (byte) (K * ((255.0 - x) / (255.0 - a)));
-            }else if(x==255){
+            }else if(x>=255){
                 lt[x]= (byte) (K * 0);
             }
         }

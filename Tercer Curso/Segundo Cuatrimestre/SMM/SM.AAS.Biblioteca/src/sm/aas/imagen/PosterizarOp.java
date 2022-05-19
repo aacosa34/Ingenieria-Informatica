@@ -31,7 +31,6 @@ public class PosterizarOp extends BufferedImageOpAdapter {
         WritableRaster destRaster = dest.getRaster();
         int sample;
         
-        
         float K = 256.0f/niveles;
         for (int x = 0; x < src.getWidth(); x++) {
             for (int y = 0; y < src.getHeight(); y++) {
