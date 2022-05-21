@@ -14,6 +14,11 @@ public class LienzoAdapter implements LienzoListener{
     public void shapeAdded(LienzoEvent evt) {
         System.out.println("Figura " +evt.getForma()+" añadida");
     }
+    
+    @Override
+    public void overturnChanged(LienzoEvent evt){
+        System.out.println("Volcado establecido a " + evt.isVolcado());
+    }
 
     @Override
     public void propertyChange(LienzoEvent evt) {

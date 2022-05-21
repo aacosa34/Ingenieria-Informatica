@@ -6,8 +6,6 @@ package sm.aas.comboboxcolores;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
-import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 

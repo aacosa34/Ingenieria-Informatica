@@ -16,11 +16,18 @@ public class LienzoEvent extends EventObject {
 
     private Shape forma;
     private Color color;
+    private boolean volcado;
 
     public LienzoEvent(Object source, Shape forma, Color color) {
         super(source);
         this.forma = forma;
         this.color = color;
+        this.volcado = volcado;
+    }
+    
+    public LienzoEvent(Object source, boolean volcado) {
+        super(source);
+        this.volcado = volcado;
     }
 
     public Shape getForma() {
@@ -29,5 +36,9 @@ public class LienzoEvent extends EventObject {
 
     public Color getColor() {
         return color;
+    }
+    
+    public boolean isVolcado(){
+        return volcado;
     }
 }

@@ -26,7 +26,10 @@ import java.awt.image.LookupTable;
 import java.awt.image.RescaleOp;
 import java.awt.image.WritableRaster;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javax.imageio.ImageIO;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.SpinnerNumberModel;
@@ -1089,8 +1092,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if (vi != null) {
             if (imgFuente != null) {
                 try {
+                    BufferedImage imgdest = vi.getLienzo2D().getImage();
                     RescaleOp rop = new RescaleOp(contrasteSlider.getValue()/10.0F, brilloSlider.getValue(), null);
-                    rop.filter(imgFuente, vi.getLienzo2D().getImage());
+                    imgdest = rop.filter(imgFuente, null);
+                    vi.getLienzo2D().setImage(imgdest);
                     vi.getLienzo2D().repaint();
                 } catch (IllegalArgumentException e) {
                     System.err.println(e.getLocalizedMessage());
@@ -1319,23 +1324,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void botonTrapezoidalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTrapezoidalActionPerformed
         if(botonTrapezoidal.isSelected()){
-            VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
-            if (vi != null) {
-                imgFuente = vi.getLienzo2D().getImage();
-                if (imgFuente != null) {
-                    try {
-                        LookupTable tabla = this.trapezoidal((int)this.spinnerA.getValue(), (int)this.spinnerB.getValue());
-                        LookupOp lop = new LookupOp(tabla, null);
-                        lop.filter(imgFuente, imgFuente); // Imagen origen y destino iguales
-                        vi.getLienzo2D().repaint();
-                    } catch (Exception e) {
-                        System.err.println(e.getLocalizedMessage());
-                    }
-                }
-            }
+            LookupTable tabla = trapezoidal((int)spinnerA.getValue(), (int)spinnerB.getValue());
+            aplicarLookup(tabla);
         }
         else{
             imgFuente = null;
+            spinnerA.setValue(128);
+            spinnerB.setValue(128);
         }
         
     }//GEN-LAST:event_botonTrapezoidalActionPerformed
@@ -1429,7 +1424,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
     
     private void spinnerAStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerAStateChanged
-      
+        if(botonTrapezoidal.isSelected()){
+            LookupTable tabla = trapezoidal((int)spinnerA.getValue(), (int)spinnerB.getValue());
+            aplicarLookup(tabla);
+        }
     }//GEN-LAST:event_spinnerAStateChanged
 
     private void espaciosDeColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_espaciosDeColorActionPerformed
@@ -1653,15 +1651,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         byte lt[] = new byte[256];
         for (int x = 0; x < 256; x++){
             if(x<=0){
-                lt[x] = (byte)(K * 0);
-            }else if(x > 0 && x < a){
+                lt[x] = (byte)0;
+            }else if(0 < x && x < a){
                 lt[x] = (byte)(K * (x / (double)a));
-            }else if(x>=a && x<=b){
+            }else if(a <= x && x<=b){
                 lt[x] = (byte) (K * 1);
-            }else if(x > b && x < 255){
+            }else if(b < x && x < 255){
                 lt[x] = (byte) (K * ((255.0 - x) / (255.0 - a)));
             }else if(x>=255){
-                lt[x]= (byte) (K * 0);
+                lt[x] = (byte)0;
             }
         }
         ByteLookupTable slt = new ByteLookupTable(0, lt);
@@ -1712,7 +1710,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         @Override
         public void shapeAdded(LienzoEvent evt) {
-            listaFiguras.addItem(evt.getForma());
+            if(!evt.isVolcado()){
+                listaFiguras.addItem(evt.getForma());
+            }
+        }
+        
+        @Override
+        public void overturnChanged(LienzoEvent evt){
+            if(evt.isVolcado()){
+                listaFiguras.removeAllItems();
+            }
         }
     }
 

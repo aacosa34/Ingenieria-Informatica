@@ -13,4 +13,5 @@ import java.util.EventListener;
 public interface LienzoListener extends EventListener{
     public void shapeAdded(LienzoEvent evt);
     public void propertyChange(LienzoEvent evt);
+    public void overturnChanged(LienzoEvent evt);
 }

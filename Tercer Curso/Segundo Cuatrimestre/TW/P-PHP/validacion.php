@@ -15,54 +15,54 @@ function showVar($var,$msg) {
   echo "</ul>";        
 }
 
-function mostrarFormulario($parametros){
+function mostrarFormulario($params){
   preambuloHTML("Validación de formularios", "formulario.css");
   echo "<header><h1>Datos de pago</h1></header>", PHP_EOL;
   echo "<main>";
   echo "<form action='" .$_SERVER['SCRIPT_NAME']. "' method=GET>";
   echo "<div>
             <label>Nombre: </label>
-            <input type='text' name='nombre' value='".$parametros['nombre']."'/>";
-  if($parametros['errornombre']!='')
-    echo "<p class='error'>{parametros['errornombre']}</p>"; 
+            <input type='text' name='nombre' value='".$params['nombre']."'/>";
+  if($params['errornombre']!='')
+    echo "<p class='error'>{$params['errornombre']}</p>"; 
   echo "</div>";
   echo "<div>
           <label>Email: </label>
-          <input type='text' name='email' value='".$parametros['email']."'/>";
-  if($parametros['erroremail']!='')
-    echo "<p class='error'>{parametros['erroremail']}</p>"; 
+          <input type='text' name='email' value='".$params['email']."'/>";
+  if($params['erroremail']!='')
+    echo "<p class='error'>{$params['erroremail']}</p>"; 
   echo "</div>";
   echo "<div>
           <label>Email (repetir): </label>
-          <input type='text' name='email2' value='".$parametros['email2']."'/>";
-  if($parametros['erroremail2']!='')
-    echo "<p class='error'>{parametros['erroremail2']}</p>"; 
+          <input type='text' name='email2' value='".$params['email2']."'/>";
+  if($params['erroremail2']!='')
+    echo "<p class='error'>{$params['erroremail2']}</p>"; 
   echo "</div>";
   echo "<div>
           <label>Numero de tarjeta: </label>
-          <input type='text' name='tarjeta' value='".$parametros['nombre']."'/>";
-  if($parametros['errortarjeta']!='')
-    echo "<p class='error'>{parametros['errortarjeta']}</p>"; 
+          <input type='text' name='tarjeta' value='".$params['nombre']."'/>";
+  if($params['errortarjeta']!='')
+    echo "<p class='error'>{$params['errortarjeta']}</p>"; 
   echo "</div>";
   echo "<div>
           <label>Mes caducidad: </label>
-          <input type='text' name='mes' value='".$parametros['mes']."'/>";
-  if($parametros['errormes']!='')
-    echo "<p class='error'>{parametros['errormes']}</p>"; 
+          <input type='text' name='mes' value='".$params['mes']."'/>";
+  if($params['errormes']!='')
+    echo "<p class='error'>{$params['errormes']}</p>"; 
   echo "</div>";
   echo "<div>
           <label>CVC: </label>
-          <input type='text' name='cvc' value='".$parametros['cvc']."'/>";
-  if($parametros['errorcvc']!='')
-    echo "<p class='error'>{parametros['errorcvc']}</p>"; 
+          <input type='text' name='cvc' value='".$params['cvc']."'/>";
+  if($params['errorcvc']!='')
+    echo "<p class='error'>{$params['errorcvc']}</p>"; 
   echo "</div>";
   echo "<div>      
           <label>Recibir información: </label>
           <input type='radio' name='recibir' value='Sí'";
-          if(array_key_exists('Sí',$parametros)) echo ' checked';
+          if(array_key_exists('Sí',$params)) echo ' checked';
           echo "/> Sí";
           echo "<input type='radio' name='recibir' value='No'";
-          if(array_key_exists('No',$parametros)) echo ' checked';
+          if(array_key_exists('No',$params)) echo ' checked';
           echo "/> No";
   echo "</div>";
   echo "<div>   
@@ -80,48 +80,44 @@ echo "</main>";
 
 }
 
-function getParametros($params){
+function getParametros(){
   // Si se ha enviado el formulario
-  if(isset($params["nombre"]) && isset($params["email"]) && 
-     isset($params["email2"]) && isset($params["tarjeta"]) && 
-     isset($params["mes"]) && isset($params["anyo"]) && 
-     isset($params["cvc"]) && isset($params["recibir"]))
+  if(isset($_GET["nombre"]) && isset($_GET["email"]) && 
+     isset($_GET["email2"]) && isset($_GET["tarjeta"]) && 
+     isset($_GET["mes"]) && isset($_GET["anyo"]) && 
+     isset($_GET["cvc"]) && isset($_GET["recibir"]))
   {
     $resultado['enviado'] = true;
 
     // Comprobacion de los paramteros
-    $resultado['errornombre']  = '';
-    $resultado['erroremail']   = '';
-    $resultado['erroremail2']  = '';
-    $resultado['errortarjeta'] = '';
-    $resultado['errormes']     = '';
-    $resultado['erroranyo']    = '';
-    $resultado['errorcvc']     = '';
-    $resultado['errorrecibir'] = '';
+    $resultado['errornombre'] = $resultado['erroremail']   = 
+    $resultado['erroremail2'] = $resultado['errortarjeta'] = 
+    $resultado['errormes'] = $resultado['erroranyo']    = 
+    $resultado['errorcvc'] = $resultado['errorrecibir'] = '';
     
    
-    if(empty($params["nombre"]) || !preg_match('/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/', $params["nombre"])){
+    if(empty($_GET["nombre"]) || !preg_match('/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/', $_GET["nombre"])){
       $resultado['errornombre'] = 'Debe escribir su nombre (solo letras)';
     }
-    else if(empty($params["email"]) || !filter_var($params["email"], FILTER_VALIDATE_EMAIL)){
+    else if(empty($_GET["email"]) || !filter_var($_GET["email"], FILTER_VALIDATE_EMAIL)){
       $resultado['erroremail'] = 'Formato de email no valido (formato aceptado: john@example.com)';
     }
-    else if(empty($params["email2"]) || $params["email2"] != $params["email"]){
+    else if(empty($_GET["email2"]) || $_GET["email2"] != $_GET["email"]){
       $resultado['erroremail2'] = 'Emails no coincidentes. Por favor, revise ambos email';
     }
-    else if(empty($params["tarjeta"])){
+    else if(empty($_GET["tarjeta"])){
 
     }
-    else if(empty($params["mes"]) || !is_numeric($params["mes"]) || $params["mes"] < 1 || $params["mes"] > 12){
+    else if(empty($_GET["mes"]) || !is_numeric($_GET["mes"]) || $_GET["mes"] < 1 || $_GET["mes"] > 12){
       $resultado['errormes'] = 'El mes es incorrecto';
     }
-    else if(empty($params["anyo"]) || !is_numeric($params["mes"]) || $params["anyo"] < 2000 || $params["anyo"] > 2100){
+    else if(empty($_GET["anyo"]) || !is_numeric($_GET["mes"]) || $_GET["anyo"] < 2000 || $_GET["anyo"] > 2100){
       $resultado['erroranyo'] = 'El año es incorrecto (válidos entre 2000 y 2100, use 4 dígitos)';
     }
-    else if(empty($params["cvc"]) || !is_numeric($params["cvc"]) || !preg_match('/^[0-9]{3}$/', $params["cvc"])){
+    else if(empty($_GET["cvc"]) || !is_numeric($_GET["cvc"]) || !preg_match('/^[0-9]{3}$/', $_GET["cvc"])){
       $resultado['errorcvc'] = 'El CVC debe ser un número de 3 dígitos';
     }
-    else if(empty($params["recibir"])){
+    else if(empty($_GET["recibir"])){
       $resultado['errorrecibir'] = 'Debe seleccionar una opción obligatoriamente';
     }
   }else{
@@ -132,7 +128,7 @@ function getParametros($params){
 }
 
 // Obtenemos los parámetros y los validamos
-$parametros = getParametros($_GET);
+$parametros = getParametros();
 
 // Si se han recibido parametros y son correctos
 if($parametros['enviado']==true && ($parametros["errornombre"]=='' && $parametros["erroremail"]=='' && 
@@ -140,11 +136,11 @@ if($parametros['enviado']==true && ($parametros["errornombre"]=='' && $parametro
                                     $parametros["errormes"]=='' && $parametros["erroranyo"]=='' &&
                                     $parametros["errorcvc"]=='' && $parametros["errorrecibir"]== ''))
 {
-  showVar($_GET, "Variables recibidas");
+  showVar($parametros, "Variables recibidas");
 }
 else{
     echo "<h1>HOLA</h1>";
-    mostrarFormulario($parametros);
+    mostrarFormulario($_GET);
 }
 
 

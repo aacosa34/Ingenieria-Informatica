@@ -26,6 +26,7 @@ import sm.aas.eventos.LienzoListener;
 import sm.aas.graficos.AElipse2D;
 import sm.aas.graficos.AGeneralPath;
 import sm.aas.graficos.ALinea2D;
+import sm.aas.graficos.AQuadCurve2D;
 import sm.aas.graficos.ARectangulo2D;
 
 /**
@@ -35,35 +36,47 @@ import sm.aas.graficos.ARectangulo2D;
 public class Lienzo2D extends javax.swing.JPanel {
     // Enumerado con las formas posibles a usar
     public enum Formas {TRAZO_LIBRE, LINEA, RECTANGULO, ELIPSE, QUAD_CURVE};
-    private Formas formaActiva = Formas.TRAZO_LIBRE;
+    private Formas formaActiva;
     
     // Variables auxiliares para pintar las formas
-    private Point pAux = new Point(), pCurva1 = new Point(), pCurva2 = new Point();
-    private ArrayList<Shape> vShape = new ArrayList<Shape>();
+    private Point pAux;
+    private ArrayList<Shape> vShape;
     private Shape s;
-    private boolean volcado = false;
-    private int pasoCurva = 0;
+    private boolean volcado;
+    private int pasoCurva;
     
     // Propiedades de las figuras
-    private boolean relleno = false, mover = false, trans_activa = false, alisado = false;
-    private Color color = Color.BLACK;
-    private Stroke stroke = new BasicStroke();
-    private Composite comp = null;
+    private boolean relleno, mover, trans_activa, alisado;
+    private Color color;
+    private Stroke stroke;
+    private Composite comp;
     private final float transparencia = 0.5f;
-    private RenderingHints render = null;
+    private RenderingHints render;
     
     // Variables relacionadas con procesamiento de imagenes
     private BufferedImage img;
     
     // Manejadores de lienzo
-    ArrayList<LienzoListener> lienzoEventListeners = new ArrayList();
+    ArrayList<LienzoListener> lienzoEventListeners;
     
 
     /**
      * Creates new form Lienzo2D
      */
     public Lienzo2D() {
+        // Inicializacion de todos los atributos
         formaActiva = Formas.TRAZO_LIBRE;
+        pAux = new Point();
+        vShape = new ArrayList<>();
+        s = null;
+        volcado = relleno = mover = trans_activa = alisado = false;
+        pasoCurva = 0;
+        color = Color.black;
+        render = null;
+        comp = null;
+        stroke = new BasicStroke();
+        lienzoEventListeners = new ArrayList<>();
+        img = null;
         initComponents();
     }
     
@@ -96,6 +109,44 @@ public class Lienzo2D extends javax.swing.JPanel {
                 g2d.draw(forma);
             }
         } 
+        
+    }
+    
+    // Metodo paint especial para volcado
+    void paintVolcado(Graphics2D g2dimg){
+        // Establecemos las propiedades de las figuras a pintar
+        g2dimg.setPaint(color);
+        g2dimg.setStroke(stroke);        
+
+        if (trans_activa) {
+            g2dimg.setComposite(comp);
+        }
+
+        if (alisado){
+            g2dimg.setRenderingHints(render);
+        }
+        
+        // Pintamos todas las figuras contenidas en la lista y la limpiamos
+        if(!vShape.isEmpty()){
+            for(Shape forma : vShape){
+                if(relleno){
+                    g2dimg.fill(forma);
+                }else{
+                    g2dimg.draw(forma);
+                }
+            }
+            vShape.clear();
+        }
+        
+        // Cada vez que pintemos, usamos la figura creada en el pressed y la
+        // plasmamos directamente en el lienzo
+        if(s!=null){
+            if(relleno){
+                g2dimg.fill(s);
+            }else{
+                g2dimg.draw(s);
+            }
+        }
         
     }
 
@@ -210,6 +261,12 @@ public class Lienzo2D extends javax.swing.JPanel {
     }
 
     public void setVolcado(boolean volcado) {
+        if(volcado){
+            notifyOverturnChanged(new LienzoEvent(this, volcado));
+            Graphics2D g2dimg = img.createGraphics();
+            paintVolcado(g2dimg);
+        }
+        
         this.volcado = volcado;
     }
 
@@ -227,6 +284,14 @@ public class Lienzo2D extends javax.swing.JPanel {
         if (!lienzoEventListeners.isEmpty()) {
             for (LienzoListener listener : lienzoEventListeners) {
                 listener.shapeAdded(evt);
+            }
+        }
+    }
+    
+    private void notifyOverturnChanged(LienzoEvent evt) {
+        if (!lienzoEventListeners.isEmpty()){
+            for(LienzoListener listener : lienzoEventListeners) {
+                listener.overturnChanged(evt);
             }
         }
     }
@@ -305,7 +370,7 @@ public class Lienzo2D extends javax.swing.JPanel {
                 
                 case QUAD_CURVE:
                     if(pasoCurva == 0){
-                        s = new QuadCurve2D.Float();
+                        s = new AQuadCurve2D();
                         pasoCurva++;
                     }
                 break;
@@ -316,7 +381,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-        if(mover){
+        if(mover && !volcado){
             if(s instanceof ARectangulo2D){
                 ((Rectangle)s).setLocation(evt.getPoint());
             }
@@ -338,13 +403,17 @@ public class Lienzo2D extends javax.swing.JPanel {
             else if(s instanceof AGeneralPath){
                 ((AGeneralPath)s).lineTo(evt.getX(), evt.getY());
             }
-            else if(s instanceof QuadCurve2D){
+            else if(s instanceof AQuadCurve2D){
                 if(pasoCurva == 1){
-                    ((QuadCurve2D)s).setCurve(pAux, pAux, evt.getPoint());
+                    ((AQuadCurve2D)s).setCurve(pAux, pAux, evt.getPoint());
                 }
                 else if(pasoCurva == 2){
-                    ((QuadCurve2D)s).setCurve(((QuadCurve2D)s).getP1(), evt.getPoint(), ((QuadCurve2D)s).getP2());
+                    ((AQuadCurve2D)s).setCurve(((QuadCurve2D)s).getP1(), evt.getPoint(), ((QuadCurve2D)s).getP2());
                 }
+            }
+            
+            if(!volcado){
+                vShape.add(s);
             }
         }
         
@@ -352,47 +421,27 @@ public class Lienzo2D extends javax.swing.JPanel {
     }//GEN-LAST:event_formMouseDragged
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-        if(!volcado){
-            notifyShapeAddedEvent(new LienzoEvent(this,s,color));
-            vShape.add(s);
-        }
-        else{
-            Graphics2D g2dimg = img.createGraphics();
-
-            g2dimg.setPaint(color);
-            g2dimg.setStroke(stroke);        
-
-            if (trans_activa) {
-                g2dimg.setComposite(comp);
-            }
-
-            if (alisado){
-                g2dimg.setRenderingHints(render);
-            }
-            
-            if(!vShape.isEmpty()){
-                for(Shape forma : vShape){
-                    if(relleno){
-                        g2dimg.fill(forma);
-                    }else{
-                        g2dimg.draw(forma);
-                    }
-                }
-            }
-            
-            if(relleno){
-                g2dimg.fill(s);
-            }else{
-                g2dimg.draw(s);
-            }
-            
-        }
-        
         if(pasoCurva == 1){
             pasoCurva++;
         }else{
             pasoCurva=0;
         }
+        
+        if(!volcado){
+            if(pasoCurva != 1){
+                notifyShapeAddedEvent(new LienzoEvent(this,s,color));
+            }
+                
+        }
+        else{
+            if(pasoCurva != 2 && !mover){
+                Graphics2D g2dimg = img.createGraphics();
+                paintVolcado(g2dimg);
+            }
+           
+        }
+        
+        
         
         this.formMouseDragged(evt);
     }//GEN-LAST:event_formMouseReleased
