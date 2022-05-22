@@ -1334,7 +1334,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_botonTrapezoidalActionPerformed
-
+    
     private void menuBandCombineOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBandCombineOpActionPerformed
         VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
         if (vi != null) {
