@@ -29,6 +29,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.event.InternalFrameAdapter;
@@ -1324,8 +1326,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void botonTrapezoidalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTrapezoidalActionPerformed
         if(botonTrapezoidal.isSelected()){
-            LookupTable tabla = trapezoidal((int)spinnerA.getValue(), (int)spinnerB.getValue());
-            aplicarLookup(tabla);
+            VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
+            if (vi != null) {
+                imgFuente = vi.getLienzo2D().getImage();
+            }
         }
         else{
             imgFuente = null;
@@ -1425,8 +1429,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     private void spinnerAStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerAStateChanged
         if(botonTrapezoidal.isSelected()){
-            LookupTable tabla = trapezoidal((int)spinnerA.getValue(), (int)spinnerB.getValue());
-            aplicarLookup(tabla);
+            VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
+            if (imgFuente != null && vi != null) {
+                try {
+                    LookupTable tabla = trapezoidal((int)spinnerA.getValue(), (int)spinnerB.getValue());
+                    LookupOp lop = new LookupOp(tabla, null);
+                    lop.filter(imgFuente, imgFuente); // Imagen origen y destino iguales
+                    vi.getLienzo2D().repaint();
+                } catch (Exception e) {
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
         }
     }//GEN-LAST:event_spinnerAStateChanged
 
@@ -1632,16 +1645,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private LookupTable cuadratica(double m){
         double Max;
         if(m>=128){
-            Max = (byte) ((1.0 / 100.0)*Math.pow(0.0 - m, 2));
+            Max = ((1.0F / 100.0F)*Math.pow(0.0F - m, 2));
         }
         else{
-            Max = (byte) ((1.0 / 100.0)*Math.pow(255.0 - m, 2));
+            Max = ((1.0F / 100.0F)*Math.pow(255.0F - m, 2));
         }
         double K = 255.0 / Max;
         byte lt[] = new byte[256];
+        
         for (int x = 0; x < 256; x++) {
-            lt[x] = (byte) (K*((1.0 / 100.0)*Math.pow((double)x - m, 2)));
+            lt[x] = (byte) (K*((1.0F / 100.0F)*Math.pow(((double)x - m), 2)));
         }
+        
         ByteLookupTable slt = new ByteLookupTable(0, lt);
         return slt;
     }
@@ -1682,6 +1697,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             botonMover.setSelected(vi.getLienzo2D().isMover());
             grosorSpinner.setValue((int) vi.getLienzo2D().getGrosor());
             botonVolcado.setSelected(vi.getLienzo2D().isVolcado());
+            
+            ArrayList<Shape> figuras = vi.getLienzo2D().getvShape();
+            
+            ComboBoxModel figuras_activo = new DefaultComboBoxModel(figuras.toArray());
+            listaFiguras.removeAllItems();
+            listaFiguras.setModel(figuras_activo);
             
             switch(vi.getLienzo2D().getFormaActiva()){
                 case TRAZO_LIBRE:

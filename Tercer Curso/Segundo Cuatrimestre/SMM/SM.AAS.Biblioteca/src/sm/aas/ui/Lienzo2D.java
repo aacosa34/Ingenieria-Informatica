@@ -373,8 +373,11 @@ public class Lienzo2D extends javax.swing.JPanel {
                         s = new AQuadCurve2D();
                         pasoCurva++;
                     }
-                break;
-                
+                break;   
+            }
+            
+            if(!volcado){
+                vShape.add(s);
             }
             
         }
@@ -412,9 +415,6 @@ public class Lienzo2D extends javax.swing.JPanel {
                 }
             }
             
-            if(!volcado){
-                vShape.add(s);
-            }
         }
         
         this.repaint();
@@ -440,10 +440,6 @@ public class Lienzo2D extends javax.swing.JPanel {
             }
            
         }
-        
-        
-        
-        this.formMouseDragged(evt);
     }//GEN-LAST:event_formMouseReleased
 
 
