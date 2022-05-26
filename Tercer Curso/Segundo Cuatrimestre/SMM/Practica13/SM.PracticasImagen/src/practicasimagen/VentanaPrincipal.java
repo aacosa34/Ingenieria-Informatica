@@ -108,6 +108,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JToolBar.Separator();
         botonRelleno = new javax.swing.JToggleButton();
         botonTransparencia = new javax.swing.JToggleButton();
+        jPanel2 = new javax.swing.JPanel();
+        jSlider1 = new javax.swing.JSlider();
         botonAlisado = new javax.swing.JToggleButton();
         listaFiguras = new javax.swing.JComboBox<>();
         jToolBar1 = new javax.swing.JToolBar();
@@ -130,6 +132,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         botonContraste = new javax.swing.JButton();
         botonLuminosidad = new javax.swing.JButton();
         botonOscurecer = new javax.swing.JButton();
+        botonNegativo = new javax.swing.JButton();
         botonCuadratica = new javax.swing.JButton();
         botonTrapezoidal = new javax.swing.JToggleButton();
         spinnerA = new javax.swing.JSpinner();
@@ -168,6 +171,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuLookupOp = new javax.swing.JMenuItem();
         menuBandCombineOp = new javax.swing.JMenuItem();
         menuColorConvertOp = new javax.swing.JMenuItem();
+        menuAyuda = new javax.swing.JMenu();
+        menuAcercaDe = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -330,6 +335,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         barraHerramientas.add(botonTransparencia);
+
+        jPanel2.setPreferredSize(new java.awt.Dimension(50, 32));
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jSlider1.setToolTipText("Ajustar transparencia");
+        jSlider1.setPreferredSize(new java.awt.Dimension(50, 20));
+        jPanel2.add(jSlider1, java.awt.BorderLayout.CENTER);
+
+        barraHerramientas.add(jPanel2);
 
         botonAlisado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/alisar.png"))); // NOI18N
         botonAlisado.setToolTipText("Activar/Desactivar alisado");
@@ -498,6 +512,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         panelTransformaciones.add(botonOscurecer);
+
+        botonNegativo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/negativo.png"))); // NOI18N
+        botonNegativo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonNegativoActionPerformed(evt);
+            }
+        });
+        panelTransformaciones.add(botonNegativo);
 
         botonCuadratica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cuadratica.png"))); // NOI18N
         botonCuadratica.addActionListener(new java.awt.event.ActionListener() {
@@ -816,6 +838,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuImagen.add(menuColorConvertOp);
 
         barraMenu.add(menuImagen);
+
+        menuAyuda.setText("Ayuda");
+
+        menuAcercaDe.setText("Acerca de...");
+        menuAyuda.add(menuAcercaDe);
+
+        barraMenu.add(menuAyuda);
 
         setJMenuBar(barraMenu);
 
@@ -1223,29 +1252,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuAffineTransformOpActionPerformed
 
     private void menuLookupOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLookupOpActionPerformed
-        VentanaInterna vi = (VentanaInterna) (escritorio.getSelectedFrame());
-        if (vi != null) {
-            BufferedImage img = vi.getLienzo2D().getImage();
-            if (img != null) {
-                try {
-                    byte funcionT[] = new byte[256];
-                    for (int x = 0; x < 256; x++) {
-                        funcionT[x] = (byte) (255 - x); // Negativo
-                    }
-                    LookupTable tabla = new ByteLookupTable(0, funcionT);
-                    LookupOp lop = new LookupOp(tabla, null);
-                    
-                    img = ImageTools.convertImageType(img, BufferedImage.TYPE_INT_ARGB); // Asegura la compatibilidad con el LookUpOp
-                    
-                    BufferedImage imgdest = lop.filter(img, null);
-                    vi.getLienzo2D().setImage(imgdest);
-                    vi.getLienzo2D().repaint();
-                } catch (IllegalArgumentException e) {
-                    System.err.println(e.getLocalizedMessage());
-                }
-            }
-        }
-    
+        LookupTable tabla = this.negativo();
+        aplicarLookup(tabla);
     }//GEN-LAST:event_menuLookupOpActionPerformed
 
     private void botonContrasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonContrasteActionPerformed
@@ -1691,7 +1699,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_botonGrabarActionPerformed
+
+    private void botonNegativoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNegativoActionPerformed
+        LookupTable tabla = this.negativo();
+        aplicarLookup(tabla);
+    }//GEN-LAST:event_botonNegativoActionPerformed
  
+    private LookupTable negativo(){
+        byte funcionT[] = new byte[256];
+        for (int x = 0; x < 256; x++) {
+            funcionT[x] = (byte) (255 - x); // Negativo
+        }
+        ByteLookupTable tabla = new ByteLookupTable(0, funcionT);
+        return tabla;
+    }
+    
     private ColorSpace getColorSpace(int seleccion){
         ColorSpace cs = null;
         
@@ -1828,7 +1850,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if(!evt.isVolcado()){
                 Shape forma = evt.getForma();
                 listaFiguras.addItem(forma);
-                listaFiguras.setSelectedItem(forma);
+                listaFiguras.setSelectedItem(forma); // Para que la ultima figura añadida sea la seleccionada
             }
         }
         
@@ -1883,6 +1905,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton botonLinea;
     private javax.swing.JButton botonLuminosidad;
     private javax.swing.JToggleButton botonMover;
+    private javax.swing.JButton botonNegativo;
     private javax.swing.JButton botonNuevoLienzo;
     private javax.swing.JButton botonOscurecer;
     private javax.swing.JToggleButton botonRectangulo;
@@ -1901,18 +1924,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JSpinner grosorSpinner;
     private javax.swing.ButtonGroup herramientas;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JSlider jSlider1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel labelEstado;
     private javax.swing.JComboBox<Shape> listaFiguras;
     private javax.swing.JComboBox<File> listaPistas;
     private javax.swing.JMenuItem menuAbrir;
     private javax.swing.JMenuItem menuAbrirAudio;
+    private javax.swing.JMenuItem menuAcercaDe;
     private javax.swing.JMenuItem menuAffineTransformOp;
     private javax.swing.JMenu menuArchivo;
+    private javax.swing.JMenu menuAyuda;
     private javax.swing.JMenuItem menuBandCombineOp;
     private javax.swing.JMenuItem menuColorConvertOp;
     private javax.swing.JMenuItem menuConvolveOp;

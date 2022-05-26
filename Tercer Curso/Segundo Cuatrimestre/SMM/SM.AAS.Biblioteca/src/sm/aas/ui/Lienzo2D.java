@@ -53,6 +53,9 @@ public class Lienzo2D extends javax.swing.JPanel {
     private final float transparencia = 0.5f;
     private RenderingHints render;
     
+    // Clip area para que solo se pueda dibujar sobre la imagen
+    private Shape clipArea;
+    
     // Variables relacionadas con procesamiento de imagenes
     private BufferedImage img;
     
@@ -77,6 +80,7 @@ public class Lienzo2D extends javax.swing.JPanel {
         stroke = new BasicStroke();
         lienzoEventListeners = new ArrayList<>();
         img = null;
+        clipArea = new ARectangulo2D(new Point(0,0));;
         initComponents();
     }
     
@@ -89,6 +93,8 @@ public class Lienzo2D extends javax.swing.JPanel {
         if(img!=null){
             g2d.drawImage(img, 0, 0, this);            
         }
+        
+        g2d.setClip(clipArea);
         
         g2d.setPaint(color);
         g2d.setStroke(stroke);        
@@ -108,8 +114,7 @@ public class Lienzo2D extends javax.swing.JPanel {
             }else{
                 g2d.draw(forma);
             }
-        } 
-        
+        }
     }
     
     // Metodo paint especial para volcado
@@ -253,6 +258,8 @@ public class Lienzo2D extends javax.swing.JPanel {
         
         if (img != null) {
             setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
+            // Clip area para que solo se pueda dibujar donde iria la imagen
+            ((ARectangulo2D) clipArea).setFrameFromDiagonal(new Point(0, 0), new Point(img.getWidth(), img.getHeight()));
         }
     }
 
