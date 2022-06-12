@@ -1,0 +1,19 @@
+Dividir en modulos
+
+UI
+GRAPHICS
+IMG
+SOUND
+VIDEO
+
+explicar para cada uno:
+
+-requisitos(guion de practicas)
+-analisis de requisitos: que hay para solucionar requerimientos? problemas o fallos de eficiencia? que propone para solucionarlo(planteamiento realizado ante algun problema que haya en java)?
+(contarle tu vida vaya).
+-explicacion de estructura de clases y que hacen.
+-conclusiones globales (si queremos).
+
+
+metodo draw en cada figura con graphics e internamente active todos sus atributos y luego el draw de su shape
+
