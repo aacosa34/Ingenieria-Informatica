@@ -1,0 +1,9 @@
+Para ver las presentaciones:
+- Ejecutar show30.exe
+- Poner el nombre de la presentacion que se desea ver
+  (la extensión .shw no hace falta ponerla).
+
+Sufijos y Resolucion:
+1	 800x600
+3	1280x1024
+
